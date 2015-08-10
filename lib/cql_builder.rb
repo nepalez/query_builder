@@ -3,6 +3,8 @@
 require "equalizer"
 require "ice_nine"
 
+require_relative "cql_builder/base"
+
 # The builder of CQL statements
 #
 module CQLBuilder
