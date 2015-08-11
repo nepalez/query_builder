@@ -6,6 +6,8 @@ module CQLBuilder
   #
   module Operators
 
+    require_relative "operators/comparison"
+
   end # module Operators
 
 end # module CQLBuilder
