@@ -47,9 +47,14 @@ module CQLBuilder
       it { is_expected.to eql "10.1" }
     end # context
 
-    context "boolean" do
+    context "true" do
       let(:value) { true }
       it { is_expected.to eql "true" }
+    end # context
+
+    context "false" do
+      let(:value) { false }
+      it { is_expected.to eql "false" }
     end # context
 
     context "string" do

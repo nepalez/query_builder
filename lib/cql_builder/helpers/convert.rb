@@ -19,7 +19,7 @@ module CQLBuilder
       return "NaN"      if nan?(value)
       return "Infinity" if infinity?(value)
       return value.to_s if unchanged?(value)
-      return convert_hash(value) if value.is_a? Hash
+      return convert_hash(value) if value.instance_of? Hash
       "'#{value}'"
     end
 
@@ -30,11 +30,11 @@ module CQLBuilder
     end
 
     def self.nan?(value)
-      value.nil? || (value.to_s == "NaN")
+      value.nil? || value.to_s.eql?("NaN")
     end
 
     def self.infinity?(value)
-      value.to_s == "Infinity"
+      value.to_s.eql?("Infinity")
     end
 
     def self.unchanged?(value)
@@ -42,11 +42,11 @@ module CQLBuilder
     end
 
     def self.uuid?(value)
-      value.to_s[/^\h{8}(-\h{4}){3}-\h{12}$/] ? true : false
+      value.to_s[/^\h{8}(-\h{4}){3}-\h{12}$/]
     end
 
     def self.blob?(value)
-      value.to_s[/^0[xX]./] ? true : false
+      value.to_s[/^0[xX]./]
     end
 
     def self.number?(value)
