@@ -4,36 +4,28 @@ module CQLBuilder
 
   # The base class for all AST clauses (parts of statement)
   #
+  # Every clause has a type, allowing to filter clauses of a statement.
+  #
   # @abstract
   #
   class Clause < Base
 
-    include Equalizer.new(:type, :attributes)
-
-    # @!attribute [r] type
+    # Gets/sets type for the specific clause class
     #
-    # @return [Symbol] The type of the node
+    # @param [#to_sym, nil] value
     #
-    attr_reader :type
-
-    # @!method initialize(type)
-    # Initializes the node of a corresponding type with a hash of attributes
+    # @return [Symbol, nil]
     #
-    # @param [Symbol] type The mandatory type of the node
-    # @param [Hash] attributes The optional hash of named attributes
-    #
-    def initialize(type, attributes = {})
-      @type = type
-      super(attributes)
+    def self.type(value = nil)
+      value ? (@type = value.to_sym) : @type
     end
 
-    # @!method to_cql
-    # Returns the current chunk of CQL statement
+    # @!method type
     #
-    # @return [String] The type in upper case
+    # @return [Symbol] The type of the clause
     #
-    def to_cql
-      type.to_s.upcase
+    def type
+      self.class.type
     end
 
   end # class Clause

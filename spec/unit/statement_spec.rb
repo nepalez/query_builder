@@ -7,9 +7,9 @@ module CQLBuilder
     let(:klass)      { Class.new(described_class) { attribute :foo } }
     let(:statement)  { klass.new(attributes) { [bar, baz] } }
     let(:attributes) { { foo: :FOO } }
-    let(:bar)        { Clause.new(:bar) }
-    let(:baz)        { Clause.new(:baz) }
-    let(:qux)        { Clause.new(:qux) }
+    let(:bar)        { Class.new(Clause) { type :bar }.new }
+    let(:baz)        { Class.new(Clause) { type :baz }.new }
+    let(:qux)        { Class.new(Clause) { type :qux }.new }
 
     describe ".new" do
       subject { statement }
