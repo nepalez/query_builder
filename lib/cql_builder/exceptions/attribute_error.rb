@@ -4,6 +4,8 @@ module CQLBuilder
 
   module Exceptions
 
+    # The exception to be raised by AST nodes' initializers
+    #
     class AttributeError < KeyError
 
       # Initializes the error with problem definition and the list of attributes

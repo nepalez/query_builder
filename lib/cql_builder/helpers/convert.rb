@@ -11,6 +11,10 @@ module CQLBuilder
     #   Helpers.convert(0x9232) # => "0x9232"
     #   Helpers.convert(:foo)   # => "'foo'"
     #
+    # @param [Object] value
+    #
+    # @return [String]
+    #
     def self.convert(value)
       return "NaN"      if nan?(value)
       return "Infinity" if infinity?(value)
