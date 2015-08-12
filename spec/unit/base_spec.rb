@@ -1,128 +1,135 @@
 # encoding: utf-8
 
-describe CQLBuilder::Base do
+module CQLBuilder
 
-  let(:klass) { Class.new(described_class) }
-  let(:instance) { klass.new(attributes) }
-  let(:attributes) { { foo: :FOO } }
+  describe CQLBuilder::Base do
 
-  describe ".attributes" do
-    subject { klass.attributes }
+    let(:klass)      { Class.new(described_class) }
+    let(:instance)   { klass.new(attributes) }
+    let(:attributes) { { foo: :FOO } }
 
-    it "returns the empty hash" do
-      expect(subject).to eql({})
-    end
-  end # describe .attributes
+    describe ".attribute" do
+      shared_examples :adding_attribute do
+        it "updates .attributes" do
+          expect { subject }
+            .to change { klass.attributes.map(&:name) }
+            .from([])
+            .to([:foo])
+        end
 
-  describe ".attribute" do
-    shared_examples :adding_attribute do
-      it "updates .attributes" do
-        expect { subject }
-          .to change { klass.attributes }
-          .from({})
-          .to(foo: default)
+        it "adds key to the #attributes" do
+          expect { subject }
+            .to change { klass.new.attributes }
+            .from({})
+            .to(foo: default)
+        end
+
+        it "defines the instance method" do
+          expect { subject }
+            .to change { klass.instance_methods }
+            .by [:foo]
+        end
+
+        it "makes the method to return the attribute" do
+          subject
+          expect(klass.new.foo).to eql(default)
+          expect(klass.new(foo: :FOO).foo).to eql(:FOO)
+        end
+      end # shared examples
+
+      it_behaves_like :adding_attribute do
+        subject { klass.attribute :foo }
+        let(:default) { nil }
       end
 
-      it "adds key to the #attributes" do
-        expect { subject }
-          .to change { klass.new.attributes }
-          .from({})
-          .to(foo: default)
+      it_behaves_like :adding_attribute do
+        subject { klass.attribute :foo, default: default }
+        let(:default) { :Foo }
+      end
+    end # describe .attributes
+
+    describe ".inherited" do
+      subject { Class.new(klass).attributes.map(&:name) }
+
+      let(:klass) do
+        Class.new(described_class) { attribute :foo, default: :FOO }
       end
 
-      it "allows to initialize #attributes" do
-        expect { subject }
-          .to change { klass.new(foo: :FOO).attributes }
-          .from({})
-          .to(foo: :FOO)
+      it "inherits the default attibutes of parent class" do
+        expect(subject).to eql [:foo]
+      end
+    end # describe .inherited
+
+    describe ".new" do
+      subject { instance }
+
+      let(:klass) { Class.new(described_class) { attribute :foo } }
+
+      it "is immutable" do
+        expect(subject).to be_frozen
       end
 
-      it "defines the instance method" do
-        expect { subject }
-          .to change { klass.instance_methods }
-          .by [:foo]
+      it "is comparable" do
+        expect(subject).to be_kind_of Comparable
       end
 
-      it "makes the method to return the attribute" do
-        subject
-        expect(klass.new.foo).to eql(default)
-        expect(klass.new(foo: :FOO).foo).to eql(:FOO)
+      it "doesn't freeze attributes" do
+        expect { subject }.not_to change { attributes.frozen? }
       end
-    end # shared examples
+    end # describe .new
 
-    it_behaves_like :adding_attribute do
-      subject { klass.attribute :foo }
-      let(:default) { nil }
-    end
+    describe "#call" do
+      subject { instance.call }
 
-    it_behaves_like :adding_attribute do
-      subject { klass.attribute :foo, default: default }
-      let(:default) { :Foo }
-    end
-  end # describe .attributes
+      let(:klass) { Class.new(described_class) { attribute :foo } }
 
-  describe ".inherited" do
-    let(:klass) { Class.new(described_class) { attribute :foo, default: :FOO } }
-    subject { Class.new(klass).attributes }
+      it "returns empty string" do
+        expect(subject).to eql("")
+      end
+    end # describe #call
 
-    it "inherits the default attibutes of parent class" do
-      expect(subject).to eql(foo: :FOO)
-    end
-  end # describe .inherited
+    describe "#[]" do
+      subject { instance["foo"] }
 
-  describe ".new" do
-    subject { instance }
+      let(:klass) { Class.new(described_class) { attribute :foo } }
+      before  { klass.send(:define_method, :call) { |value| value.reverse } }
 
-    it "is immutable" do
-      expect(subject).to be_frozen
-    end
+      it "is an alias for the #call" do
+        expect(subject).to eql("oof")
+      end
+    end # describe #call
 
-    it "is comparable" do
-      expect(subject).to be_kind_of Comparable
-    end
+    shared_examples :comparable_by_kind_and_attributes do
+      before { klass.attribute :foo }
 
-    it "doesn't freeze attributes" do
-      expect { subject }.not_to change { attributes.frozen? }
-    end
-  end # describe .new
+      context "of the same type and attributes" do
+        let(:other) { klass.new(attributes) }
+        it { is_expected.to eql true }
+      end # context
 
-  describe "#to_cql" do
-    subject { instance.to_cql }
+      context "of another kind" do
+        let(:other) { Class.new(klass).new(attributes) }
+        it { is_expected.to eql false }
+      end # context
 
-    it "returns empty string" do
-      expect(subject).to eql("")
-    end
-  end # describe #to_cql
+      context "with other attributes" do
+        let(:other) { klass.new }
+        it { is_expected.to eql false }
+      end # context
+    end # end
 
-  shared_examples :comparable_by_kind_and_attributes do
-    before { klass.attribute :foo }
-
-    context "of the same type and attributes" do
-      let(:other) { klass.new(attributes) }
-      it { is_expected.to eql true }
-    end # context
-
-    context "of another kind" do
-      let(:other) { Class.new(klass).new(attributes) }
-      it { is_expected.to eql false }
-    end # context
-
-    context "with other attributes" do
-      let(:other) { klass.new }
-      it { is_expected.to eql false }
-    end # context
-  end # end
-
-  describe "#==" do
-    it_behaves_like :comparable_by_kind_and_attributes do
+    describe "#==" do
       subject { instance == other }
-    end
-  end # describe #==
 
-  describe "#eql?" do
-    it_behaves_like :comparable_by_kind_and_attributes do
+      it_behaves_like :comparable_by_kind_and_attributes
+    end # describe #==
+
+    describe "#eql?" do
       subject { instance.eql? other }
-    end
-  end # describe #eql?
 
-end # describe CQLBuilder::Base
+      it_behaves_like :comparable_by_kind_and_attributes
+    end # describe #eql?
+
+  end # describe CQLBuilder::Base
+
+end # module CQLBuilder

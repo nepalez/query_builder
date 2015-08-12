@@ -4,13 +4,14 @@ module CQLBuilder
 
   # The abstract base class for all nodes of AST: statemens, clauses, operators
   #
-  # Declares common attributes, `#initializer`, and `#to_cql` instance methods.
+  # Declares common attributes, `#initializer`, and `#call` instance methods.
   #
   # @abstract
   #
   class Base
 
     include Comparable
+    include Exceptions
     include Equalizer.new(:class, :attributes)
 
     # @!method attributes
@@ -19,7 +20,7 @@ module CQLBuilder
     # @return [Hash]
     #
     def self.attributes
-      @attributes ||= {}
+      @attributes ||= Set.new
     end
 
     # @!method attribute(name, options)
@@ -32,7 +33,7 @@ module CQLBuilder
     # @return [undefined]
     #
     def self.attribute(name, options = {})
-      attributes[name] = options[:default]
+      attributes << Attribute.new(name, options)
       define_method(name) { attributes.fetch(name) }
     end
 
@@ -41,7 +42,9 @@ module CQLBuilder
     # @private
     #
     def self.inherited(subclass)
-      attributes.each { |k, v| subclass.public_send(:attribute, k, default: v) }
+      attributes.each do |item|
+        subclass.public_send(:attribute, *item.arguments)
+      end
     end
 
     # @!attribute [r] attributes
@@ -56,18 +59,48 @@ module CQLBuilder
     # @param [Hash] attributes The custom attributes of the instance
     #
     def initialize(attributes = {})
-      default     = self.class.attributes
-      @attributes = default.merge(attributes.select { |k| default.include? k })
+      validate(attributes)
+      @attributes = default_attributes.merge(attributes)
       IceNine.deep_freeze(self)
     end
 
-    # @!method to_cql
+    # @!method call
     # Returns the current chunk of CQL statement
     #
     # @return [String]
     #
-    def to_cql
+    # @abstract
+    #
+    def call
       ""
+    end
+
+    # @!method [](*args)
+    # The alias for the [#call]
+    #
+    # @return [String]
+    #
+    def [](*args)
+      call(*args)
+    end
+
+    private
+
+    def class_attributes
+      self.class.attributes
+    end
+
+    def default_attributes
+      class_attributes.each_with_object({}) { |e, a| a[e.name] = e.default }
+    end
+
+    def validate(hash)
+      keys    = hash.keys
+      unknown = keys - class_attributes.map(&:name)
+      missed  = class_attributes.select(&:required).map(&:name) - keys
+
+      fail AttributeError.new(:unknown, unknown) if unknown.any?
+      fail AttributeError.new(:missed, missed) if missed.any?
     end
 
   end # class Base
