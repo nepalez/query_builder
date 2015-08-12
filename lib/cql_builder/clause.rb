@@ -30,4 +30,12 @@ module CQLBuilder
 
   end # class Clause
 
+  # The collection of concrete CQL clauses
+  #
+  module Clauses
+
+    require_relative "clauses/if_not_exists"
+
+  end # module Clauses
+
 end # module CQLBuilder
