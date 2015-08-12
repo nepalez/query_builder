@@ -4,7 +4,7 @@ module CQLBuilder
 
   # The abstract base class for all nodes of AST: statemens, clauses, operators
   #
-  # Declares common attributes, `#initializer`, and `#call` instance methods.
+  # Declares common attributes, `#initializer`, and `#to_s` instance methods.
   #
   # @abstract
   #
@@ -64,24 +64,15 @@ module CQLBuilder
       IceNine.deep_freeze(self)
     end
 
-    # @!method call
+    # @!method to_s
     # Returns the current chunk of CQL statement
     #
     # @return [String]
     #
     # @abstract
     #
-    def call
+    def to_s
       ""
-    end
-
-    # @!method [](*args)
-    # The alias for the [#call]
-    #
-    # @return [String]
-    #
-    def [](*args)
-      call(*args)
     end
 
     private

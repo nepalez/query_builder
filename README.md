@@ -31,8 +31,9 @@ builder = CQLBuilder
   .limit(3)
   .order(:role)
   .reversed
+# => #<CQLBuilder::Statements::Select ...>
 
-builder.statement
+builder.to_s
 # => "SELECT id, name, role FROM auth.users WHERE id > 1 AND id <= 4 USING consistency QUORUM LIMIT 3 ORDER BY role REVERSED"
 ```
 
@@ -128,7 +129,7 @@ builder.statement
 
 ### Finalizer
 
-The `Statement#to_cql` method provides the sting of CQL statement.
+The `Statement#to_s` method provides the sting of CQL statement.
 
 Installation
 ------------

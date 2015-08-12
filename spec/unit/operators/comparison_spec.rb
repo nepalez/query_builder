@@ -37,8 +37,8 @@ module CQLBuilder
       end
     end # describe #symbol
 
-    describe "#to_cql" do
-      subject { operator.to_cql(:foo) }
+    describe "#to_s" do
+      subject { operator.to_s(:foo) }
 
       context "numeric value" do
         let(:value) { 1.3 }

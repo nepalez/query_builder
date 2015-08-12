@@ -102,26 +102,15 @@ module CQLBuilder
       end
     end # describe .new
 
-    describe "#call" do
-      subject { instance.call }
+    describe "#to_s" do
+      subject { instance.to_s }
 
       let(:klass) { Class.new(described_class) { attribute :foo } }
 
       it "returns empty string" do
         expect(subject).to eql("")
       end
-    end # describe #call
-
-    describe "#[]" do
-      subject { instance["foo"] }
-
-      let(:klass) { Class.new(described_class) { attribute :foo } }
-      before { klass.send(:define_method, :call) { |value| value.reverse } }
-
-      it "is an alias for the #call" do
-        expect(subject).to eql("oof")
-      end
-    end # describe #call
+    end # describe #to_s
 
     shared_examples :comparable_by_kind_and_attributes do
       before { klass.attribute :foo }

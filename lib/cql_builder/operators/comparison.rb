@@ -18,14 +18,17 @@ module CQLBuilder
 
       # CQL chunk provided by the operator
       #
+      # @param [#to_s] column The name of the column to compare
+      #
       # @return [String]
       #
-      def to_cql(key)
-        [key, symbol, quoted].join(" ")
+      def to_s(column)
+        "#{column} #{symbol} #{quoted}"
       end
 
       private
 
+      # @todo: extract to type converter
       def quoted
         value.is_a?(Numeric) ? value.to_s : "'#{value}'"
       end

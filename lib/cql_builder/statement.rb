@@ -24,14 +24,15 @@ module CQLBuilder
     end
 
     # @!method clauses(type = nil)
-    # Returns the set of clauses for the statement
+    # Returns array of chunks of code for the statement's clauses
     #
     # @param [Symbol] type The optional type to select clauses by
     #
-    # @return [Array<CQLBuilder::Clause>]
+    # @return [Array<String>]
     #
     def clauses(cond = nil)
-      cond ? @clauses.select { |item| cond.equal? item.type } : @clauses.to_a
+      (cond ? @clauses.select { |item| cond.equal? item.type } : @clauses)
+        .map(&:to_s)
     end
 
     # @!method <<(clause)
@@ -42,7 +43,7 @@ module CQLBuilder
     # @return [CQLBuilder::Statement]
     #
     def <<(clause)
-      self.class.new(attributes) { clauses + [clause] }
+      self.class.new(attributes) { @clauses + [clause] }
     end
 
   end # class Statement

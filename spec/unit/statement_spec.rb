@@ -7,9 +7,11 @@ module CQLBuilder
     let(:klass)      { Class.new(described_class) { attribute :foo } }
     let(:statement)  { klass.new(attributes) { [bar, baz] } }
     let(:attributes) { { foo: :FOO } }
-    let(:bar)        { Class.new(Clause) { type :bar }.new }
-    let(:baz)        { Class.new(Clause) { type :baz }.new }
-    let(:qux)        { Class.new(Clause) { type :qux }.new }
+
+    let(:clause) { Class.new(Clause) { def to_s; type.to_s; end } }
+    let(:bar)    { Class.new(clause) { type :bar }.new }
+    let(:baz)    { Class.new(clause) { type :baz }.new }
+    let(:qux)    { Class.new(clause) { type :qux }.new }
 
     describe ".new" do
       subject { statement }
@@ -30,13 +32,13 @@ module CQLBuilder
         let(:statement) { klass.new(attributes) }
 
         it "returns the empty array" do
-          expect(subject).to eql []
+          expect(subject).to eql %w()
         end
       end # context
 
       context "without attributes" do
         it "is initialized from the block" do
-          expect(subject).to eql [bar, baz]
+          expect(subject).to eql %w(bar baz)
         end
       end
 
@@ -44,7 +46,7 @@ module CQLBuilder
         subject { statement.clauses(:baz) }
 
         it "selects clauses by type" do
-          expect(subject).to eql [baz]
+          expect(subject).to eql %w(baz)
         end
       end # context
     end # describe #clauses
@@ -64,12 +66,12 @@ module CQLBuilder
 
       it_behaves_like :updating_statement do
         subject { statement << qux }
-        let(:clauses) { [bar, baz, qux] }
+        let(:clauses) { %w(bar baz qux) }
       end
 
       it_behaves_like :updating_statement do
         subject { statement << bar }
-        let(:clauses) { [bar, baz] }
+        let(:clauses) { %w(bar baz) }
       end
     end # describe #<<
 

@@ -70,3 +70,7 @@ Style/StringLiteralsInInterpolation:
 Style/TrivialAccessors:
   Exclude:
     - '**/*_spec.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - '**/*_spec.rb'
