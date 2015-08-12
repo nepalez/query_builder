@@ -63,7 +63,7 @@ module CQLBuilder
     describe ".new" do
       subject { instance }
 
-      let(:klass) { Class.new(described_class) { attribute :foo } }
+      before { klass.attribute :foo, required: true }
 
       it "is immutable" do
         expect(subject).to be_frozen
@@ -75,6 +75,30 @@ module CQLBuilder
 
       it "doesn't freeze attributes" do
         expect { subject }.not_to change { attributes.frozen? }
+      end
+
+      context "with unknown attribute" do
+        let(:attributes) { { foo: :FOO, bar: :BAR } }
+
+        it "raises AttributeError" do
+          expect { subject }.to raise_error do |error|
+            expect(error).to be_kind_of Exceptions::AttributeError
+            expect(error.message).to include "unknown "
+            expect(error.message).to include "bar"
+          end
+        end
+      end
+
+      context "with missed attribute" do
+        before { klass.attribute :bar, required: true }
+
+        it "raises AttributeError" do
+          expect { subject }.to raise_error do |error|
+            expect(error).to be_kind_of Exceptions::AttributeError
+            expect(error.message).to include "missed "
+            expect(error.message).to include "bar"
+          end
+        end
       end
     end # describe .new
 
@@ -92,7 +116,7 @@ module CQLBuilder
       subject { instance["foo"] }
 
       let(:klass) { Class.new(described_class) { attribute :foo } }
-      before  { klass.send(:define_method, :call) { |value| value.reverse } }
+      before { klass.send(:define_method, :call) { |value| value.reverse } }
 
       it "is an alias for the #call" do
         expect(subject).to eql("oof")

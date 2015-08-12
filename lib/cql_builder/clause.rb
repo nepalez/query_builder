@@ -17,7 +17,7 @@ module CQLBuilder
     # @return [Symbol, nil]
     #
     def self.type(value = nil)
-      value ? (@type = value.to_sym) : @type
+      value ? (@type = value) : @type
     end
 
     # @!method type

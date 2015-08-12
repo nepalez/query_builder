@@ -14,7 +14,7 @@ module CQLBuilder
       def initialize(problem, list)
         super [
           "#{problem} attribute",
-          (list.count == 1 ? ": " : "s: "),
+          (list.one? ? ": " : "s: "),
           list.map { |item| ":#{item}" }.join(", ")
         ].join
         IceNine.deep_freeze(self)
