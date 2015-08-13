@@ -101,4 +101,21 @@ module CQLBuilder
     Statements::DropTable.new(name: name)
   end
 
+  # Builds the 'DROP TYPE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropTypeStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.drop_type(:name).if_exists
+  #   statement.to_s # => "DROP TYPE IF EXISTS 'name';"
+  #
+  # @param [#to_s] name The name of the type
+  #
+  # @return [CQLBuilder::Statements::DropType]
+  #
+  def self.drop_type(name)
+    Statements::DropType.new(name: name)
+  end
+
 end # module CQLBuilder
