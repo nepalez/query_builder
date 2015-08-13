@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe CQLBuilder, "create_keyspace" do
+describe CQLBuilder, ".create_keyspace" do
 
   subject { statement.to_s }
 
@@ -35,4 +35,4 @@ describe CQLBuilder, "create_keyspace" do
     end
   end
 
-end # describe "CREATE KEYSPACE"
+end # describe CQLBuilder.create_keyspace

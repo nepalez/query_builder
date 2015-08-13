@@ -55,6 +55,7 @@ module CQLBuilder
   module Statements
 
     require_relative "statements/create_keyspace"
+    require_relative "statements/use"
 
   end # module Statements
 

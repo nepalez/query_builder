@@ -33,4 +33,21 @@ module CQLBuilder
     Statements::CreateKeyspace.new(name: name)
   end
 
+  # Builds the 'USE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#useStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.use(:name)
+  #   statement.to_s # => "USE 'name'"
+  #
+  # @param [#to_s] name The name of the keyspace
+  #
+  # @return [CQLBuilder::Statements::CreateKeyspace]
+  #
+  def self.use(name)
+    Statements::Use.new(name: name)
+  end
+
 end # module CQLBuilder

@@ -61,8 +61,6 @@ Its DSL defines 4 groups of commands:
 
 Building CQL statement should begin from one of those `CQLBuilder` singleton methods.
 
-See the [full list of statements](@todo).
-
 Every method returns an immutable instance of the `CQLBuilder::Statement` class, describing the corresponding AST.
 
 ```ruby
@@ -76,11 +74,11 @@ builder.statement
 # => "SELECT id name role"
 ```
 
+See the [list of supported statements](https://github.com/nepalez/cql_builder/wiki).
+
 ### Statement Modifiers
 
 Every statement defines its own methods to add parts to the corresponding statement.
-
-See the [full list of available modifiers](@todo).
 
 Because the statement is immutable, modifiers return a new statement of the updated AST. Chaining is available.
 
@@ -94,6 +92,8 @@ builder.from(:users)
 builder.statement
 # => "SELECT id name role FROM users"
 ```
+
+See lists of supported modifiers (clauses) for [corresponding statements](https://github.com/nepalez/cql_builder/wiki).
 
 ### Operators
 
@@ -136,6 +136,8 @@ If you don't want including the whole `CQLBuilder::Operators` module, call the o
 ```ruby
 builder = CQLBuilder.update(:users).set hits: CQLBuilder::Operators[:increment, 3]
 ```
+
+See lists of applicable operators for [corresponding statements](https://github.com/nepalez/cql_builder/wiki).
 
 ### Finalizer
 

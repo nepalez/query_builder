@@ -7,15 +7,17 @@ module CQLBuilder
   # @example
   #   include Operators
   #
-  #   operator = quote   # => #<Transproc::Function @name=:quote ...>
-  #   operator[:foo]     # => "'foo'"
-  #   operator[1]        # => "1"
+  #   fn = quote  # => #<Transproc::Function @name=:quote ...>
+  #   fn[:foo]    # => "'foo'"
+  #   fn[1]       # => "1"
   #
-  #   operator = count   # => #<Transproc::Function @name=:count ...>
-  #   operator[:foo]     # => "COUNT(foo)"
+  #   fn = count  # => #<Transproc::Function @name=:count ...>
+  #   fn[:foo]    # => "COUNT(foo)"
   #
-  #   transproc = gt[3]  # => #<Transproc::Function @name=:gt ...>
-  #   transproc[:foo]    # => "'foo' > 3"
+  #   fn = gt(3)  # => #<Transproc::Function @name=:gt, @arguments=[3] ...>
+  #   fn[:foo]    # => "'foo' > 3"
+  #
+  # @api public
   #
   module Operators
 
