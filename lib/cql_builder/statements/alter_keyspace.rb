@@ -27,12 +27,12 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["ALTER KEYSPACE", quote[name], with_clauses].compact.join(" ") << ";"
+        cql["ALTER KEYSPACE", quote[name], withs]
       end
 
       private
 
-      def with_clauses
+      def withs
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end

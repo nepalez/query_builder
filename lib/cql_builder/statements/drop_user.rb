@@ -23,13 +23,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["DROP USER", if_exists_clause, quote[name]].compact.join(" ") << ";"
-      end
-
-      private
-
-      def if_exists_clause
-        clauses(:if_exists).first
+        cql["DROP USER", clauses(:if_exists), quote[name]]
       end
 
     end # class DropUser

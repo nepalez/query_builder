@@ -33,21 +33,14 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["DROP TABLE", if_exists_clause, full_name].compact.join(" ") << ";"
+        cql["DROP TABLE", clauses(:if_exists), full_name]
       end
 
       private
 
-      def keyspace
-        clauses(:use).last
-      end
-
       def full_name
+        keyspace = clauses(:use).last
         (keyspace ? "#{keyspace}." : "") << quote[name]
-      end
-
-      def if_exists_clause
-        clauses(:if_exists).last
       end
 
     end # class DropTable

@@ -15,7 +15,7 @@
 [travis]: https://travis-ci.org/nepalez/cql_builder
 [inch]: https://inch-ci.org/github/nepalez/cql_builder
 
-Builder of the CQL (Cassandra Query Language) 3.2 requests.
+Builder for [CQL 3.2](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements.
 
 Synopsis
 --------
@@ -67,7 +67,7 @@ builder = CQLBuilder.select(:id, :name, :role)
 builder.frozen?
 # => true
 
-builder.statement
+builder.to_s
 # => "SELECT id name role"
 ```
 
@@ -81,12 +81,13 @@ Because the statement is immutable, modifiers return a new statement of the upda
 
 ```ruby
 builder = CQLBuilder.select(:id, :name, :role)
-builder.statement
+
+builder.to_s
 # => "SELECT id name role"
 
 builder.from(:users)
-# => #<CQLBuilder::Statement::Select ... >
-builder.statement
+
+builder.to_s
 # => "SELECT id name role FROM users"
 ```
 
@@ -103,7 +104,7 @@ include CQLBuilder::Operators
 
 builder = CQLBuilder.select count[:value]
 
-builder.statement
+builder.to_s
 # => "SELECT COUNT(value)"
 ```
 
@@ -115,7 +116,7 @@ builder = CQLBuilder
   .where(id: lt(100), role: inside["admin", "moderator"])
   .where(id: gte(10))
 
-builder.statement
+builder.to_s
 # => "SELECT id name role WHERE id < 100 AND role IN ('admin', 'moderator') AND id >= 10"
 ```
 
@@ -124,7 +125,7 @@ include CQLBuilder::Operators
 
 builder = CQLBuilder.update(:users).set hits: increment(3)
 
-builder.statement
+builder.to_s
 # => "UPDATE users SET hits = hits + 3"
 ```
 

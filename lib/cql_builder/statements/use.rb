@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        "USE #{quote[name]};"
+        cql["USE", quote[name]]
       end
 
     end # class Use

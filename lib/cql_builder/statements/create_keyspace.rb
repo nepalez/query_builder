@@ -35,18 +35,12 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["CREATE KEYSPACE", if_not_exists_clause, quote[name], with_clauses]
-          .compact
-          .join(" ") << ";"
+        cql["CREATE KEYSPACE", clauses(:if_not_exists), quote[name], withs]
       end
 
       private
 
-      def if_not_exists_clause
-        clauses(:if_not_exists).first
-      end
-
-      def with_clauses
+      def withs
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end

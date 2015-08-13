@@ -52,13 +52,13 @@ module CQLBuilder
   #
   module Statements
 
-    require_relative "statements/create_keyspace"
-    require_relative "statements/use"
     require_relative "statements/alter_keyspace"
+    require_relative "statements/create_keyspace"
     require_relative "statements/drop_keyspace"
     require_relative "statements/drop_table"
     require_relative "statements/drop_type"
     require_relative "statements/drop_user"
+    require_relative "statements/use"
 
   end # module Statements
 

@@ -24,6 +24,7 @@ module CQLBuilder
     extend Transproc::Registry
 
     require_relative "operators/quote"
+    require_relative "operators/cql"
 
     private
 
