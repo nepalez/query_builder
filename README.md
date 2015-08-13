@@ -21,12 +21,16 @@ Synopsis
 --------
 
 ```ruby
+require "cql_builder"
+
+include CQLBuilder::Operators
+
 builder = CQLBuilder
   .select(:id, :name, :role)
   .use(:auth)
   .from(:users)
-  .where(id: gt(1))
-  .where(id: lte(4))
+  .where(id: gt[1])
+  .where(id: lte[4])
   .using(consistency: :quorum)
   .limit(3)
   .order(:role)
@@ -100,7 +104,7 @@ Include the `CQLBuilder::Operators` module to add operators to the current conte
 ```ruby
 include CQLBuilder::Operators
 
-builder = CQLBuilder.select(count(:value))
+builder = CQLBuilder.select count[:value]
 
 builder.statement
 # => "SELECT COUNT(value)"
@@ -111,7 +115,7 @@ include CQLBuilder::Operators
 
 builder = CQLBuilder
   .select(:id, :name, :role)
-  .where(id: lt(100), role: inside("admin", "moderator"))
+  .where(id: lt(100), role: inside["admin", "moderator"])
   .where(id: gte(10))
 
 builder.statement
@@ -121,10 +125,16 @@ builder.statement
 ```ruby
 include CQLBuilder::Operators
 
-builder = CQLBuilder.update(:users).set(hits: increment(3))
+builder = CQLBuilder.update(:users).set hits: increment(3)
 
 builder.statement
 # => "UPDATE users SET hits = hits + 3"
+```
+
+If you don't want including the whole `CQLBuilder::Operators` module, call the operator explicitly, using square brackets:
+
+```ruby
+builder = CQLBuilder.update(:users).set hits: CQLBuilder::Operators[:increment, 3]
 ```
 
 ### Finalizer

@@ -10,3 +10,4 @@ end
 
 # Loads the code under test
 require "cql_builder"
+require "transproc/rspec"

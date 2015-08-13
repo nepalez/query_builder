@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = "~> 1.9", ">= 1.9.3"
 
-  gem.add_runtime_dependency "contracts", "~> 0.11"
+  gem.add_runtime_dependency "transproc", "~> 0.3"
   gem.add_runtime_dependency "equalizer", "~> 0.0.11"
   gem.add_runtime_dependency "ice_nine", "~> 0.11"
 
