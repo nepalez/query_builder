@@ -15,6 +15,10 @@ Lint/RescueException:
   Exclude:
     - '**/*_spec.rb'
 
+Metrics/ModuleLength:
+  Exclude:
+    - '**/*_spec.rb' # allow namespaces in specs
+
 Style/AccessorMethodName:
   Exclude:
     - '**/*_spec.rb'
@@ -46,6 +50,10 @@ Style/EmptyLineBetweenDefs:
 Style/FileName:
   Enabled: false
 
+Style/LineLength:
+  Exclude:
+    - '**/integration/*_spec.rb' # allow long CQL statements
+
 Style/RaiseArgs:
   EnforcedStyle: compact
 
@@ -68,9 +76,5 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
 Style/TrivialAccessors:
-  Exclude:
-    - '**/*_spec.rb'
-
-Metrics/ModuleLength:
   Exclude:
     - '**/*_spec.rb'

@@ -10,6 +10,8 @@ module CQLBuilder
   #
   class Statement < Base
 
+    include Operators
+
     # @!method initialize(type, *attributes, &block)
     # Initializes the statement with a type, attributes and block
     #
@@ -47,5 +49,13 @@ module CQLBuilder
     end
 
   end # class Statement
+
+  # The collection of concrete statements
+  #
+  module Statements
+
+    require_relative "statements/create_keyspace"
+
+  end # module Statements
 
 end # module CQLBuilder

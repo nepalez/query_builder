@@ -59,7 +59,9 @@ module CQLBuilder
     # @param [Hash] attributes The custom attributes of the instance
     #
     def initialize(attributes = {})
-      validate(attributes)
+      validate_unknown attributes
+      validate_missing attributes
+
       @attributes = default_attributes.merge(attributes)
       IceNine.deep_freeze(self)
     end
@@ -77,20 +79,25 @@ module CQLBuilder
 
     private
 
-    def class_attributes
+    def known_attributes
       self.class.attributes
     end
 
-    def default_attributes
-      class_attributes.each_with_object({}) { |e, a| a[e.name] = e.default }
+    def required_attributes
+      known_attributes.select(&:required)
     end
 
-    def validate(hash)
-      keys    = hash.keys
-      unknown = keys - class_attributes.map(&:name)
-      missed  = class_attributes.select(&:required).map(&:name) - keys
+    def default_attributes
+      known_attributes.each_with_object({}) { |e, a| a[e.name] = e.default }
+    end
 
+    def validate_unknown(hash)
+      unknown = hash.keys - known_attributes.map(&:name)
       fail AttributeError.new(:unknown, unknown) if unknown.any?
+    end
+
+    def validate_missing(hash)
+      missed = required_attributes.map(&:name) - hash.keys
       fail AttributeError.new(:missed, missed) if missed.any?
     end
 
