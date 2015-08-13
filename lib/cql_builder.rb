@@ -23,7 +23,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.create_keyspace(:name).if_not_exists
-  #   statement.to_s # => "CREATE KEYSPACE IF NOT EXISTS 'name'"
+  #   statement.to_s # => "CREATE KEYSPACE IF NOT EXISTS 'name';"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -40,7 +40,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.use(:name)
-  #   statement.to_s # => "USE 'name'"
+  #   statement.to_s # => "USE 'name';"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -48,6 +48,23 @@ module CQLBuilder
   #
   def self.use(name)
     Statements::Use.new(name: name)
+  end
+
+  # Builds the 'ALTER KEYSPACE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#alterKeyspaceStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.alter_keyspace(:name)
+  #   statement.to_s # => "ALTER KEYSPACE 'name';"
+  #
+  # @param [#to_s] name The name of the keyspace
+  #
+  # @return [CQLBuilder::Statements::CreateKeyspace]
+  #
+  def self.alter_keyspace(name)
+    Statements::AlterKeyspace.new(name: name)
   end
 
 end # module CQLBuilder

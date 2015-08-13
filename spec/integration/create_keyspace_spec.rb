@@ -22,7 +22,7 @@ describe CQLBuilder, ".create_keyspace" do
     end
   end
 
-  context "with 'where' clauses" do
+  context "with 'with' clauses" do
     let(:statement) do
       CQLBuilder
         .create_keyspace(:foo)
