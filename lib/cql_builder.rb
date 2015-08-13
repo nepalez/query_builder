@@ -118,4 +118,21 @@ module CQLBuilder
     Statements::DropType.new(name: name)
   end
 
+  # Builds the 'DROP USER' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropUserStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.drop_user(:name).if_exists
+  #   statement.to_s # => "DROP USER IF EXISTS 'name';"
+  #
+  # @param [#to_s] name The name of the user
+  #
+  # @return [CQLBuilder::Statements::DropUser]
+  #
+  def self.drop_user(name)
+    Statements::DropUser.new(name: name)
+  end
+
 end # module CQLBuilder
