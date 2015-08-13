@@ -35,6 +35,8 @@ module CQLBuilder
   module Clauses
 
     require_relative "clauses/if_not_exists"
+    require_relative "clauses/condition"
+    require_relative "clauses/with"
 
   end # module Clauses
 

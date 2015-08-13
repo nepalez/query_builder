@@ -19,10 +19,10 @@ module CQLBuilder
       # @return [String]
       #
       def quote(value)
-        return "NaN"      if nan?(value)
-        return "Infinity" if infinity?(value)
-        return value.to_s if unchanged?(value)
-        return quote_hash(value) if value.instance_of? Hash
+        return "NaN"             if nan?(value)
+        return "Infinity"        if infinity?(value)
+        return value.to_s        if unchanged?(value)
+        return quote_hash(value) if value.instance_of?(Hash)
         "'#{value}'"
       end
 
