@@ -15,7 +15,7 @@
 [travis]: https://travis-ci.org/nepalez/cql_builder
 [inch]: https://inch-ci.org/github/nepalez/cql_builder
 
-Builder of the CQL (Cassandra Query Language) 3.0 requests.
+Builder of the CQL (Cassandra Query Language) 3.2 requests.
 
 Synopsis
 --------
@@ -26,19 +26,16 @@ require "cql_builder"
 include CQLBuilder::Operators
 
 builder = CQLBuilder
-  .select(:id, :name, :role)
+  .select(:id, :role, name: :user)
   .use(:auth)
   .from(:users)
-  .where(id: gt[1])
-  .where(id: lte[4])
-  .using(consistency: :quorum)
+  .where(id: gt(1))
+  .where(id: lte(4))
   .limit(3)
-  .order(:role)
-  .reversed
 # => #<CQLBuilder::Statements::Select ...>
 
 builder.to_s
-# => "SELECT id, name, role FROM auth.users WHERE id > 1 AND id <= 4 USING consistency QUORUM LIMIT 3 ORDER BY role REVERSED"
+# => "SELECT 'id', 'user' AS 'name', 'role' FROM 'auth'.'users' WHERE 'id' > 1 AND 'id' <= 4 USING 'consistency' = 'quorum' LIMIT 3
 ```
 
 The gem doesn't depend on any specific Cassandra driver.
