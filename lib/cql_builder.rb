@@ -44,7 +44,7 @@ module CQLBuilder
   #
   # @param [#to_s] name The name of the keyspace
   #
-  # @return [CQLBuilder::Statements::CreateKeyspace]
+  # @return [CQLBuilder::Statements::Use]
   #
   def self.use(name)
     Statements::Use.new(name: name)
@@ -61,10 +61,27 @@ module CQLBuilder
   #
   # @param [#to_s] name The name of the keyspace
   #
-  # @return [CQLBuilder::Statements::CreateKeyspace]
+  # @return [CQLBuilder::Statements::AlterKeyspace]
   #
   def self.alter_keyspace(name)
     Statements::AlterKeyspace.new(name: name)
+  end
+
+  # Builds the 'DROP KEYSPACE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropKeyspaceStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.drop_keyspace(:name).if_exists
+  #   statement.to_s # => "DROP KEYSPACE IF EXISTS 'name';"
+  #
+  # @param [#to_s] name The name of the keyspace
+  #
+  # @return [CQLBuilder::Statements::DropKeyspace]
+  #
+  def self.drop_keyspace(name)
+    Statements::DropKeyspace.new(name: name)
   end
 
 end # module CQLBuilder
