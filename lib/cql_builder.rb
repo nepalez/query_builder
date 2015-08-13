@@ -84,4 +84,21 @@ module CQLBuilder
     Statements::DropKeyspace.new(name: name)
   end
 
+  # Builds the 'DROP TABLE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropTableStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.drop_table(:name).if_exists
+  #   statement.to_s # => "DROP TABLE IF EXISTS 'name';"
+  #
+  # @param [#to_s] name The name of the table
+  #
+  # @return [CQLBuilder::Statements::DropTable]
+  #
+  def self.drop_table(name)
+    Statements::DropTable.new(name: name)
+  end
+
 end # module CQLBuilder

@@ -10,6 +10,7 @@ module CQLBuilder
   #
   class Base
 
+    include Operators
     include Comparable
     include Exceptions
     include Equalizer.new(:class, :attributes)
