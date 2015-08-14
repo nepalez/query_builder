@@ -135,4 +135,19 @@ module CQLBuilder
     Statements::DropUser.new(name: name)
   end
 
+  # Builds the 'LIST USERS' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#listUsersStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.list_users
+  #   statement.to_s # => "LIST USERS;"
+  #
+  # @return [CQLBuilder::Statements::ListUsers]
+  #
+  def self.list_users
+    Statements::ListUsers.new
+  end
+
 end # module CQLBuilder
