@@ -35,7 +35,7 @@ builder = CQLBuilder
 # => #<CQLBuilder::Statements::Select ...>
 
 builder.to_s
-# => "SELECT id, user AS name, role FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
+# => "SELECT \"id\", \"role\", \"user\" AS \"name\" FROM \"auth\".\"users\" WHERE \"id\" > 1 AND \"id\" <= 4 USING \"consistency\" = 'quorum' LIMIT 3;"
 ```
 
 The gem doesn't depend on any specific Cassandra driver.
@@ -68,7 +68,7 @@ builder.frozen?
 # => true
 
 builder.to_s
-# => "SELECT id name role"
+# => "SELECT \"id\", \"name\", \"role\";"
 ```
 
 See the [list of supported statements](https://github.com/nepalez/cql_builder/wiki).
@@ -83,12 +83,12 @@ Because the statement is immutable, modifiers return a new statement of the upda
 builder = CQLBuilder.select(:id, :name, :role)
 
 builder.to_s
-# => "SELECT id name role"
+# => "SELECT \"id\", \"name\", \"role\";"
 
 builder.from(:users)
 
 builder.to_s
-# => "SELECT id name role FROM users"
+# => "SELECT \"id\", \"name\", \"role\" FROM \"users\";"
 ```
 
 See lists of supported modifiers (clauses) for [corresponding statements](https://github.com/nepalez/cql_builder/wiki).
@@ -105,7 +105,7 @@ include CQLBuilder::Operators
 builder = CQLBuilder.select count[:value]
 
 builder.to_s
-# => "SELECT COUNT(value)"
+# => "SELECT COUNT(\"value\");"
 ```
 
 ```ruby
@@ -117,7 +117,7 @@ builder = CQLBuilder
   .where(id: gte(10))
 
 builder.to_s
-# => "SELECT id name role WHERE id < 100 AND role IN ('admin', 'moderator') AND id >= 10"
+# => "SELECT \"id\", \"name\", \"role\" WHERE \"id\" < 100 AND \"role\" IN ('admin', 'moderator') AND \"id\" >= 10;"
 ```
 
 ```ruby
@@ -126,7 +126,7 @@ include CQLBuilder::Operators
 builder = CQLBuilder.update(:users).set hits: increment(3)
 
 builder.to_s
-# => "UPDATE users SET hits = hits + 3"
+# => "UPDATE \"users\" SET \"hits\" = \"hits\" + 3;"
 ```
 
 If you don't want including the whole `CQLBuilder::Operators` module, call the operator explicitly, using square brackets:
