@@ -34,6 +34,7 @@ module CQLBuilder
   #
   module Clauses
 
+    require_relative "clauses/column"
     require_relative "clauses/if_exists"
     require_relative "clauses/condition"
     require_relative "clauses/superuser"
