@@ -166,4 +166,21 @@ module CQLBuilder
     Statements::Truncate.new(name: name)
   end
 
+  # Builds the 'CREATE USER' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#createUserStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.create_user(:name).if_not_exists
+  #   statement.to_s # => "CREATE USER IF NOT EXISTS name;"
+  #
+  # @param [#to_s] name The name of the user
+  #
+  # @return [CQLBuilder::Statements::CreateUser]
+  #
+  def self.create_user(name)
+    Statements::CreateUser.new(name: name)
+  end
+
 end # module CQLBuilder
