@@ -20,7 +20,13 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        "#{reverse ? "NO" : ""}SUPERUSER"
+        "#{maybe_no}SUPERUSER"
+      end
+
+      private
+
+      def maybe_no
+        "NO" if reverse
       end
 
     end # class Superuser

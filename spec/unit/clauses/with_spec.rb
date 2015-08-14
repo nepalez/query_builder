@@ -1,28 +1,25 @@
 # encoding: utf-8
 
-module CQLBuilder
+require "cql_builder/rspec"
 
-  describe CQLBuilder::Clauses::With do
+describe CQLBuilder::Clauses::With do
 
-    let(:clause) { described_class.new(column: :foo, value: :bar) }
+  let(:clause) { described_class.new(column: :foo, value: value) }
+  let(:value)  { :bar }
 
-    describe ".new" do
-      subject { clause }
+  it_behaves_like :a_clause, :with
 
-      it "is a Condition clause" do
-        expect(subject).to be_kind_of Clauses::Condition
-      end
+  describe "#to_s" do
+    subject { clause.to_s }
 
-      it "is immutable" do
-        expect(subject).to be_frozen
-      end
-    end # describe .new
+    context "with non-operator value" do
+      it { is_expected.to eql "\"foo\" = 'bar'" }
+    end # context
 
-    describe "#type" do
-      subject { clause.type }
-      it { is_expected.to eql :with }
-    end # describe #type
+    context "with operator" do
+      let(:value) { -> col { "COUNT(\"#{col}\")" } }
+      it { is_expected.to eql "COUNT(\"foo\")" }
+    end
+  end # describe #to_s
 
-  end # describe CQLBuilder::Clauses::With
-
-end # module CQLBuilder
+end # describe CQLBuilder::Clauses::With

@@ -16,7 +16,13 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["IF", (reverse ? "NOT" : nil), "EXISTS"].compact.join(" ")
+        ["IF", maybe_not, "EXISTS"].compact.join(" ")
+      end
+
+      private
+
+      def maybe_not
+        "NOT" if reverse
       end
 
     end # class IfExists

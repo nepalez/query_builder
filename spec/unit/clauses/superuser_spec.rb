@@ -1,56 +1,25 @@
 # encoding: utf-8
 
-module CQLBuilder
+require "cql_builder/rspec"
 
-  describe CQLBuilder::Clauses::Superuser do
+describe CQLBuilder::Clauses::Superuser do
 
-    let(:clause) { described_class.new }
+  let(:clause) { described_class.new }
 
-    describe ".new" do
-      subject { clause }
+  it_behaves_like :a_clause, :superuser
 
-      it "is a clause" do
-        expect(subject).to be_kind_of Clause
-      end
+  describe "#to_s" do
+    subject { clause.to_s }
 
-      it "is immutable" do
-        expect(subject).to be_frozen
-      end
-    end # describe .new
+    context "by default" do
+      it { is_expected.to eql("SUPERUSER") }
+    end
 
-    describe "#type" do
-      subject { clause.type }
-      it { is_expected.to eql(:superuser) }
-    end # describe #type
+    context "when reversed" do
+      let(:clause) { described_class.new reverse: true }
 
-    describe "#reverse" do
-      subject { clause.reverse }
+      it { is_expected.to eql("NOSUPERUSER") }
+    end
+  end # describe #type
 
-      context "by default" do
-        it { is_expected.to eql(false) }
-      end
-
-      context "when reversed" do
-        let(:clause) { described_class.new reverse: true }
-
-        it { is_expected.to eql(true) }
-      end
-    end # describe #type
-
-    describe "#to_s" do
-      subject { clause.to_s }
-
-      context "by default" do
-        it { is_expected.to eql("SUPERUSER") }
-      end
-
-      context "when reversed" do
-        let(:clause) { described_class.new reverse: true }
-
-        it { is_expected.to eql("NOSUPERUSER") }
-      end
-    end # describe #type
-
-  end # describe CQLBuilder::Clauses::Superuser
-
-end # module CQLBuilder
+end # describe CQLBuilder::Clauses::Superuser
