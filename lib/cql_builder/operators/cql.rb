@@ -16,7 +16,11 @@ module CQLBuilder
     # @return [String]
     #
     def self.cql(*parts)
-      parts.flatten.compact.reject(&:empty?).map(&:to_s).join(" ") << ";"
+      parts
+        .flatten
+        .reject { |item| item.nil? || item.empty? }
+        .map(&:to_s)
+        .join(" ") << ";"
     end
 
   end # module Operators

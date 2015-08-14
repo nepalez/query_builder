@@ -23,7 +23,7 @@ module CQLBuilder
         return "Infinity"          if infinity?(value)
         return value.to_s          if unchanged?(value)
         return literal_hash(value) if value.instance_of?(Hash)
-        "'#{value.to_s.gsub("\'", "\'\'")}'"
+        quote(value)
       end
 
       private
@@ -31,6 +31,10 @@ module CQLBuilder
       def literal_hash(value)
         str = value.map { |k, v| [literal(k), literal(v)].join(": ") }.join ", "
         "{#{str}}"
+      end
+
+      def quote(value)
+        "'#{value.to_s.gsub("\'", "\'\'")}'"
       end
 
       def nan?(value)
