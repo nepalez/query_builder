@@ -9,13 +9,14 @@ module CQLBuilder
     class IfExists < Clause
 
       type :if_exists
+      attribute :reverse, default: false
 
       # Returns the CQL representation of the clause
       #
       # @return [String]
       #
       def to_s
-        "IF EXISTS"
+        ["IF", (reverse ? "NOT" : nil), "EXISTS"].compact.join(" ")
       end
 
     end # class IfExists

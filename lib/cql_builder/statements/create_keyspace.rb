@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [CQLBuilder::Statements::CreateKeyspace]
       #
       def if_not_exists
-        self << Clauses::IfNotExists.new
+        self << Clauses::IfExists.new(reverse: true)
       end
 
       # Adds WITH clause to the statement description
@@ -35,7 +35,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE KEYSPACE", clauses(:if_not_exists), identifier[name], withs]
+        cql["CREATE KEYSPACE", clauses(:if_exists), identifier[name], withs]
       end
 
       private
