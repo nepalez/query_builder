@@ -4,20 +4,20 @@ module CQLBuilder
 
   module Operators
 
-    # Returns the CQL set definition
+    # Returns the CQL SET definition
     #
     # @example
     #   fn = Operators[:cql_set]
     #
     #   fn[:foo]
-    #   # => "set<foo>"
+    #   # => "SET<foo>"
     #
     # @param [#to_s] value
     #
     # @return [String]
     #
     def self.cql_set(value)
-      "set<#{value}>"
+      "SET<#{value}>"
     end
 
   end # module Operators

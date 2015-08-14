@@ -4,16 +4,16 @@ module CQLBuilder
 
   module Operators
 
-    # Returns the CQL map definition
+    # Returns the CQL MAP definition
     #
     # @example
     #   fn = Operators[:cql_map]
     #
     #   fn[:foo, :bar]
-    #   # => "map<foo, bar>"
+    #   # => "MAP<foo, bar>"
     #
     #   fn[:foo, frozen(:bar)]
-    #   # => "map<foo, FROZEN <bar>>"
+    #   # => "MAP<foo, FROZEN <bar>>"
     #
     # @param [Array<#to_s>] values
     #
@@ -21,7 +21,7 @@ module CQLBuilder
     #
     def self.cql_map(*values)
       key, value = values.flatten
-      "map<#{key}, #{value}>"
+      "MAP<#{key}, #{value}>"
     end
 
   end # module Operators

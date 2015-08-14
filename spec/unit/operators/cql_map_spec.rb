@@ -6,7 +6,7 @@ describe CQLBuilder::Operators, ".cql_map" do
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { [:foo, :bar] }
-    let(:output) { "map<foo, bar>" }
+    let(:output) { "MAP<foo, bar>" }
   end
 
 end # describe CQLBuilder::Operators.cql_map

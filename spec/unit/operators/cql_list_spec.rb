@@ -6,7 +6,7 @@ describe CQLBuilder::Operators, ".cql_list" do
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { :int }
-    let(:output) { "list<int>" }
+    let(:output) { "LIST<int>" }
   end
 
 end # describe CQLBuilder::Operators.cql_list

@@ -6,7 +6,7 @@ describe CQLBuilder::Operators, ".cql_set" do
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { :foo }
-    let(:output) { "set<foo>" }
+    let(:output) { "SET<foo>" }
   end
 
 end # describe CQLBuilder::Operators.cql_set
