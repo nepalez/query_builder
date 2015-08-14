@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require "cql_builder/rspec"
-
 describe CQLBuilder::Clauses::Column do
 
   let(:clause) { described_class.new(name: :foo, type_name: :int) }

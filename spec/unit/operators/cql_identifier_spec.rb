@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-describe CQLBuilder::Operators, ".identifier" do
+describe CQLBuilder::Operators, ".cql_identifier" do
 
-  let(:arguments) { [:identifier] }
+  let(:arguments) { [:cql_identifier] }
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { "foo bar" }
@@ -19,4 +19,4 @@ describe CQLBuilder::Operators, ".identifier" do
     let(:output) { "\"\"\"foo \"\"bar\"\"\"" }
   end
 
-end # describe CQLBuilder::Operators.identifier
+end # describe CQLBuilder::Operators.cql_identifier

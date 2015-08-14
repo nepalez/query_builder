@@ -6,10 +6,10 @@ module CQLBuilder
 
     class << self
 
-      # Converts value to CQL literal
+      # Converts value to CQL cql_literal
       #
       # @example
-      #   fn = Operators[:literal]
+      #   fn = Operators[:cql_literal]
       #   fn[nil]      # => "NaN"
       #   fn["0x9232"] # => "0x9232"
       #   fn[:foo]     # => "'foo'"
@@ -18,18 +18,21 @@ module CQLBuilder
       #
       # @return [String]
       #
-      def literal(value)
+      def cql_literal(value)
         return "NaN"               if nan?(value)
         return "Infinity"          if infinity?(value)
         return value.to_s          if unchanged?(value)
-        return literal_hash(value) if value.instance_of?(Hash)
+        return cql_literal_hash(value) if value.instance_of?(Hash)
         quote(value)
       end
 
       private
 
-      def literal_hash(value)
-        str = value.map { |k, v| [literal(k), literal(v)].join(": ") }.join ", "
+      def cql_literal_hash(value)
+        str =
+          value
+          .map { |k, v| [cql_literal(k), cql_literal(v)].join(": ") }
+          .join(", ")
         "{#{str}}"
       end
 

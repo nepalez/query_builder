@@ -7,7 +7,7 @@ module CQLBuilder
     # Marks value as frozen
     #
     # @example
-    #   fn = Operators[:frozen]
+    #   fn = Operators[:cql_frozen]
     #   fn[:foo]
     #   # => "FROZEN <foo>"
     #
@@ -15,7 +15,7 @@ module CQLBuilder
     #
     # @return [String]
     #
-    def self.frozen(value)
+    def self.cql_frozen(value)
       "FROZEN <#{value}>"
     end
 

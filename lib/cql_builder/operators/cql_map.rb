@@ -12,7 +12,7 @@ module CQLBuilder
     #   fn[:foo, :bar]
     #   # => "MAP<foo, bar>"
     #
-    #   fn[:foo, frozen(:bar)]
+    #   fn[:foo, cql_frozen(:bar)]
     #   # => "MAP<foo, FROZEN <bar>>"
     #
     # @param [Array<#to_s>] values

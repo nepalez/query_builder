@@ -10,4 +10,7 @@ end
 
 # Loads the code under test
 require "cql_builder"
+
+# Load shared examples for specs
 require "transproc/rspec"
+require "cql_builder/rspec"

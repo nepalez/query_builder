@@ -27,7 +27,7 @@ module CQLBuilder
       #
       def to_s
         return value[column] if value.respond_to?(:call)
-        "#{identifier[column]} = #{literal[value]}"
+        "#{cql_identifier[column]} = #{cql_literal[value]}"
       end
 
     end # class Condition

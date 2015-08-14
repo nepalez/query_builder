@@ -46,7 +46,7 @@ module CQLBuilder
         cql[
           "ALTER USER",
           clauses(:if_exists),
-          identifier[name],
+          cql_identifier[name],
           clauses(:with_password).last,
           clauses(:superuser).last
         ]

@@ -23,7 +23,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["DROP USER", clauses(:if_exists), identifier[name]]
+        cql["DROP USER", clauses(:if_exists), cql_identifier[name]]
       end
 
     end # class DropUser

@@ -21,7 +21,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        "WITH PASSWORD #{literal[password]}"
+        "WITH PASSWORD #{cql_literal[password]}"
       end
 
     end # class WithPassword

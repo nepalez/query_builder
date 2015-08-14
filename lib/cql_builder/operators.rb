@@ -7,14 +7,7 @@ module CQLBuilder
   # @example
   #   include Operators
   #
-  #   fn = literal  # => #<Transproc::Function @name=:literal ...>
-  #   fn[:foo]    # => "'foo'"
-  #   fn[1]       # => "1"
-  #
-  #   fn = count  # => #<Transproc::Function @name=:count ...>
-  #   fn[:foo]    # => "COUNT(foo)"
-  #
-  #   fn = gt(3)  # => #<Transproc::Function @name=:gt, @arguments=[3] ...>
+  #   fn = cql_gt(3)  # => #<Transproc::Function @name=:gt, @arguments=[3] ...>
   #   fn[:foo]    # => "'foo' > 3"
   #
   # @api public
@@ -23,14 +16,14 @@ module CQLBuilder
 
     extend Transproc::Registry
 
-    require_relative "operators/literal"
-    require_relative "operators/identifier"
+    require_relative "operators/cql_literal"
+    require_relative "operators/cql_identifier"
     require_relative "operators/cql"
     require_relative "operators/cql_map"
     require_relative "operators/cql_set"
     require_relative "operators/cql_list"
     require_relative "operators/cql_tuple"
-    require_relative "operators/frozen"
+    require_relative "operators/cql_frozen"
 
     private
 

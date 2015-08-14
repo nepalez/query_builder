@@ -1,9 +1,9 @@
 # encoding: utf-8
 require "securerandom"
 
-describe CQLBuilder::Operators, ".literal" do
+describe CQLBuilder::Operators, ".cql_literal" do
 
-  let(:arguments) { [:literal] }
+  let(:arguments) { [:cql_literal] }
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { nil }
@@ -75,4 +75,4 @@ describe CQLBuilder::Operators, ".literal" do
     let(:output) { "{'foo': 'bar', 'baz': 0x03, 'qux': {'quxx': true}}" }
   end
 
-end # describe CQLBuilder::Operators.literal
+end # describe CQLBuilder::Operators.cql_literal

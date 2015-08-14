@@ -40,7 +40,7 @@ module CQLBuilder
 
       def full_name
         keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << identifier[name]
+        (keyspace ? "#{keyspace}." : "") << cql_identifier[name]
       end
 
     end # class DropTable

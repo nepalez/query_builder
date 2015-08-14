@@ -29,7 +29,7 @@ module CQLBuilder
       private
 
       def cols
-        list = columns.map { |item| identifier[item] }.join(", ")
+        list = columns.map { |item| cql_identifier[item] }.join(", ")
         columns.one? ? list : "(#{list})"
       end
 

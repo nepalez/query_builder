@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require "cql_builder/rspec"
-
 describe CQLBuilder::Clauses::PrimaryKey do
 
   let(:clause) { described_class.new(columns: [:foo]) }

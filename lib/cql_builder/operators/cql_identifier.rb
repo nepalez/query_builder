@@ -4,10 +4,10 @@ module CQLBuilder
 
   module Operators
 
-    # Provides CQL identifier
+    # Provides CQL cql_identifier
     #
     # @example
-    #   fn = Operators[:identifier]
+    #   fn = Operators[:cql_identifier]
     #   fn["my \" keyspace"]
     #   # => "\"my keyspace\""
     #
@@ -15,7 +15,7 @@ module CQLBuilder
     #
     # @return [String]
     #
-    def self.identifier(str)
+    def self.cql_identifier(str)
       "\"#{str.to_s.gsub("\"", "\"\"")}\""
     end
 
