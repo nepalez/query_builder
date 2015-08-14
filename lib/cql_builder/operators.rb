@@ -28,6 +28,7 @@ module CQLBuilder
     require_relative "operators/cql"
     require_relative "operators/cql_map"
     require_relative "operators/cql_set"
+    require_relative "operators/cql_list"
     require_relative "operators/frozen"
 
     private
