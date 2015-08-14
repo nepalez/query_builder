@@ -53,6 +53,7 @@ module CQLBuilder
   module Statements
 
     require_relative "statements/alter_keyspace"
+    require_relative "statements/alter_user"
     require_relative "statements/create_keyspace"
     require_relative "statements/create_user"
     require_relative "statements/drop_keyspace"

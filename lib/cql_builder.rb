@@ -183,4 +183,21 @@ module CQLBuilder
     Statements::CreateUser.new(name: name)
   end
 
+  # Builds the 'ALTER USER' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#alterUserStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.alter_user(:name).if_not_exists
+  #   statement.to_s # => "ALTER USER IF NOT EXISTS name;"
+  #
+  # @param [#to_s] name The name of the user
+  #
+  # @return [CQLBuilder::Statements::AlterUser]
+  #
+  def self.alter_user(name)
+    Statements::AlterUser.new(name: name)
+  end
+
 end # module CQLBuilder
