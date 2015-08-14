@@ -1,9 +1,9 @@
 # encoding: utf-8
 require "securerandom"
 
-describe CQLBuilder::Operators, ".quote" do
+describe CQLBuilder::Operators, ".literal" do
 
-  let(:arguments) { [:quote] }
+  let(:arguments) { [:literal] }
 
   it_behaves_like :transforming_immutable_data do
     let(:input)  { nil }
@@ -56,13 +56,18 @@ describe CQLBuilder::Operators, ".quote" do
   end
 
   it_behaves_like :transforming_immutable_data do
+    let(:input)  { :true }
+    let(:output) { "'true'" }
+  end
+
+  it_behaves_like :transforming_immutable_data do
     let(:input)  { "true" }
     let(:output) { "'true'" }
   end
 
   it_behaves_like :transforming_immutable_data do
-    let(:input)  { :true }
-    let(:output) { "'true'" }
+    let(:input)  { "d'oh!" }
+    let(:output) { "'d''oh!'" }
   end
 
   it_behaves_like :transforming_immutable_data do
@@ -70,4 +75,4 @@ describe CQLBuilder::Operators, ".quote" do
     let(:output) { "{'foo': 'bar', 'baz': 0x03, 'qux': {'quxx': true}}" }
   end
 
-end # describe CQLBuilder::Operators.quote
+end # describe CQLBuilder::Operators.literal

@@ -9,7 +9,7 @@ module CQLBuilder
     # @example
     #   clause = With.new(column: :foo, value: gt(1))
     #   clause.type # => :with
-    #   clause.to_s # => "'foo' > 1"
+    #   clause.to_s # => "foo > 1"
     #
     class With < Condition
 

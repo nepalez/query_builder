@@ -8,7 +8,7 @@ describe CQLBuilder, ".alter_keyspace" do
     let(:statement) { CQLBuilder.alter_keyspace(:foo) }
 
     it "works" do
-      expect(subject).to eql "ALTER KEYSPACE 'foo';"
+      expect(subject).to eql "ALTER KEYSPACE \"foo\";"
     end
   end
 
@@ -21,7 +21,7 @@ describe CQLBuilder, ".alter_keyspace" do
     end
 
     it "works" do
-      expect(subject).to eql "ALTER KEYSPACE 'foo' WITH 'replication' = {'class': 'SimpleStrategy', 'replication_factor': 3} AND 'durable_writes' = false;"
+      expect(subject).to eql "ALTER KEYSPACE \"foo\" WITH \"replication\" = {'class': 'SimpleStrategy', 'replication_factor': 3} AND \"durable_writes\" = false;"
     end
   end
 

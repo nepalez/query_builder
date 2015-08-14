@@ -8,7 +8,7 @@ describe CQLBuilder, ".drop_keyspace" do
     let(:statement) { CQLBuilder.drop_keyspace(:foo) }
 
     it "works" do
-      expect(subject).to eql "DROP KEYSPACE 'foo';"
+      expect(subject).to eql "DROP KEYSPACE \"foo\";"
     end
   end
 
@@ -18,7 +18,7 @@ describe CQLBuilder, ".drop_keyspace" do
     end
 
     it "works" do
-      expect(subject).to eql "DROP KEYSPACE IF EXISTS 'foo';"
+      expect(subject).to eql "DROP KEYSPACE IF EXISTS \"foo\";"
     end
   end
 

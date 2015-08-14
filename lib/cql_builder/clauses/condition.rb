@@ -7,8 +7,8 @@ module CQLBuilder
     # The abstract class for conditions like WITH, WHERE etc.
     #
     # @example
-    #   Condition.new(column: :foo, value: 1).to_s     # => "'foo' = 1"
-    #   Condition.new(column: :foo, value: gt(1)).to_s # => "'foo' > 1"
+    #   Condition.new(column: :foo, value: :bar).to_s  # => "foo = 'bar'"
+    #   Condition.new(column: :foo, value: gt(1)).to_s # => "foo > 1"
     #
     # @abstract
     #
@@ -27,7 +27,7 @@ module CQLBuilder
       #
       def to_s
         return value[column] if value.respond_to?(:call)
-        "#{quote[column]} = #{quote[value]}"
+        "#{identifier[column]} = #{literal[value]}"
       end
 
     end # class Condition

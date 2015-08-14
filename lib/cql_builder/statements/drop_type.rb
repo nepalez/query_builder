@@ -23,7 +23,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["DROP TYPE", clauses(:if_exists), quote[name]]
+        cql["DROP TYPE", clauses(:if_exists), identifier[name]]
       end
 
     end # class DropType

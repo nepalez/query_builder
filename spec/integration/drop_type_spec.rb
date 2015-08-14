@@ -8,7 +8,7 @@ describe CQLBuilder, ".drop_type" do
     let(:statement) { CQLBuilder.drop_type(:foo) }
 
     it "works" do
-      expect(subject).to eql "DROP TYPE 'foo';"
+      expect(subject).to eql "DROP TYPE \"foo\";"
     end
   end
 
@@ -18,7 +18,7 @@ describe CQLBuilder, ".drop_type" do
     end
 
     it "works" do
-      expect(subject).to eql "DROP TYPE IF EXISTS 'foo';"
+      expect(subject).to eql "DROP TYPE IF EXISTS \"foo\";"
     end
   end
 

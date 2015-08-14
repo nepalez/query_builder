@@ -9,7 +9,7 @@ module CQLBuilder
     # @example
     #   clause = Use.new(name: :foo)
     #   clause.type # => :use
-    #   clause.to_s # => "'foo'"
+    #   clause.to_s # => "foo"
     #
     class Use < Clause
 
@@ -21,7 +21,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        quote[name]
+        identifier[name]
       end
 
     end # class Use

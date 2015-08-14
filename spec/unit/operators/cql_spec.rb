@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "securerandom"
 
 describe CQLBuilder::Operators, ".cql" do
 

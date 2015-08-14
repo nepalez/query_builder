@@ -8,7 +8,7 @@ describe CQLBuilder, ".drop_user" do
     let(:statement) { CQLBuilder.drop_user(:foo) }
 
     it "works" do
-      expect(subject).to eql "DROP USER 'foo';"
+      expect(subject).to eql "DROP USER \"foo\";"
     end
   end
 
@@ -18,7 +18,7 @@ describe CQLBuilder, ".drop_user" do
     end
 
     it "works" do
-      expect(subject).to eql "DROP USER IF EXISTS 'foo';"
+      expect(subject).to eql "DROP USER IF EXISTS \"foo\";"
     end
   end
 

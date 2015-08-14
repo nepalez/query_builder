@@ -35,7 +35,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE KEYSPACE", clauses(:if_not_exists), quote[name], withs]
+        cql["CREATE KEYSPACE", clauses(:if_not_exists), identifier[name], withs]
       end
 
       private

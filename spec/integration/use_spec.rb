@@ -7,7 +7,7 @@ describe CQLBuilder, ".use" do
   let(:statement) { CQLBuilder.use(:foo) }
 
   it "works" do
-    expect(subject).to eql "USE 'foo';"
+    expect(subject).to eql "USE \"foo\";"
   end
 
 end # describe CQLBuilder.use

@@ -35,7 +35,7 @@ builder = CQLBuilder
 # => #<CQLBuilder::Statements::Select ...>
 
 builder.to_s
-# => "SELECT 'id', 'user' AS 'name', 'role' FROM 'auth'.'users' WHERE 'id' > 1 AND 'id' <= 4 USING 'consistency' = 'quorum' LIMIT 3
+# => "SELECT id, user AS name, role FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
 The gem doesn't depend on any specific Cassandra driver.

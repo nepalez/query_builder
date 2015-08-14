@@ -7,7 +7,7 @@ module CQLBuilder
   # @example
   #   include Operators
   #
-  #   fn = quote  # => #<Transproc::Function @name=:quote ...>
+  #   fn = literal  # => #<Transproc::Function @name=:literal ...>
   #   fn[:foo]    # => "'foo'"
   #   fn[1]       # => "1"
   #
@@ -23,7 +23,8 @@ module CQLBuilder
 
     extend Transproc::Registry
 
-    require_relative "operators/quote"
+    require_relative "operators/literal"
+    require_relative "operators/identifier"
     require_relative "operators/cql"
 
     private

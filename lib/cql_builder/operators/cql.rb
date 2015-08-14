@@ -8,15 +8,15 @@ module CQLBuilder
     #
     # @example
     #   fn = Operators[:cql]
-    #   fn["USE", "", [], "'my_keyspace'"]
-    #   # => "USE 'my_keyspace';"
+    #   fn["USE", "", [], "my_keyspace"]
+    #   # => "USE my_keyspace;"
     #
     # @param [Array<String, Array<String>>] parts
     #
     # @return [String]
     #
     def self.cql(*parts)
-      parts.flatten.compact.reject(&:empty?).join(" ") << ";"
+      parts.flatten.compact.reject(&:empty?).map(&:to_s).join(" ") << ";"
     end
 
   end # module Operators

@@ -8,7 +8,7 @@ describe CQLBuilder, ".drop_table" do
     let(:statement) { CQLBuilder.drop_table(:foo) }
 
     it "works" do
-      expect(subject).to eql "DROP TABLE 'foo';"
+      expect(subject).to eql "DROP TABLE \"foo\";"
     end
   end
 
@@ -16,7 +16,7 @@ describe CQLBuilder, ".drop_table" do
     let(:statement) { CQLBuilder.drop_table(:foo).use(:bar).use(:baz) }
 
     it "works" do
-      expect(subject).to eql "DROP TABLE 'baz'.'foo';"
+      expect(subject).to eql "DROP TABLE \"baz\".\"foo\";"
     end
   end
 
@@ -24,7 +24,7 @@ describe CQLBuilder, ".drop_table" do
     let(:statement) { CQLBuilder.drop_table(:foo).if_exists.if_exists }
 
     it "works" do
-      expect(subject).to eql "DROP TABLE IF EXISTS 'foo';"
+      expect(subject).to eql "DROP TABLE IF EXISTS \"foo\";"
     end
   end
 

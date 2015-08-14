@@ -6,10 +6,10 @@ module CQLBuilder
 
     class << self
 
-      # Converts value to the quoted/unquoted string representing chunk of CQL
+      # Converts value to CQL literal
       #
       # @example
-      #   fn = Operators[:quote]
+      #   fn = Operators[:literal]
       #   fn[nil]      # => "NaN"
       #   fn["0x9232"] # => "0x9232"
       #   fn[:foo]     # => "'foo'"
@@ -18,18 +18,19 @@ module CQLBuilder
       #
       # @return [String]
       #
-      def quote(value)
-        return "NaN"             if nan?(value)
-        return "Infinity"        if infinity?(value)
-        return value.to_s        if unchanged?(value)
-        return quote_hash(value) if value.instance_of?(Hash)
-        "'#{value}'"
+      def literal(value)
+        return "NaN"               if nan?(value)
+        return "Infinity"          if infinity?(value)
+        return value.to_s          if unchanged?(value)
+        return literal_hash(value) if value.instance_of?(Hash)
+        "'#{value.to_s.gsub("\'", "\'\'")}'"
       end
 
       private
 
-      def quote_hash(value)
-        "{#{value.map { |k, v| [quote(k), quote(v)].join(": ") }.join ", "}}"
+      def literal_hash(value)
+        str = value.map { |k, v| [literal(k), literal(v)].join(": ") }.join ", "
+        "{#{str}}"
       end
 
       def nan?(value)

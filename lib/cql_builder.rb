@@ -23,7 +23,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.create_keyspace(:name).if_not_exists
-  #   statement.to_s # => "CREATE KEYSPACE IF NOT EXISTS 'name';"
+  #   statement.to_s # => "CREATE KEYSPACE IF NOT EXISTS name;"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -40,7 +40,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.use(:name)
-  #   statement.to_s # => "USE 'name';"
+  #   statement.to_s # => "USE name;"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -57,7 +57,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.alter_keyspace(:name)
-  #   statement.to_s # => "ALTER KEYSPACE 'name';"
+  #   statement.to_s # => "ALTER KEYSPACE name;"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -74,7 +74,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.drop_keyspace(:name).if_exists
-  #   statement.to_s # => "DROP KEYSPACE IF EXISTS 'name';"
+  #   statement.to_s # => "DROP KEYSPACE IF EXISTS name;"
   #
   # @param [#to_s] name The name of the keyspace
   #
@@ -91,7 +91,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.drop_table(:name).if_exists
-  #   statement.to_s # => "DROP TABLE IF EXISTS 'name';"
+  #   statement.to_s # => "DROP TABLE IF EXISTS name;"
   #
   # @param [#to_s] name The name of the table
   #
@@ -108,7 +108,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.drop_type(:name).if_exists
-  #   statement.to_s # => "DROP TYPE IF EXISTS 'name';"
+  #   statement.to_s # => "DROP TYPE IF EXISTS name;"
   #
   # @param [#to_s] name The name of the type
   #
@@ -125,7 +125,7 @@ module CQLBuilder
   #
   # @example
   #   statement = CQLBuilder.drop_user(:name).if_exists
-  #   statement.to_s # => "DROP USER IF EXISTS 'name';"
+  #   statement.to_s # => "DROP USER IF EXISTS name;"
   #
   # @param [#to_s] name The name of the user
   #
