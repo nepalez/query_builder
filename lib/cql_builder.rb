@@ -7,7 +7,6 @@ require "transproc"
 require_relative "cql_builder/attribute"
 require_relative "cql_builder/exceptions"
 require_relative "cql_builder/operators"
-
 require_relative "cql_builder/base"
 require_relative "cql_builder/clause"
 require_relative "cql_builder/statement"
