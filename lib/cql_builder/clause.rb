@@ -39,6 +39,7 @@ module CQLBuilder
     require_relative "clauses/condition"
     require_relative "clauses/superuser"
     require_relative "clauses/with"
+    require_relative "clauses/with_password"
     require_relative "clauses/use"
 
   end # module Clauses
