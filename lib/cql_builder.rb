@@ -83,14 +83,14 @@ module CQLBuilder
     Statements::DropKeyspace.new(name: name)
   end
 
-  # Builds the 'DROP TABLE' CQL statement
+  # Builds the 'TRUNCATE' CQL statement
   #
   # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropTableStmt
   #   Apache CQL documentation
   #
   # @example
   #   statement = CQLBuilder.drop_table(:name).if_exists
-  #   statement.to_s # => "DROP TABLE IF EXISTS name;"
+  #   statement.to_s # => "TRUNCATE IF EXISTS name;"
   #
   # @param [#to_s] name The name of the table
   #
@@ -147,6 +147,23 @@ module CQLBuilder
   #
   def self.list_users
     Statements::ListUsers.new
+  end
+
+  # Builds the 'TRUNCATE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#truncateStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.truncate(:name).if_exists
+  #   statement.to_s # => "TRUNCATE IF EXISTS name;"
+  #
+  # @param [#to_s] name The name of the table
+  #
+  # @return [CQLBuilder::Statements::Truncate]
+  #
+  def self.truncate(name)
+    Statements::Truncate.new(name: name)
   end
 
 end # module CQLBuilder
