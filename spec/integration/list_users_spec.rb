@@ -4,7 +4,7 @@ describe CQLBuilder, ".list_users" do
 
   let(:statement) { CQLBuilder.list_users }
 
-  it_behaves_like :a_statement do
+  it_behaves_like :cql_builder do
     subject   { statement }
     let(:cql) { "LIST USERS;" }
   end

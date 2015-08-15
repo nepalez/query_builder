@@ -2,22 +2,19 @@
 
 describe CQLBuilder::Clauses::IfExists do
 
-  let(:clause) { described_class.new }
+  subject { described_class.new(args) }
+
+  let(:args) { {} }
 
   it_behaves_like :a_clause, :if_exists
 
-  describe "#to_s" do
-    subject { clause.to_s }
+  it_behaves_like :cql_builder do
+    let(:cql) { "IF EXISTS" }
+  end
 
-    context "by default" do
-      it { is_expected.to eql("IF EXISTS") }
-    end # context
-
-    context "when reversed" do
-      let(:clause) { described_class.new reverse: true }
-
-      it { is_expected.to eql("IF NOT EXISTS") }
-    end
-  end # describe #to_s
+  it_behaves_like :cql_builder do
+    let(:args) { { reverse: true } }
+    let(:cql)  { "IF NOT EXISTS" }
+  end
 
 end # describe CQLBuilder::Clauses::IfExists

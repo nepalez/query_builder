@@ -2,24 +2,19 @@
 
 describe CQLBuilder::Clauses::Column do
 
-  let(:clause) { described_class.new(name: :foo, type_name: :int) }
+  subject { described_class.new(args) }
+
+  let(:args) { { name: :foo, type_name: :int } }
 
   it_behaves_like :a_clause, :column
 
-  describe "#to_s" do
-    subject { clause.to_s }
+  it_behaves_like :cql_builder do
+    let(:cql) { "foo int" }
+  end
 
-    context "by default" do
-      it { is_expected.to eql "foo int" }
-    end
-
-    context "when static" do
-      let(:clause) do
-        described_class.new(name: :foo, type_name: :int, static: true)
-      end
-
-      it { is_expected.to eql "foo int STATIC" }
-    end
-  end # describe #to_s
+  it_behaves_like :cql_builder do
+    let(:args) { { name: :foo, type_name: :int, static: true } }
+    let(:cql)  { "foo int STATIC" }
+  end
 
 end # describe CQLBuilder::Clauses::Column

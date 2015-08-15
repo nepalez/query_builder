@@ -2,22 +2,19 @@
 
 describe CQLBuilder::Clauses::With do
 
-  let(:clause) { described_class.new(column: :foo, value: value) }
-  let(:value)  { :bar }
+  subject { described_class.new(args) }
+
+  let(:args) { { column: :foo, value: :bar } }
 
   it_behaves_like :a_clause, :with
 
-  describe "#to_s" do
-    subject { clause.to_s }
+  it_behaves_like :cql_builder do
+    let(:cql) { "foo = 'bar'" }
+  end
 
-    context "with non-operator value" do
-      it { is_expected.to eql "foo = 'bar'" }
-    end # context
-
-    context "with operator" do
-      let(:value) { -> col { "COUNT(#{col})" } }
-      it { is_expected.to eql "COUNT(foo)" }
-    end
-  end # describe #to_s
+  it_behaves_like :cql_builder do
+    let(:args) { { column: :foo, value: -> col { "COUNT(#{col})" } } }
+    let(:cql)  { "COUNT(foo)" }
+  end
 
 end # describe CQLBuilder::Clauses::With

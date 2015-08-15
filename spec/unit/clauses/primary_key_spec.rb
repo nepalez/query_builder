@@ -2,13 +2,19 @@
 
 describe CQLBuilder::Clauses::PrimaryKey do
 
-  let(:clause) { described_class.new(columns: [:foo, :bar]) }
+  subject { described_class.new(args) }
+
+  let(:args) { { columns: [:foo, :bar] } }
 
   it_behaves_like :a_clause, :primary_key
 
-  describe "#to_s" do
-    subject { clause.to_s }
-    it { is_expected.to eql "PRIMARY KEY (foo, bar)" }
-  end # describe #type
+  it_behaves_like :cql_builder do
+    let(:cql) { "PRIMARY KEY (foo, bar)" }
+  end
+
+  it_behaves_like :cql_builder do
+    let(:args) { { columns: [:foo] } }
+    let(:cql)  { "PRIMARY KEY (foo)" }
+  end
 
 end # describe CQLBuilder::Clauses::PrimaryKey

@@ -2,13 +2,12 @@
 
 describe CQLBuilder::Clauses::CompactStorage do
 
-  let(:clause) { described_class.new }
+  subject { described_class.new }
 
   it_behaves_like :a_clause, :compact_storage
 
-  describe "#to_s" do
-    subject { clause.to_s }
-    it { is_expected.to eql("COMPACT STORAGE") }
-  end # describe #type
+  it_behaves_like :cql_builder do
+    let(:cql) { "COMPACT STORAGE" }
+  end
 
 end # describe CQLBuilder::Clauses::CompactStorage
