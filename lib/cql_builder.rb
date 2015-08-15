@@ -200,4 +200,21 @@ module CQLBuilder
     Statements::AlterUser.new(name: name)
   end
 
+  # Builds the 'CREATE TABLE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#createTableStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   CQLBuilder.create_table(:foo).if_not_exists.column(:bar, :int).to_s
+  #   # => "CREATE TABLE IF NOT EXISTS foo (bar int);"
+  #
+  # @param [#to_s] name The name of the table
+  #
+  # @return [CQLBuilder::Statements::CreateTable]
+  #
+  def self.create_table(name)
+    Statements::CreateTable.new(name: name)
+  end
+
 end # module CQLBuilder
