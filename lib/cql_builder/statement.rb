@@ -18,8 +18,7 @@ module CQLBuilder
     #   The block that returns an array of clauses for the statement
     #
     def initialize(*)
-      list = yield if block_given?
-      @clauses = Set.new(list)
+      @clauses = block_given? ? Array[*yield] : []
       super
     end
 
@@ -43,7 +42,9 @@ module CQLBuilder
     # @return [CQLBuilder::Statement]
     #
     def <<(clause)
-      self.class.new(attributes) { @clauses + [clause] }
+      new_clauses = @clauses.dup
+      new_clauses.delete clause
+      self.class.new(attributes) { new_clauses + [clause] }
     end
 
   end # class Statement
