@@ -11,7 +11,13 @@ module CQLBuilder
     #
     class CompactStorage < Clause
 
-      type :compact_storage
+      type :with
+      attribute :name
+
+      # @private
+      def initialize
+        super name: :compact_storage # to differ from CLUSTERING ORDER
+      end
 
       # Returns the CQL representation of the clause
       #
