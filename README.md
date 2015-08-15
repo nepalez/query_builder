@@ -15,7 +15,7 @@
 [travis]: https://travis-ci.org/nepalez/cql_builder
 [inch]: https://inch-ci.org/github/nepalez/cql_builder
 
-Builder for [CQL 3.2](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements.
+Builder of [CQL 3](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements.
 
 Synopsis
 --------
@@ -23,7 +23,7 @@ Synopsis
 ```ruby
 require "cql_builder"
 
-include CQLBuilder::Operators
+include CQLBuilder::Operators # for operators like cql_gt, cql_lte below.
 
 builder = CQLBuilder
   .select(:id, :role, name: :user)
@@ -38,108 +38,9 @@ builder.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
-The gem doesn't depend on any specific Cassandra driver.
+See the [full list of all supported statements and operators](https://github.com/nepalez/cql_builder/wiki).
 
-It could be used to extend [official Datastax driver](https://github.com/datastax/ruby-driver) with features of CQL building.
-
-DSL
----
-
-The builder provides an immutable abstract tree and converts it to CQL statement by `cql` method.
-
-Its DSL defines 4 groups of commands:
-
-* Statement Builders
-* Statement Modifiers
-* Operators
-* Finalizer
-
-### Statement Builders
-
-Building CQL statement should begin from one of those `CQLBuilder` singleton methods.
-
-Every method returns an immutable instance of the `CQLBuilder::Statement` class, describing the corresponding AST.
-
-```ruby
-builder = CQLBuilder.select(:id, :name, :role)
-# => #<CQLBuilder::Statement::Select ... >
-
-builder.frozen?
-# => true
-
-builder.to_s
-# => "SELECT id, name, role;"
-```
-
-See the [list of supported statements](https://github.com/nepalez/cql_builder/wiki).
-
-### Statement Modifiers
-
-Every statement defines its own methods to add parts to the corresponding statement.
-
-Because the statement is immutable, modifiers return a new statement of the updated AST. Chaining is available.
-
-```ruby
-builder = CQLBuilder.select(:id, :name, :role)
-
-builder.to_s
-# => "SELECT id, name, role;"
-
-builder.from(:users)
-
-builder.to_s
-# => "SELECT id, name, role FROM users;"
-```
-
-See lists of supported modifiers (clauses) for [corresponding statements](https://github.com/nepalez/cql_builder/wiki).
-
-### Operators
-
-Operators are used in statements like `SELECT`, `SET` and `WHERE` to provide queries, assignments and conditions.
-
-Include the `CQLBuilder::Operators` module to add operators to the current context:
-
-```ruby
-include CQLBuilder::Operators
-
-builder = CQLBuilder.select cql_count[:value]
-
-builder.to_s
-# => "SELECT COUNT(value);"
-```
-
-```ruby
-include CQLBuilder::Operators
-
-builder = CQLBuilder
-  .select(:id, :name, :role)
-  .where(id: cql_lt(100), role: cql_in("admin", "moderator"))
-  .where(id: cql_gte(10))
-
-builder.to_s
-# => "SELECT id, name, role WHERE id < 100 AND role IN ('admin', 'moderator') AND id >= 10;"
-```
-
-```ruby
-include CQLBuilder::Operators
-
-builder = CQLBuilder.update(:users).set(hits: cql_inc(3))
-
-builder.to_s
-# => "UPDATE users SET hits = hits + 3;"
-```
-
-If you don't want including the whole `CQLBuilder::Operators` module, call the operator explicitly, using square brackets:
-
-```ruby
-builder = CQLBuilder.update(:users).set hits: CQLBuilder::Operators[:cql_inc, 3]
-```
-
-See lists of applicable operators for [corresponding statements](https://github.com/nepalez/cql_builder/wiki).
-
-### Finalizer
-
-The `Statement#to_s` method provides the sting of CQL statement.
+The gem doesn't depend on any specific Cassandra driver. It could be used to extend [official Datastax driver](https://github.com/datastax/ruby-driver) with features of CQL building.
 
 Installation
 ------------
