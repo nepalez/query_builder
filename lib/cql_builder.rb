@@ -226,7 +226,7 @@ module CQLBuilder
   #   CQLBuilder.create_type(:foo).if_not_exists.field(:bar, :int).to_s
   #   # => "CREATE TYPE IF NOT EXISTS foo (bar int);"
   #
-  # @param [#to_s] name The name of the table
+  # @param [#to_s] name The name of the type
   #
   # @return [CQLBuilder::Statements::CreateType]
   #
@@ -243,12 +243,29 @@ module CQLBuilder
   #   statement = CQLBuilder.drop_index(:name).if_exists
   #   statement.to_s # => "DROP INDEX IF EXISTS name;"
   #
-  # @param [#to_s] name The name of the table
+  # @param [#to_s] name The name of the index
   #
   # @return [CQLBuilder::Statements::DropIndex]
   #
   def self.drop_index(name)
     Statements::DropIndex.new(name: name)
+  end
+
+  # Builds the 'DROP TRIGGER' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropTriggerStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.drop_trigger(:name).on(:foo).if_exists
+  #   statement.to_s # => "DROP TRIGGER IF EXISTS name ON foo;"
+  #
+  # @param [#to_s] name The name of the trigger
+  #
+  # @return [CQLBuilder::Statements::DropTrigger]
+  #
+  def self.drop_trigger(name)
+    Statements::DropTrigger.new(name: name)
   end
 
 end # module CQLBuilder
