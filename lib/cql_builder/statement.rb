@@ -59,6 +59,7 @@ module CQLBuilder
     require_relative "statements/create_table"
     require_relative "statements/create_type"
     require_relative "statements/create_user"
+    require_relative "statements/drop_index"
     require_relative "statements/drop_keyspace"
     require_relative "statements/drop_table"
     require_relative "statements/drop_type"
