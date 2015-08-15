@@ -8,7 +8,7 @@ describe CQLBuilder::Clauses::Use do
 
   describe "#to_s" do
     subject { clause.to_s }
-    it { is_expected.to eql("\"foo\"") }
+    it { is_expected.to eql("foo") }
   end # describe #type
 
 end # describe CQLBuilder::Clauses::Use

@@ -6,12 +6,12 @@ describe CQLBuilder, ".create_keyspace" do
 
   it_behaves_like :a_statement do
     subject   { statement }
-    let(:cql) { "CREATE KEYSPACE \"foo\";" }
+    let(:cql) { "CREATE KEYSPACE foo;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.if_not_exists.if_not_exists }
-    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS \"foo\";" }
+    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS foo;" }
   end
 
   it_behaves_like :a_statement do
@@ -21,12 +21,12 @@ describe CQLBuilder, ".create_keyspace" do
         .with(durable_writes: false)
     end
 
-    let(:cql) { "CREATE KEYSPACE \"foo\" WITH \"replication\" = {'class': 'SimpleStrategy', 'replication_factor': 3} AND \"durable_writes\" = false;" }
+    let(:cql) { "CREATE KEYSPACE foo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.with(durable_writes: false).if_not_exists }
-    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS \"foo\" WITH \"durable_writes\" = false;" }
+    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS foo WITH durable_writes = false;" }
   end
 
 end # describe CQLBuilder.create_keyspace

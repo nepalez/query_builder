@@ -6,7 +6,7 @@ describe CQLBuilder, ".use" do
 
   it_behaves_like :a_statement do
     subject   { statement }
-    let(:cql) { "USE \"foo\";" }
+    let(:cql) { "USE foo;" }
   end
 
 end # describe CQLBuilder.use

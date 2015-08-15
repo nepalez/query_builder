@@ -11,12 +11,12 @@ describe CQLBuilder::Clauses::With do
     subject { clause.to_s }
 
     context "with non-operator value" do
-      it { is_expected.to eql "\"foo\" = 'bar'" }
+      it { is_expected.to eql "foo = 'bar'" }
     end # context
 
     context "with operator" do
-      let(:value) { -> col { "COUNT(\"#{col}\")" } }
-      it { is_expected.to eql "COUNT(\"foo\")" }
+      let(:value) { -> col { "COUNT(#{col})" } }
+      it { is_expected.to eql "COUNT(foo)" }
     end
   end # describe #to_s
 

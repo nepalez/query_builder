@@ -17,7 +17,6 @@ module CQLBuilder
     extend Transproc::Registry
 
     require_relative "operators/cql_literal"
-    require_relative "operators/cql_identifier"
     require_relative "operators/cql"
     require_relative "operators/cql_map"
     require_relative "operators/cql_set"

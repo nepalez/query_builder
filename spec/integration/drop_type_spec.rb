@@ -6,12 +6,12 @@ describe CQLBuilder, ".drop_type" do
 
   it_behaves_like :a_statement do
     subject   { statement }
-    let(:cql) { "DROP TYPE \"foo\";" }
+    let(:cql) { "DROP TYPE foo;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP TYPE IF EXISTS \"foo\";" }
+    let(:cql) { "DROP TYPE IF EXISTS foo;" }
   end
 
 end # describe CQLBuilder.drop_type

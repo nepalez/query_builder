@@ -46,7 +46,7 @@ module CQLBuilder
         cql[
           "CREATE USER",
           clauses(:if_exists),
-          cql_identifier[name],
+          name.to_s,
           clauses(:with_password).last,
           clauses(:superuser).last
         ]

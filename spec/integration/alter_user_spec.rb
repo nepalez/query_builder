@@ -6,27 +6,27 @@ describe CQLBuilder, ".alter_user" do
 
   it_behaves_like :a_statement do
     subject   { statement }
-    let(:cql) { "ALTER USER \"foo\";" }
+    let(:cql) { "ALTER USER foo;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.with_password(:bar).with_password(:baz) }
-    let(:cql) { "ALTER USER \"foo\" WITH PASSWORD 'baz';" }
+    let(:cql) { "ALTER USER foo WITH PASSWORD 'baz';" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.superuser }
-    let(:cql) { "ALTER USER \"foo\" SUPERUSER;" }
+    let(:cql) { "ALTER USER foo SUPERUSER;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.superuser.superuser(false) }
-    let(:cql) { "ALTER USER \"foo\" NOSUPERUSER;" }
+    let(:cql) { "ALTER USER foo NOSUPERUSER;" }
   end
 
   it_behaves_like :a_statement do
     subject   { statement.with_password(:bar).superuser }
-    let(:cql) { "ALTER USER \"foo\" WITH PASSWORD 'bar' SUPERUSER;" }
+    let(:cql) { "ALTER USER foo WITH PASSWORD 'bar' SUPERUSER;" }
   end
 
 end # describe CQLBuilder.alter_user

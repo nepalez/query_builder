@@ -23,14 +23,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["PRIMARY KEY", cols].join(" ")
-      end
-
-      private
-
-      def cols
-        list = columns.map { |item| cql_identifier[item] }.join(", ")
-        columns.one? ? list : "(#{list})"
+        ["PRIMARY KEY", "(#{columns.join(", ")})"].join(" ")
       end
 
     end # class PrimaryKey

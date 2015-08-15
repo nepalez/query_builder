@@ -6,7 +6,7 @@ describe CQLBuilder, ".alter_keyspace" do
 
   it_behaves_like :a_statement do
     subject   { statement }
-    let(:cql) { "ALTER KEYSPACE \"foo\";" }
+    let(:cql) { "ALTER KEYSPACE foo;" }
   end
 
   it_behaves_like :a_statement do
@@ -16,7 +16,7 @@ describe CQLBuilder, ".alter_keyspace" do
         .with(durable_writes: false)
     end
 
-    let(:cql) { "ALTER KEYSPACE \"foo\" WITH \"replication\" = {'class': 'SimpleStrategy', 'replication_factor': 3} AND \"durable_writes\" = false;" }
+    let(:cql) { "ALTER KEYSPACE foo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
   end
 
 end # describe CQLBuilder.alter_keyspace

@@ -27,7 +27,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["ALTER KEYSPACE", cql_identifier[name], withs]
+        cql["ALTER KEYSPACE", name.to_s, withs]
       end
 
       private

@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["USE", cql_identifier[name]]
+        cql["USE", name.to_s]
       end
 
     end # class Use
