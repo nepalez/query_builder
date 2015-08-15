@@ -2,24 +2,16 @@
 
 describe CQLBuilder, ".drop_type" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.drop_type(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.drop_type(:foo) }
-
-    it "works" do
-      expect(subject).to eql "DROP TYPE \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "DROP TYPE \"foo\";" }
   end
 
-  context "with 'if_exists' clause" do
-    let(:statement) do
-      CQLBuilder.drop_type(:foo).if_exists.if_exists
-    end
-
-    it "works" do
-      expect(subject).to eql "DROP TYPE IF EXISTS \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.if_exists.if_exists }
+    let(:cql) { "DROP TYPE IF EXISTS \"foo\";" }
   end
 
 end # describe CQLBuilder.drop_type

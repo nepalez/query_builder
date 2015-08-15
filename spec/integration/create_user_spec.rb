@@ -2,69 +2,36 @@
 
 describe CQLBuilder, ".create_user" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.create_user(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.create_user(:foo) }
-
-    it "works" do
-      expect(subject).to eql "CREATE USER \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "CREATE USER \"foo\";" }
   end
 
-  context "with 'if_not_exists' clause" do
-    let(:statement) do
-      CQLBuilder.create_user(:foo).if_not_exists.if_not_exists
-    end
-
-    it "works" do
-      expect(subject).to eql "CREATE USER IF NOT EXISTS \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.if_not_exists.if_not_exists }
+    let(:cql) { "CREATE USER IF NOT EXISTS \"foo\";" }
   end
 
-  context "with 'with_password' clause" do
-    let(:statement) do
-      CQLBuilder.create_user(:foo).with_password(:bar).with_password(:baz)
-    end
-
-    it "works" do
-      expect(subject).to eql "CREATE USER \"foo\" WITH PASSWORD 'baz';"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.with_password(:bar).with_password(:baz) }
+    let(:cql) { "CREATE USER \"foo\" WITH PASSWORD 'baz';" }
   end
 
-  context "with 'superuser' clause" do
-    let(:statement) do
-      CQLBuilder.create_user(:foo).superuser
-    end
-
-    it "works" do
-      expect(subject).to eql "CREATE USER \"foo\" SUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.superuser(false).superuser }
+    let(:cql) { "CREATE USER \"foo\" SUPERUSER;" }
   end
 
-  context "with 'superuser(false)' clause" do
-    let(:statement) do
-      CQLBuilder.create_user(:foo).superuser.superuser(false)
-    end
-
-    it "works" do
-      expect(subject).to eql "CREATE USER \"foo\" NOSUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.superuser.superuser(false) }
+    let(:cql) { "CREATE USER \"foo\" NOSUPERUSER;" }
   end
 
-  context "with all clauses" do
-    let(:statement) do
-      CQLBuilder
-        .create_user(:foo)
-        .if_not_exists
-        .with_password(:bar)
-        .superuser
-    end
-
-    it "works" do
-      expect(subject)
-        .to eql "CREATE USER IF NOT EXISTS \"foo\" WITH PASSWORD 'bar' SUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.with_password(:bar).superuser.if_not_exists }
+    let(:cql) { "CREATE USER IF NOT EXISTS \"foo\" WITH PASSWORD 'bar' SUPERUSER;" }
   end
 
 end # describe CQLBuilder.create_user

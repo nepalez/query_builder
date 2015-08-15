@@ -2,30 +2,21 @@
 
 describe CQLBuilder, ".drop_table" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.drop_table(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.drop_table(:foo) }
-
-    it "works" do
-      expect(subject).to eql "DROP TABLE \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "DROP TABLE \"foo\";" }
   end
 
-  context "with 'use' clause" do
-    let(:statement) { CQLBuilder.drop_table(:foo).use(:bar).use(:baz) }
-
-    it "works" do
-      expect(subject).to eql "DROP TABLE \"baz\".\"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.use(:bar).use(:baz) }
+    let(:cql) { "DROP TABLE \"baz\".\"foo\";" }
   end
 
-  context "with 'if_exists' clause" do
-    let(:statement) { CQLBuilder.drop_table(:foo).if_exists.if_exists }
-
-    it "works" do
-      expect(subject).to eql "DROP TABLE IF EXISTS \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.if_exists.if_exists }
+    let(:cql) { "DROP TABLE IF EXISTS \"foo\";" }
   end
 
 end # describe CQLBuilder.drop_table

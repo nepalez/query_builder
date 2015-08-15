@@ -15,3 +15,11 @@ shared_examples :a_clause do |type|
   end
 
 end # shared examples
+
+shared_examples :a_statement do
+
+  it "[works]" do
+    expect(subject.to_s).to eql(cql)
+  end
+
+end # shared examples

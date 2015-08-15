@@ -2,12 +2,11 @@
 
 describe CQLBuilder, ".use" do
 
-  subject { statement.to_s }
-
   let(:statement) { CQLBuilder.use(:foo) }
 
-  it "works" do
-    expect(subject).to eql "USE \"foo\";"
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "USE \"foo\";" }
   end
 
 end # describe CQLBuilder.use

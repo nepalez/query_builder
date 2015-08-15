@@ -2,22 +2,16 @@
 
 describe CQLBuilder, ".truncate" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.truncate(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.truncate(:foo) }
-
-    it "works" do
-      expect(subject).to eql "TRUNCATE \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "TRUNCATE \"foo\";" }
   end
 
-  context "with 'use' clause" do
-    let(:statement) { CQLBuilder.truncate(:foo).use(:bar).use(:baz) }
-
-    it "works" do
-      expect(subject).to eql "TRUNCATE \"baz\".\"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.use(:bar).use(:baz) }
+    let(:cql) { "TRUNCATE \"baz\".\"foo\";" }
   end
 
 end # describe CQLBuilder.truncate

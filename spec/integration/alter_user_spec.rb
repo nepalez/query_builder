@@ -2,58 +2,31 @@
 
 describe CQLBuilder, ".alter_user" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.alter_user(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.alter_user(:foo) }
-
-    it "works" do
-      expect(subject).to eql "ALTER USER \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "ALTER USER \"foo\";" }
   end
 
-  context "with 'with_password' clause" do
-    let(:statement) do
-      CQLBuilder.alter_user(:foo).with_password(:bar).with_password(:baz)
-    end
-
-    it "works" do
-      expect(subject).to eql "ALTER USER \"foo\" WITH PASSWORD 'baz';"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.with_password(:bar).with_password(:baz) }
+    let(:cql) { "ALTER USER \"foo\" WITH PASSWORD 'baz';" }
   end
 
-  context "with 'superuser' clause" do
-    let(:statement) do
-      CQLBuilder.alter_user(:foo).superuser
-    end
-
-    it "works" do
-      expect(subject).to eql "ALTER USER \"foo\" SUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.superuser }
+    let(:cql) { "ALTER USER \"foo\" SUPERUSER;" }
   end
 
-  context "with 'superuser(false)' clause" do
-    let(:statement) do
-      CQLBuilder.alter_user(:foo).superuser.superuser(false)
-    end
-
-    it "works" do
-      expect(subject).to eql "ALTER USER \"foo\" NOSUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.superuser.superuser(false) }
+    let(:cql) { "ALTER USER \"foo\" NOSUPERUSER;" }
   end
 
-  context "with all clauses" do
-    let(:statement) do
-      CQLBuilder
-        .alter_user(:foo)
-        .with_password(:bar)
-        .superuser
-    end
-
-    it "works" do
-      expect(subject)
-        .to eql "ALTER USER \"foo\" WITH PASSWORD 'bar' SUPERUSER;"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.with_password(:bar).superuser }
+    let(:cql) { "ALTER USER \"foo\" WITH PASSWORD 'bar' SUPERUSER;" }
   end
 
 end # describe CQLBuilder.alter_user

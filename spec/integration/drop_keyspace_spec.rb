@@ -2,24 +2,16 @@
 
 describe CQLBuilder, ".drop_keyspace" do
 
-  subject { statement.to_s }
+  let(:statement) { CQLBuilder.drop_keyspace(:foo) }
 
-  context "without clauses" do
-    let(:statement) { CQLBuilder.drop_keyspace(:foo) }
-
-    it "works" do
-      expect(subject).to eql "DROP KEYSPACE \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement }
+    let(:cql) { "DROP KEYSPACE \"foo\";" }
   end
 
-  context "with 'if_exists' clause" do
-    let(:statement) do
-      CQLBuilder.drop_keyspace(:foo).if_exists.if_exists
-    end
-
-    it "works" do
-      expect(subject).to eql "DROP KEYSPACE IF EXISTS \"foo\";"
-    end
+  it_behaves_like :a_statement do
+    subject   { statement.if_exists.if_exists }
+    let(:cql) { "DROP KEYSPACE IF EXISTS \"foo\";" }
   end
 
 end # describe CQLBuilder.drop_keyspace
