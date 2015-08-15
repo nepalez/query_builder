@@ -217,4 +217,21 @@ module CQLBuilder
     Statements::CreateTable.new(name: name)
   end
 
+  # Builds the 'CREATE TYPE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#createTypeStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   CQLBuilder.create_type(:foo).if_not_exists.field(:bar, :int).to_s
+  #   # => "CREATE TYPE IF NOT EXISTS foo (bar int);"
+  #
+  # @param [#to_s] name The name of the table
+  #
+  # @return [CQLBuilder::Statements::CreateType]
+  #
+  def self.create_type(name)
+    Statements::CreateType.new(name: name)
+  end
+
 end # module CQLBuilder
