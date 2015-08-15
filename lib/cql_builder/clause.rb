@@ -43,6 +43,7 @@ module CQLBuilder
     require_relative "clauses/use"
     require_relative "clauses/primary_key"
     require_relative "clauses/compact_storage"
+    require_relative "clauses/clustering_order"
 
   end # module Clauses
 
