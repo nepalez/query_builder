@@ -287,4 +287,8 @@ module CQLBuilder
     Statements::Delete.new(name: name)
   end
 
+  def self.update(name)
+    Statements::Update.new(name: name)
+  end
+
 end # module CQLBuilder

@@ -69,6 +69,7 @@ module CQLBuilder
     require_relative "statements/truncate"
     require_relative "statements/use"
     require_relative "statements/delete"
+    require_relative "statements/update"
 
   end # module Statements
 
