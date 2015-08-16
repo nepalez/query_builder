@@ -1,5 +1,5 @@
 [WIP] QueryBuilder
-================
+==================
 
 [![Gem Version](https://img.shields.io/gem/v/query_builder.svg?style=flat)][gem]
 [![Build Status](https://img.shields.io/travis/nepalez/query_builder/master.svg?style=flat)][travis]
@@ -23,16 +23,16 @@ Synopsis
 ```ruby
 require "query_builder"
 
-include QueryBuilder::Operators # for operators like cql_gt, cql_lte below.
+include QueryBuilder::CQL::Operators # for operators like cql_gt, cql_lte below.
 
-builder = QueryBuilder
+builder = QueryBuilder::CQL
   .select(:id, :role, name: :user)
   .use(:auth)
   .from(:users)
   .where(id: cql_gt(1))
   .where(id: cql_lte(4))
   .limit(3)
-# => #<QueryBuilder::Statements::Select ...>
+# => #<QueryBuilder::CQL::Statements::Select ...>
 
 builder.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
