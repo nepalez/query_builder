@@ -48,6 +48,7 @@ module CQLBuilder
     require_relative "clauses/clustering_order"
     require_relative "clauses/on"
     require_relative "clauses/using"
+    require_relative "clauses/value"
 
   end # module Clauses
 
