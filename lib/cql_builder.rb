@@ -285,7 +285,7 @@ module CQLBuilder
   #   statement = CQLBuilder.delete_from(:foo).value(:bar)
   #   statement.to_s # => "DELETE bar FROM foo;"
   #
-  # @param [#to_s] name The name of the trigger
+  # @param [#to_s] name The name of the table
   #
   # @return [CQLBuilder::Statements::Delete]
   #
@@ -293,6 +293,19 @@ module CQLBuilder
     Statements::Delete.new(name: name)
   end
 
+  # Builds the 'UPDATE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#updateStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.update(:foo).set(bar: :baz)
+  #   statement.to_s # => "UPDATE foo SET bar = 'baz';"
+  #
+  # @param [#to_s] name The name of the table
+  #
+  # @return [CQLBuilder::Statements::Update]
+  #
   def self.update(name)
     Statements::Update.new(name: name)
   end
