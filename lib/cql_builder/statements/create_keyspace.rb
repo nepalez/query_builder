@@ -41,8 +41,8 @@ module CQLBuilder
       private
 
       def maybe_if
-        ifs = clauses(:if)
-        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
+        list = clauses(:if)
+        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
       def maybe_with

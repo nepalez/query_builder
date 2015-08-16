@@ -27,12 +27,12 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["ALTER KEYSPACE", name.to_s, withs]
+        cql["ALTER KEYSPACE", name.to_s, maybe_with]
       end
 
       private
 
-      def withs
+      def maybe_with
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end

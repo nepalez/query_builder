@@ -14,6 +14,7 @@ module CQLBuilder
     class Use < Clause
 
       type :use
+
       attribute :name, required: true
 
       # Returns the CQL representation of the clause
