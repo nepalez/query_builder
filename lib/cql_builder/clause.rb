@@ -34,11 +34,14 @@ module CQLBuilder
   #
   module Clauses
 
+    require_relative "clauses/condition"
+    require_relative "clauses/if"
+    require_relative "clauses/where"
+    require_relative "clauses/with"
+
     require_relative "clauses/column"
     require_relative "clauses/exists"
-    require_relative "clauses/condition"
     require_relative "clauses/superuser"
-    require_relative "clauses/with"
     require_relative "clauses/use"
     require_relative "clauses/primary_key"
     require_relative "clauses/compact_storage"
