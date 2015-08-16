@@ -9,6 +9,7 @@ module CQLBuilder
     class CreateUser < Statement
 
       attribute :name, required: true
+      attribute :password, required: true
 
       # Adds IF NOT EXISTS clause to the statement
       #
@@ -16,16 +17,6 @@ module CQLBuilder
       #
       def if_not_exists
         self << Clauses::Exists.new(reverse: true)
-      end
-
-      # Adds WITH PASSWORD clause to the statement
-      #
-      # @param [#to_s] password
-      #
-      # @return [CQLBuilder::Statements::CreateUser]
-      #
-      def with_password(password)
-        self << Clauses::WithPassword.new(password: password)
       end
 
       # Adds SUPERUSER|NOSUPERUSER clause to the statement
@@ -43,7 +34,14 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE USER", maybe_if, name.to_s, maybe_password, maybe_superuser]
+        cql[
+          "CREATE USER",
+          maybe_if,
+          name.to_s,
+          "WITH PASSWORD",
+          cql_literal[password],
+          maybe_superuser
+        ]
       end
 
       private
@@ -51,10 +49,6 @@ module CQLBuilder
       def maybe_if
         ifs = clauses(:if)
         ifs.any? ? ["IF", ifs.join(" AND ")] : nil
-      end
-
-      def maybe_password
-        clauses(:with_password).last
       end
 
       def maybe_superuser

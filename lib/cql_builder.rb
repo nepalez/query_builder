@@ -175,12 +175,13 @@ module CQLBuilder
   #   statement = CQLBuilder.create_user(:name).if_not_exists
   #   statement.to_s # => "CREATE USER IF NOT EXISTS name;"
   #
-  # @param [#to_s] name The name of the user
+  # @param [#to_s] name
+  # @param [#to_s] password
   #
   # @return [CQLBuilder::Statements::CreateUser]
   #
-  def self.create_user(name)
-    Statements::CreateUser.new(name: name)
+  def self.create_user(name, password)
+    Statements::CreateUser.new(name: name, password: password)
   end
 
   # Builds the 'ALTER USER' CQL statement
@@ -192,12 +193,13 @@ module CQLBuilder
   #   statement = CQLBuilder.alter_user(:name).if_not_exists
   #   statement.to_s # => "ALTER USER IF NOT EXISTS name;"
   #
-  # @param [#to_s] name The name of the user
+  # @param [#to_s] name
+  # @param [#to_s] password
   #
   # @return [CQLBuilder::Statements::AlterUser]
   #
-  def self.alter_user(name)
-    Statements::AlterUser.new(name: name)
+  def self.alter_user(name, password)
+    Statements::AlterUser.new(name: name, password: password)
   end
 
   # Builds the 'CREATE TABLE' CQL statement
