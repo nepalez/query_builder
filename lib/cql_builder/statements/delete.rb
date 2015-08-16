@@ -66,7 +66,11 @@ module CQLBuilder
 
       # Adds columns that should be deleted
       #
+      # @param [#to_s, Array<#to_s>] columns
+      #
       # @return [CQLBuilder::Statements::Delete]
+      #
+      # @alias value
       #
       def values(*columns)
         columns.map { |name| Clauses::Value.new(name: name) }.inject(self, :<<)
@@ -79,13 +83,8 @@ module CQLBuilder
       #
       def to_s
         cql[
-          "DELETE",
-          maybe_values,
-          "FROM",
-          full_name,
-          maybe_using,
-          maybe_where,
-          maybe_if
+          "DELETE", maybe_values, "FROM", full_name,
+          maybe_using, maybe_where, maybe_if
         ]
       end
 
