@@ -1,19 +1,19 @@
-[WIP] CQLBuilder
+[WIP] QueryBuilder
 ================
 
-[![Gem Version](https://img.shields.io/gem/v/cql_builder.svg?style=flat)][gem]
-[![Build Status](https://img.shields.io/travis/nepalez/cql_builder/master.svg?style=flat)][travis]
-[![Dependency Status](https://img.shields.io/gemnasium/nepalez/cql_builder.svg?style=flat)][gemnasium]
-[![Code Climate](https://img.shields.io/codeclimate/github/nepalez/cql_builder.svg?style=flat)][codeclimate]
-[![Coverage](https://img.shields.io/coveralls/nepalez/cql_builder.svg?style=flat)][coveralls]
-[![Inline docs](http://inch-ci.org/github/nepalez/cql_builder.svg)][inch]
+[![Gem Version](https://img.shields.io/gem/v/query_builder.svg?style=flat)][gem]
+[![Build Status](https://img.shields.io/travis/nepalez/query_builder/master.svg?style=flat)][travis]
+[![Dependency Status](https://img.shields.io/gemnasium/nepalez/query_builder.svg?style=flat)][gemnasium]
+[![Code Climate](https://img.shields.io/codeclimate/github/nepalez/query_builder.svg?style=flat)][codeclimate]
+[![Coverage](https://img.shields.io/coveralls/nepalez/query_builder.svg?style=flat)][coveralls]
+[![Inline docs](http://inch-ci.org/github/nepalez/query_builder.svg)][inch]
 
-[codeclimate]: https://codeclimate.com/github/nepalez/cql_builder
-[coveralls]: https://coveralls.io/r/nepalez/cql_builder
-[gem]: https://rubygems.org/gems/cql_builder
-[gemnasium]: https://gemnasium.com/nepalez/cql_builder
-[travis]: https://travis-ci.org/nepalez/cql_builder
-[inch]: https://inch-ci.org/github/nepalez/cql_builder
+[codeclimate]: https://codeclimate.com/github/nepalez/query_builder
+[coveralls]: https://coveralls.io/r/nepalez/query_builder
+[gem]: https://rubygems.org/gems/query_builder
+[gemnasium]: https://gemnasium.com/nepalez/query_builder
+[travis]: https://travis-ci.org/nepalez/query_builder
+[inch]: https://inch-ci.org/github/nepalez/query_builder
 
 Builder of [CQL 3](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements.
 
@@ -21,24 +21,24 @@ Synopsis
 --------
 
 ```ruby
-require "cql_builder"
+require "query_builder"
 
-include CQLBuilder::Operators # for operators like cql_gt, cql_lte below.
+include QueryBuilder::Operators # for operators like cql_gt, cql_lte below.
 
-builder = CQLBuilder
+builder = QueryBuilder
   .select(:id, :role, name: :user)
   .use(:auth)
   .from(:users)
   .where(id: cql_gt(1))
   .where(id: cql_lte(4))
   .limit(3)
-# => #<CQLBuilder::Statements::Select ...>
+# => #<QueryBuilder::Statements::Select ...>
 
 builder.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
-See the [full list of all supported statements and operators](https://github.com/nepalez/cql_builder/wiki).
+See the [full list of all supported statements and operators](https://github.com/nepalez/query_builder/wiki).
 
 The gem doesn't depend on any specific Cassandra driver. It could be used to extend [official Datastax driver](https://github.com/datastax/ruby-driver) with features of CQL building.
 
@@ -49,7 +49,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 # Gemfile
-gem "cql_builder"
+gem "query_builder"
 ```
 
 Then execute:
@@ -61,7 +61,7 @@ bundle
 Or add it manually:
 
 ```
-gem install cql_builder
+gem install query_builder
 ```
 
 Compatibility
@@ -78,7 +78,7 @@ Contributing
 ------------
 
 * Read the [STYLEGUIDE](config/metrics/STYLEGUIDE)
-* [Fork the project](https://github.com/nepalez/cql_builder)
+* [Fork the project](https://github.com/nepalez/query_builder)
 * Create your feature branch (`git checkout -b my-new-feature`)
 * Add tests for it
 * Commit your changes (`git commit -am '[UPDATE] Add some feature'`)

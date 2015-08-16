@@ -9,8 +9,8 @@ rescue LoadError
 end
 
 # Loads the code under test
-require "cql_builder"
+require "query_builder"
 
 # Load shared examples for specs
 require "transproc/rspec"
-require "cql_builder/rspec"
+require "query_builder/rspec"

@@ -2,4 +2,4 @@
 
 First release
 
-[Compare Initial...HEAD](https://github.com/nepalez/cql_builder/compare/Initial...HEAD)
+[Compare Initial...HEAD](https://github.com/nepalez/query_builder/compare/Initial...HEAD)

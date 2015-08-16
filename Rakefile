@@ -22,12 +22,12 @@ end
 
 desc "Runs mutation metric for testing"
 task :mutant do
-  system "mutant -r ./spec/spec_helper --use rspec CQLBuilder* --fail-fast"
+  system "mutant -r ./spec/spec_helper --use rspec QueryBuilder* --fail-fast"
 end
 
 desc "Exhort all evils"
 task :exhort do
-  system "mutant -r ./spec/spec_helper --use rspec CQLBuilder*"
+  system "mutant -r ./spec/spec_helper --use rspec QueryBuilder*"
 end
 
 desc "Runs all the necessary metrics before making a commit"
