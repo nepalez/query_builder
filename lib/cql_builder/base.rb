@@ -12,7 +12,6 @@ module CQLBuilder
 
     include Operators
     include Comparable
-    include Exceptions
     include Equalizer.new(:class, :attributes)
 
     # @!method attributes

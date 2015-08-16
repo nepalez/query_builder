@@ -49,28 +49,4 @@ module CQLBuilder
 
   end # class Statement
 
-  # The collection of concrete statements
-  #
-  module Statements
-
-    require_relative "statements/alter_keyspace"
-    require_relative "statements/alter_user"
-    require_relative "statements/create_keyspace"
-    require_relative "statements/create_table"
-    require_relative "statements/create_type"
-    require_relative "statements/create_user"
-    require_relative "statements/drop_index"
-    require_relative "statements/drop_keyspace"
-    require_relative "statements/drop_table"
-    require_relative "statements/drop_trigger"
-    require_relative "statements/drop_type"
-    require_relative "statements/drop_user"
-    require_relative "statements/list_users"
-    require_relative "statements/truncate"
-    require_relative "statements/use"
-    require_relative "statements/delete"
-    require_relative "statements/update"
-
-  end # module Statements
-
 end # module CQLBuilder

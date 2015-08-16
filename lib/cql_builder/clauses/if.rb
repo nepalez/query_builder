@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require_relative "condition"
+
 module CQLBuilder
 
   module Clauses

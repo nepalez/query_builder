@@ -4,12 +4,18 @@ require "equalizer"
 require "ice_nine"
 require "transproc"
 
+# Loads the core part of the builder
+require_relative "cql_builder/attribute_error"
 require_relative "cql_builder/attribute"
-require_relative "cql_builder/exceptions"
 require_relative "cql_builder/operators"
 require_relative "cql_builder/base"
 require_relative "cql_builder/clause"
 require_relative "cql_builder/statement"
+
+# Loads CQL-specific definitions
+[:operators, :clauses, :statements]
+  .map { |part| File.expand_path("../cql_builder/#{part}/*.rb", __FILE__) }
+  .flat_map(&Dir.method(:[])).each(&method(:require))
 
 # The builder of CQL statements
 #

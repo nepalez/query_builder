@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require_relative "cql_literal"
+
 module CQLBuilder
 
   module Operators

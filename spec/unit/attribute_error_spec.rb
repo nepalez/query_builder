@@ -2,7 +2,7 @@
 
 module CQLBuilder
 
-  describe CQLBuilder::Exceptions::AttributeError do
+  describe CQLBuilder::AttributeError do
 
     let(:error) { described_class.new(:missed, attributes) }
     let(:attributes) { [:foo] }
@@ -37,6 +37,6 @@ module CQLBuilder
       end # context
     end # describe #message
 
-  end # describe CQLBuilder::Exceptions::AttributeError
+  end # describe CQLBuilder::AttributeError
 
 end # module CQLBuilder

@@ -82,7 +82,7 @@ module CQLBuilder
 
         it "raises AttributeError" do
           expect { subject }.to raise_error do |error|
-            expect(error).to be_kind_of Exceptions::AttributeError
+            expect(error).to be_kind_of AttributeError
             expect(error.message).to include "unknown "
             expect(error.message).to include "bar"
           end
@@ -94,7 +94,7 @@ module CQLBuilder
 
         it "raises AttributeError" do
           expect { subject }.to raise_error do |error|
-            expect(error).to be_kind_of Exceptions::AttributeError
+            expect(error).to be_kind_of AttributeError
             expect(error.message).to include "missed "
             expect(error.message).to include "bar"
           end

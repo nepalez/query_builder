@@ -30,27 +30,4 @@ module CQLBuilder
 
   end # class Clause
 
-  # The collection of concrete CQL clauses
-  #
-  module Clauses
-
-    require_relative "clauses/condition"
-    require_relative "clauses/if"
-    require_relative "clauses/where"
-    require_relative "clauses/with"
-
-    require_relative "clauses/column"
-    require_relative "clauses/exists"
-    require_relative "clauses/superuser"
-    require_relative "clauses/use"
-    require_relative "clauses/primary_key"
-    require_relative "clauses/compact_storage"
-    require_relative "clauses/clustering_order"
-    require_relative "clauses/on"
-    require_relative "clauses/using"
-    require_relative "clauses/value"
-    require_relative "clauses/set"
-
-  end # module Clauses
-
 end # module CQLBuilder
