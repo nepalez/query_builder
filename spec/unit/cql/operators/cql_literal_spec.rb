@@ -75,4 +75,9 @@ describe QueryBuilder::CQL::Operators, ".cql_literal" do
     let(:output) { "{'foo': 'bar', 'baz': 0x03, 'qux': {'quxx': true}}" }
   end
 
+  it_behaves_like :transforming_immutable_data do
+    let(:input)  { [:foo, :bar, baz: "0x03"] }
+    let(:output) { "['foo', 'bar', {'baz': 0x03}]" }
+  end
+
 end # describe QueryBuilder::CQL::Operators.cql_literal

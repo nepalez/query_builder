@@ -4,7 +4,7 @@ module QueryBuilder::CQL::Operators
 
   class << self
 
-    # Converts value to CQL cql_literal
+    # Converts value to CQL literal
     #
     # @example
     #   fn = Operators[:cql_literal]
@@ -17,14 +17,19 @@ module QueryBuilder::CQL::Operators
     # @return [String]
     #
     def cql_literal(value)
-      return "NaN"               if nan?(value)
-      return "Infinity"          if infinity?(value)
-      return value.to_s          if unchanged?(value)
-      return cql_literal_hash(value) if value.instance_of?(Hash)
+      return "NaN"                    if nan?(value)
+      return "Infinity"               if infinity?(value)
+      return value.to_s               if unchanged?(value)
+      return cql_literal_array(value) if array?(value)
+      return cql_literal_hash(value)  if hash?(value)
       quote(value)
     end
 
     private
+
+    def cql_literal_array(value)
+      "[#{value.map(&method(:cql_literal)).join(", ")}]"
+    end
 
     def cql_literal_hash(value)
       str =
@@ -64,6 +69,14 @@ module QueryBuilder::CQL::Operators
 
     def bool?(value)
       [true, false].include? value
+    end
+
+    def hash?(value)
+      value.instance_of? Hash
+    end
+
+    def array?(value)
+      value.instance_of? Array
     end
 
   end
