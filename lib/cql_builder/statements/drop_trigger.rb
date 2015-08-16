@@ -20,6 +20,8 @@ module CQLBuilder
 
       # Adds ON clause to the statement
       #
+      # @param [#to_s] table The name of the table
+      #
       # @return [CQLBuilder::Statements::DropTrigger]
       #
       def on(table)

@@ -32,8 +32,6 @@ module CQLBuilder
       #
       # @param [#to_s] name
       # @param [#to_s] type_name
-      # @param [Hash] options
-      # @option options [Boolean] :static
       #
       # @return [CQLBuilder::Statements::CreateType]
       #

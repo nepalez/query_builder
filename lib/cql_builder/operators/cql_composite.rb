@@ -11,12 +11,12 @@ module CQLBuilder
     #   fn[:foo, :bar, :baz]
     #   # => "(foo, bar, baz)"
     #
-    # @param [#to_s] value
+    # @param [Array<#to_s>] columns List of columns for the composite
     #
     # @return [String]
     #
-    def self.cql_composite(*values)
-      "(#{values.flatten.join(", ")})"
+    def self.cql_composite(*columns)
+      "(#{columns.flatten.join(", ")})"
     end
 
   end # module Operators
