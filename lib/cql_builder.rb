@@ -270,4 +270,21 @@ module CQLBuilder
     Statements::DropTrigger.new(name: name)
   end
 
+  # Builds the 'DELETE' CQL statement
+  #
+  # @see https://cassandra.apache.org/doc/cql3/CQL.html#deleteStmt
+  #   Apache CQL documentation
+  #
+  # @example
+  #   statement = CQLBuilder.delete_from(:foo).value(:bar)
+  #   statement.to_s # => "DELETE bar FROM foo;"
+  #
+  # @param [#to_s] name The name of the trigger
+  #
+  # @return [CQLBuilder::Statements::Delete]
+  #
+  def self.delete_from(name)
+    Statements::Delete.new(name: name)
+  end
+
 end # module CQLBuilder
