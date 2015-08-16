@@ -26,6 +26,8 @@ module CQLBuilder
     require_relative "operators/cql_composite"
     require_relative "operators/cql_element"
     require_relative "operators/cql_in"
+    require_relative "operators/cql_inc"
+    require_relative "operators/cql_dec"
 
     private
 
