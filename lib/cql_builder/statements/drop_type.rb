@@ -10,12 +10,12 @@ module CQLBuilder
 
       attribute :name, required: true
 
-      # Adds IF EXISTS clause to the statement description
+      # Adds IF EXISTS clause to the statement
       #
       # @return [CQLBuilder::Statements::DropType]
       #
       def if_exists
-        self << Clauses::IfExists.new
+        self << Clauses::Exists.new
       end
 
       # Builds the statement
@@ -23,7 +23,14 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["DROP TYPE", clauses(:if_exists), name.to_s]
+        cql["DROP TYPE", maybe_if, name.to_s]
+      end
+
+      private
+
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
       end
 
     end # class DropType

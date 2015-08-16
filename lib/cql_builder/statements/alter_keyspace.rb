@@ -10,7 +10,7 @@ module CQLBuilder
 
       attribute :name, required: true
 
-      # Adds WITH clause to the statement description
+      # Adds WITH clause to the statement
       #
       # @param [Hash] options
       #

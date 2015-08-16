@@ -6,9 +6,9 @@ module CQLBuilder
 
     # Describes IF EXISTS clause
     #
-    class IfExists < Clause
+    class Exists < Clause
 
-      type :if_exists
+      type :if
       attribute :reverse, default: false
 
       # Returns the CQL representation of the clause
@@ -16,7 +16,7 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        ["IF", maybe_not, "EXISTS"].compact.join(" ")
+        [maybe_not, "EXISTS"].compact.join(" ")
       end
 
       private
@@ -25,7 +25,7 @@ module CQLBuilder
         "NOT" if reverse
       end
 
-    end # class IfExists
+    end # class Exists
 
   end # module Clauses
 

@@ -10,12 +10,12 @@ module CQLBuilder
 
       attribute :name, required: true
 
-      # Adds IF EXISTS clause to the statement description
+      # Adds IF EXISTS clause to the statement
       #
       # @return [CQLBuilder::Statements::DropTable]
       #
       def if_exists
-        self << Clauses::IfExists.new
+        self << Clauses::Exists.new
       end
 
       # Defines keyspace for the table
@@ -33,10 +33,15 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["DROP TABLE", clauses(:if_exists), full_name]
+        cql["DROP TABLE", maybe_if, full_name]
       end
 
       private
+
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
+      end
 
       def full_name
         keyspace = clauses(:use).last

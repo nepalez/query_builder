@@ -10,14 +10,18 @@ module CQLBuilder
 
       attribute :name, required: true
 
-      # Adds IF EXISTS clause to the statement description
+      # Adds IF EXISTS clause to the statement
       #
       # @return [CQLBuilder::Statements::DropTrigger]
       #
       def if_exists
-        self << Clauses::IfExists.new
+        self << Clauses::Exists.new
       end
 
+      # Adds ON clause to the statement
+      #
+      # @return [CQLBuilder::Statements::DropTrigger]
+      #
       def on(table)
         self << Clauses::On.new(name: table)
       end
@@ -27,10 +31,15 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["DROP TRIGGER", clauses(:if_exists), name.to_s, maybe_on]
+        cql["DROP TRIGGER", maybe_if, name.to_s, maybe_on]
       end
 
       private
+
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
+      end
 
       def maybe_on
         table = clauses(:on).last

@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [CQLBuilder::Statements::CreateType]
       #
       def if_not_exists
-        self << Clauses::IfExists.new(reverse: true)
+        self << Clauses::Exists.new(reverse: true)
       end
 
       # Defines keyspace for the type
@@ -46,13 +46,14 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE TYPE", maybe_exists, full_name, "(#{fields})"]
+        cql["CREATE TYPE", maybe_if, full_name, "(#{fields})"]
       end
 
       private
 
-      def maybe_exists
-        clauses(:if_exists)
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
       end
 
       def full_name

@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [CQLBuilder::Statements::CreateTable]
       #
       def if_not_exists
-        self << Clauses::IfExists.new(reverse: true)
+        self << Clauses::Exists.new(reverse: true)
       end
 
       # Defines keyspace for the table
@@ -89,13 +89,14 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE TABLE", maybe_exists, full_name, "(#{columns})", withs]
+        cql["CREATE TABLE", maybe_if, full_name, "(#{columns})", maybe_with]
       end
 
       private
 
-      def maybe_exists
-        clauses(:if_exists)
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
       end
 
       def full_name
@@ -103,7 +104,7 @@ module CQLBuilder
         (keyspace ? "#{keyspace}." : "") << name.to_s
       end
 
-      def withs
+      def maybe_with
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end

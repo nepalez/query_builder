@@ -10,15 +10,15 @@ module CQLBuilder
 
       attribute :name, required: true
 
-      # Adds IF NOT EXISTS clause to the statement description
+      # Adds IF NOT EXISTS clause to the statement
       #
       # @return [CQLBuilder::Statements::CreateKeyspace]
       #
       def if_not_exists
-        self << Clauses::IfExists.new(reverse: true)
+        self << Clauses::Exists.new(reverse: true)
       end
 
-      # Adds WITH clause to the statement description
+      # Adds WITH clause to the statement
       #
       # @param [Hash] options
       #
@@ -35,12 +35,17 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql["CREATE KEYSPACE", clauses(:if_exists), name.to_s, withs]
+        cql["CREATE KEYSPACE", maybe_if, name.to_s, maybe_with]
       end
 
       private
 
-      def withs
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
+      end
+
+      def maybe_with
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end

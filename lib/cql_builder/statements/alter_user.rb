@@ -15,7 +15,7 @@ module CQLBuilder
       # @return [CQLBuilder::Statements::AlterUser]
       #
       def if_not_exists
-        self << Clauses::IfExists.new(reverse: true)
+        self << Clauses::Exists.new(reverse: true)
       end
 
       # Adds WITH PASSWORD clause to the statement
@@ -43,13 +43,22 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        cql[
-          "ALTER USER",
-          clauses(:if_exists),
-          name.to_s,
-          clauses(:with_password).last,
-          clauses(:superuser).last
-        ]
+        cql["ALTER USER", maybe_if, name.to_s, maybe_password, maybe_superuser]
+      end
+
+      private
+
+      def maybe_if
+        ifs = clauses(:if)
+        ifs.any? ? ["IF", ifs.join(" AND ")] : nil
+      end
+
+      def maybe_password
+        clauses(:with_password).last
+      end
+
+      def maybe_superuser
+        clauses(:superuser).last
       end
 
     end # class AlterUser
