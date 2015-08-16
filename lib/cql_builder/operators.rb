@@ -28,6 +28,10 @@ module CQLBuilder
     require_relative "operators/cql_in"
     require_relative "operators/cql_inc"
     require_relative "operators/cql_dec"
+    require_relative "operators/cql_lt"
+    require_relative "operators/cql_lte"
+    require_relative "operators/cql_gt"
+    require_relative "operators/cql_gte"
 
     private
 
