@@ -24,6 +24,7 @@ module CQLBuilder
     require_relative "operators/cql_tuple"
     require_relative "operators/cql_frozen"
     require_relative "operators/cql_composite"
+    require_relative "operators/cql_in"
 
     private
 
