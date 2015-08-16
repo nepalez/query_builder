@@ -49,6 +49,7 @@ module CQLBuilder
     require_relative "clauses/on"
     require_relative "clauses/using"
     require_relative "clauses/value"
+    require_relative "clauses/set"
 
   end # module Clauses
 
