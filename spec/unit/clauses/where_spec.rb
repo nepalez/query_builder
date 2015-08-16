@@ -13,8 +13,13 @@ describe CQLBuilder::Clauses::Where do
   end
 
   it_behaves_like :cql_builder do
-    let(:args) { { column: :foo, value: -> col { "COUNT(#{col})" } } }
-    let(:cql)  { "COUNT(foo)" }
+    let(:args) { { column: :foo, value: [:bar, :baz] } }
+    let(:cql)  { "foo IN ('bar', 'baz')" }
+  end
+
+  it_behaves_like :cql_builder do
+    let(:args) { { column: :foo, value: -> col { "#{col} < 3" } } }
+    let(:cql)  { "foo < 3" }
   end
 
 end # describe CQLBuilder::Clauses::Where

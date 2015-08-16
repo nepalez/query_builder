@@ -26,8 +26,23 @@ module CQLBuilder
       # @return [String]
       #
       def to_s
-        return value[column] if value.respond_to?(:call)
+        return operator  if value.respond_to?(:call)
+        return inclusion if value.instance_of? Array
+        equality
+      end
+
+      private
+
+      def equality
         "#{column} = #{cql_literal[value]}"
+      end
+
+      def inclusion
+        cql_in[column, *value]
+      end
+
+      def operator
+        value[column]
       end
 
     end # class Condition
