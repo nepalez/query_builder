@@ -5,13 +5,13 @@ module QueryBuilder::CQL::Clauses
   # Describes column or field
   #
   # @example
-  #   clause = Value.new(name: :foo)
-  #   clause.type # => :value
+  #   clause = Field.new(name: :foo)
+  #   clause.type # => :field
   #   clause.to_s # => "foo"
   #
-  class Value < Base
+  class Field < Base
 
-    type :value
+    type :field
 
     attribute :name, required: true
 
@@ -23,6 +23,6 @@ module QueryBuilder::CQL::Clauses
       name.to_s
     end
 
-  end # class Value
+  end # class Field
 
 end # module QueryBuilder::CQL::Clauses

@@ -73,7 +73,7 @@ module QueryBuilder::CQL
       # @alias value
       #
       def values(*columns)
-        columns.map { |name| Clauses::Value.new(name: name) }.inject(self, :<<)
+        columns.map { |name| Clauses::Field.new(name: name) }.inject(self, :<<)
       end
       alias_method :value, :values
 
@@ -83,7 +83,7 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "DELETE", maybe_values, "FROM", full_name,
+          "DELETE", maybe_fields, "FROM", full_name,
           maybe_using, maybe_where, maybe_if
         ]
       end
@@ -95,8 +95,8 @@ module QueryBuilder::CQL
         (keyspace ? "#{keyspace}." : "") << name.to_s
       end
 
-      def maybe_values
-        list = clauses(:value)
+      def maybe_fields
+        list = clauses(:field)
         [list.join(", ")] if list.any?
       end
 
