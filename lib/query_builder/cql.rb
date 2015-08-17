@@ -299,6 +299,23 @@ module QueryBuilder
       Statements::Update.new(name: name)
     end
 
+    # Builds the 'INSERT' CQL statement
+    #
+    # @see https://cassandra.apache.org/doc/cql3/CQL.html#insertStmt
+    #   Apache CQL documentation
+    #
+    # @example
+    #   statement = QueryBuilder.insert_into(:foo).set(bar: :baz)
+    #   statement.to_s # => "INSERT INTO foo (bar) VALUES ('baz');"
+    #
+    # @param [#to_s] name The name of the table
+    #
+    # @return [QueryBuilder::Statements::Insert]
+    #
+    def self.insert_into(name)
+      Statements::Insert.new(name: name)
+    end
+
   end # module CQL
 
 end # module QueryBuilder
