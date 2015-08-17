@@ -9,6 +9,7 @@ module QueryBuilder::CQL
     class Delete < Base
 
       include Modifiers::Where
+      include Modifiers::IfExists
 
       # Adds IF clause to the statement
       #
@@ -32,14 +33,6 @@ module QueryBuilder::CQL
         options
           .map { |key, value| Clauses::Using.new(property: key, value: value) }
           .inject(self, :<<)
-      end
-
-      # Adds IF EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::Delete]
-      #
-      def if_exists
-        self << Clauses::Exists.new
       end
 
       # Adds columns that should be deleted
@@ -71,11 +64,6 @@ module QueryBuilder::CQL
       def maybe_fields
         list = clauses(:field)
         [list.join(", ")] if list.any?
-      end
-
-      def maybe_if
-        list = clauses(:if)
-        ["IF", list.sort.join(" AND ")] if list.any?
       end
 
       def maybe_using

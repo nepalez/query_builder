@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class DropKeyspace < Base
 
-      # Adds IF EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::DropKeyspace]
-      #
-      def if_exists
-        self << Clauses::Exists.new
-      end
+      include Modifiers::IfExists
 
       # Builds the statement
       #
@@ -22,13 +16,6 @@ module QueryBuilder::CQL
       #
       def to_s
         cql["DROP KEYSPACE", maybe_if, context.to_s]
-      end
-
-      private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
     end # class DropKeyspace

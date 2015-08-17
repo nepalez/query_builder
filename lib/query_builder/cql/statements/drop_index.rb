@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class DropIndex < Base
 
-      # Adds IF EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::DropIndex]
-      #
-      def if_exists
-        self << Clauses::Exists.new
-      end
+      include Modifiers::IfExists
 
       # Builds the statement
       #
@@ -28,11 +22,6 @@ module QueryBuilder::CQL
 
       def full_name
         "#{context.table.keyspace.name}.#{context.name}"
-      end
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
     end # class DropIndex

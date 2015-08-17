@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class DropType < Base
 
-      # Adds IF EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::DropType]
-      #
-      def if_exists
-        self << Clauses::Exists.new
-      end
+      include Modifiers::IfExists
 
       # Builds the statement
       #
@@ -22,13 +16,6 @@ module QueryBuilder::CQL
       #
       def to_s
         cql["DROP TYPE", maybe_if, context.to_s]
-      end
-
-      private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
     end # class DropType

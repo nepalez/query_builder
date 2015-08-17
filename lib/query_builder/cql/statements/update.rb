@@ -9,14 +9,7 @@ module QueryBuilder::CQL
     class Update < Base
 
       include Modifiers::Where
-
-      # Adds IF EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::Update]
-      #
-      def if_exists
-        self << Clauses::Exists.new
-      end
+      include Modifiers::IfExists
 
       # Adds SET clause to the statement
       #
@@ -69,11 +62,6 @@ module QueryBuilder::CQL
       def maybe_set
         list = clauses(:set)
         ["SET", list.join(", ")] if list.any?
-      end
-
-      def maybe_if
-        list = clauses(:if)
-        ["IF", list.sort.join(" AND ")] if list.any?
       end
 
       def maybe_using
