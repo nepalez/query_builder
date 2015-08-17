@@ -9,6 +9,7 @@ module QueryBuilder::CQL
     class CreateIndex < Base
 
       include Modifiers::IfNotExists
+      include Modifiers::WithOptions
       include Modifiers::Using
 
       # Defines columns for the index
@@ -19,16 +20,6 @@ module QueryBuilder::CQL
       #
       def columns(*cols)
         cols.map { |col| Clauses::Field.new(name: col) }.inject(self, :<<)
-      end
-
-      # Adds WITH clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def with(options)
-        self << Clauses::With.new(column: :options, value: options)
       end
 
       # Builds the statement
@@ -54,11 +45,6 @@ module QueryBuilder::CQL
 
       def maybe_columns
         "(#{clauses(:field).join(", ")})"
-      end
-
-      def maybe_with
-        list = clauses(:with)
-        list.any? ? ["WITH", list.last] : nil
       end
 
     end # class CreateIndex
