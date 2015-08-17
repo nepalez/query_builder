@@ -82,6 +82,16 @@ module QueryBuilder
       Statements::Delete.new(name: name)
     end
 
+    # Builds the 'DROP AGGREGATE' CQL statement
+    #
+    # @param [#to_s] name The name of the user defined aggregate
+    #
+    # @return [QueryBuilder::Statements::DropAggregate]
+    #
+    def self.drop_aggregate(name)
+      Statements::DropAggregate.new(name: name)
+    end
+
     # Builds the 'DROP FUNCTION' CQL statement
     #
     # @param [#to_s] name The name of the function
