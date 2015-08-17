@@ -51,6 +51,16 @@ module QueryBuilder
       Statements::CreateTable.new(name: name)
     end
 
+    # Builds the 'CREATE TRIGGER' CQL statement
+    #
+    # @param [#to_s] name The name of the trigger
+    #
+    # @return [QueryBuilder::Statements::CreateTrigger]
+    #
+    def self.create_trigger(name)
+      Statements::CreateTrigger.new(name: name)
+    end
+
     # Builds the 'CREATE TYPE' CQL statement
     #
     # @param [#to_s] name The name of the type
