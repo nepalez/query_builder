@@ -31,6 +31,16 @@ module QueryBuilder
       Statements::AlterUser.new(name: name, password: password)
     end
 
+    # Builds the 'CREATE INDEX' CQL statement
+    #
+    # @param [#to_s, nil] name The name of the table
+    #
+    # @return [QueryBuilder::Statements::CreateIndex]
+    #
+    def self.create_index(name = nil)
+      Statements::CreateIndex.new(name: name)
+    end
+
     # Builds the 'CREATE KEYSPACE' CQL statement
     #
     # @param [#to_s] name The name of the keyspace
