@@ -8,17 +8,7 @@ module QueryBuilder::CQL
     #
     class Delete < Base
 
-      # Adds WHERE clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Delete]
-      #
-      def where(options)
-        options
-          .map { |key, value| Clauses::Where.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
+      include Modifiers::Where
 
       # Adds IF clause to the statement
       #
@@ -81,11 +71,6 @@ module QueryBuilder::CQL
       def maybe_fields
         list = clauses(:field)
         [list.join(", ")] if list.any?
-      end
-
-      def maybe_where
-        list = clauses(:where)
-        ["WHERE", list.join(" AND ")] if list.any?
       end
 
       def maybe_if

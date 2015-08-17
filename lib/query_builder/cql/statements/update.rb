@@ -8,6 +8,8 @@ module QueryBuilder::CQL
     #
     class Update < Base
 
+      include Modifiers::Where
+
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::Update]
@@ -25,18 +27,6 @@ module QueryBuilder::CQL
       def set(options)
         options
           .map { |key, value| Clauses::Set.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
-
-      # Adds WHERE clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Update]
-      #
-      def where(options)
-        options
-          .map { |key, value| Clauses::Where.new(column: key, value: value) }
           .inject(self, :<<)
       end
 
@@ -79,11 +69,6 @@ module QueryBuilder::CQL
       def maybe_set
         list = clauses(:set)
         ["SET", list.join(", ")] if list.any?
-      end
-
-      def maybe_where
-        list = clauses(:where)
-        ["WHERE", list.join(" AND ")] if list.any?
       end
 
       def maybe_if
