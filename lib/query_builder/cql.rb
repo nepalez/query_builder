@@ -129,6 +129,23 @@ module QueryBuilder
       Statements::DropUser.new(name: name)
     end
 
+    # Builds the 'DROP ROLE' CQL statement
+    #
+    # @see https://cassandra.apache.org/doc/cql3/CQL.html#dropRoleStmt
+    #   Apache CQL documentation
+    #
+    # @example
+    #   statement = QueryBuilder.drop_role(:name).if_exists
+    #   statement.to_s # => "DROP ROLE IF EXISTS name;"
+    #
+    # @param [#to_s] name The name of the role
+    #
+    # @return [QueryBuilder::Statements::DropRole]
+    #
+    def self.drop_role(name)
+      Statements::DropRole.new(name: name)
+    end
+
     # Builds the 'LIST USERS' CQL statement
     #
     # @see https://cassandra.apache.org/doc/cql3/CQL.html#listUsersStmt
