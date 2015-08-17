@@ -21,7 +21,7 @@ module QueryBuilder::CQL::Clauses
     #
     def to_s
       return name.to_s unless name.instance_of? Array
-      "(#{name.flatten.map(&:to_s).join(", ")})"
+      "(#{name.join(", ")})"
     end
 
   end # class Field

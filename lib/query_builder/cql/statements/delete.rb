@@ -8,18 +8,6 @@ module QueryBuilder::CQL
     #
     class Delete < Base
 
-      attribute :name, required: true
-
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::Delete]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
-      end
-
       # Adds WHERE clause to the statement
       #
       # @param [Hash] options
@@ -83,17 +71,12 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "DELETE", maybe_fields, "FROM", full_name,
+          "DELETE", maybe_fields, "FROM", context.to_s,
           maybe_using, maybe_where, maybe_if
         ]
       end
 
       private
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
-      end
 
       def maybe_fields
         list = clauses(:field)

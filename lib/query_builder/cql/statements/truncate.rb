@@ -8,31 +8,12 @@ module QueryBuilder::CQL
     #
     class Truncate < Base
 
-      attribute :name, required: true
-
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::Truncate]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
-      end
-
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["TRUNCATE", full_name]
-      end
-
-      private
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
+        cql["TRUNCATE", context.to_s]
       end
 
     end # class Truncate

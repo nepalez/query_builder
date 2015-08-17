@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropKeyspace < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropKeyspace]
@@ -23,7 +21,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["DROP KEYSPACE", maybe_if, name.to_s]
+        cql["DROP KEYSPACE", maybe_if, context.to_s]
       end
 
       private

@@ -8,7 +8,6 @@ module QueryBuilder::CQL
     #
     class AlterUser < Base
 
-      attribute :name, required: true
       attribute :password, required: true
 
       # Adds SUPERUSER|NOSUPERUSER clause to the statement
@@ -28,7 +27,7 @@ module QueryBuilder::CQL
       def to_s
         cql[
           "ALTER USER",
-          name.to_s,
+          context.name,
           "WITH PASSWORD",
           cql_literal[password],
           maybe_superuser

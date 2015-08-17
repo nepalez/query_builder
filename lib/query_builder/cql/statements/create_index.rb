@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class CreateIndex < Base
 
-      attribute :name, required: true
-
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::CreateIndex]
@@ -18,34 +16,14 @@ module QueryBuilder::CQL
         self << Clauses::Exists.new(reverse: true)
       end
 
-      # Defines keyspace for the index
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
-      end
-
       # Defines columns for the index
       #
-      # @param [#to_s, Array<#to_s>] columns
+      # @param [#to_s, Array<#to_s>] cols
       #
       # @return [QueryBuilder::Statements::CreateIndex]
       #
       def columns(*cols)
         cols.map { |col| Clauses::Field.new(name: col) }.inject(self, :<<)
-      end
-
-      # Defines the table for the index
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def on(name)
-        self << Clauses::On.new(name: name)
       end
 
       # Defines java class for the index
@@ -75,18 +53,18 @@ module QueryBuilder::CQL
       def to_s
         cql[
           "CREATE", maybe_custom, "INDEX", maybe_if, maybe_name,
-          "ON", full_name, maybe_columns, maybe_using, maybe_with
+          "ON", context.table.to_s, maybe_columns, maybe_using, maybe_with
         ]
       end
 
       private
 
-      def maybe_custom
-        "CUSTOM" unless name
+      def maybe_name
+        context.name.to_s if context.name
       end
 
-      def maybe_name
-        name.to_s if name
+      def maybe_custom
+        "CUSTOM" unless maybe_name
       end
 
       def maybe_columns
@@ -106,12 +84,6 @@ module QueryBuilder::CQL
       def maybe_with
         list = clauses(:with)
         list.any? ? ["WITH", list.last] : nil
-      end
-
-      def full_name
-        table    = clauses(:on).last
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << table.to_s
       end
 
     end # class CreateIndex

@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".use" do
+describe "USE" do
 
-  let(:statement) { described_class.use(:foo) }
+  let(:keyspace) { QueryBuilder::CQL.keyspace(:wildlife) }
 
   it_behaves_like :query_builder do
-    subject   { statement }
-    let(:cql) { "USE foo;" }
+    subject   { keyspace.use }
+    let(:cql) { "USE wildlife;" }
   end
 
-end # describe QueryBuilder::CQL.use
+end # describe USE

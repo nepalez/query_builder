@@ -8,24 +8,12 @@ module QueryBuilder::CQL
     #
     class CreateTable < Base
 
-      attribute :name, required: true
-
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::CreateTable]
       #
       def if_not_exists
         self << Clauses::Exists.new(reverse: true)
-      end
-
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
       end
 
       # Defines a primary key for the table
@@ -89,7 +77,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["CREATE TABLE", maybe_if, full_name, "(#{columns})", maybe_with]
+        cql["CREATE TABLE", maybe_if, context.to_s, "(#{columns})", maybe_with]
       end
 
       private
@@ -97,11 +85,6 @@ module QueryBuilder::CQL
       def maybe_if
         list = clauses(:if)
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
       end
 
       def maybe_with

@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-# The builder of CQL (Cassandra Query Language) statements
-#
 module QueryBuilder
 
   # The semantic version of the module.

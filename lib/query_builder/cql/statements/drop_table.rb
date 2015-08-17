@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropTable < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropTable]
@@ -18,22 +16,12 @@ module QueryBuilder::CQL
         self << Clauses::Exists.new
       end
 
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::DropTable]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
-      end
-
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["DROP TABLE", maybe_if, full_name]
+        cql["DROP TABLE", maybe_if, context.to_s]
       end
 
       private
@@ -41,11 +29,6 @@ module QueryBuilder::CQL
       def maybe_if
         list = clauses(:if)
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
       end
 
     end # class DropTable

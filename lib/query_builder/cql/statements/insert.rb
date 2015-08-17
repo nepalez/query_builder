@@ -8,24 +8,12 @@ module QueryBuilder::CQL
     #
     class Insert < Base
 
-      attribute :name, required: true
-
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::Insert]
       #
       def if_not_exists
         self << Clauses::Exists.new(reverse: true)
-      end
-
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::Insert]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
       end
 
       # Adds USING clause to the statement
@@ -58,17 +46,12 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "INSERT INTO", full_name, maybe_columns, "VALUES", maybe_values,
+          "INSERT INTO", context.to_s, maybe_columns, "VALUES", maybe_values,
           maybe_using, maybe_if
         ]
       end
 
       private
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
-      end
 
       def maybe_if
         list = clauses(:if)

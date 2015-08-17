@@ -15,7 +15,7 @@ module QueryBuilder::CQL::Operators
   # @return [String]
   #
   def self.cql_tuple(*types)
-    "TUPLE<#{types.flatten.join(", ")}>"
+    "TUPLE<#{types.join(", ")}>"
   end
 
 end # module QueryBuilder::CQL::Operators

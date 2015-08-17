@@ -8,14 +8,12 @@ module QueryBuilder::CQL
     #
     class Use < Base
 
-      attribute :name, required: true
-
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["USE", name.to_s]
+        cql["USE", context.to_s]
       end
 
     end # class Use

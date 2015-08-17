@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class CreateKeyspace < Base
 
-      attribute :name, required: true
-
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::CreateKeyspace]
@@ -35,7 +33,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["CREATE KEYSPACE", maybe_if, name.to_s, maybe_with]
+        cql["CREATE KEYSPACE", maybe_if, context.to_s, maybe_with]
       end
 
       private

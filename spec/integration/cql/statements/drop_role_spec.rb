@@ -1,17 +1,18 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".drop_role" do
+describe "DROP ROLE" do
 
-  let(:statement) { described_class.drop_role(:foo) }
+  let(:role)      { QueryBuilder::CQL.role(:admin) }
+  let(:statement) { role.drop }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "DROP ROLE foo;" }
+    let(:cql) { "DROP ROLE admin;" }
   end
 
   it_behaves_like :query_builder do
-    subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP ROLE IF EXISTS foo;" }
+    subject   { statement.if_exists }
+    let(:cql) { "DROP ROLE IF EXISTS admin;" }
   end
 
-end # describe QueryBuilder::CQL.drop_role
+end # describe DROP ROLE

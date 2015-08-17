@@ -1,27 +1,21 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".drop_function" do
+describe "DROP FUNCTION" do
 
-  let(:statement) { described_class.drop_function(:foo) }
+  let(:function) do
+    QueryBuilder::CQL.keyspace(:wildlife).function(:count_species)
+  end
+
+  let(:statement) { function.drop }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "DROP FUNCTION foo;" }
+    let(:cql) { "DROP FUNCTION wildlife.count_species;" }
   end
 
   it_behaves_like :query_builder do
-    subject   { statement.use(:bar) }
-    let(:cql) { "DROP FUNCTION bar.foo;" }
+    subject   { statement.if_exists }
+    let(:cql) { "DROP FUNCTION IF EXISTS wildlife.count_species;" }
   end
 
-  it_behaves_like :query_builder do
-    subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP FUNCTION IF EXISTS foo;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.use(:bar).if_exists }
-    let(:cql) { "DROP FUNCTION IF EXISTS bar.foo;" }
-  end
-
-end # describe QueryBuilder::CQL.drop_function
+end # describe DROP FUNCTION

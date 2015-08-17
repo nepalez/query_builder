@@ -8,12 +8,18 @@ describe QueryBuilder::CQL::Clauses::Field do
   it_behaves_like :a_clause, :field
 
   it_behaves_like :query_builder do
+    let(:name) { :foo }
     let(:cql)  { "foo" }
   end
 
   it_behaves_like :query_builder do
     let(:name) { [:foo, :bar] }
     let(:cql)  { "(foo, bar)" }
+  end
+
+  it_behaves_like :query_builder do
+    let(:name) { [:foo, [:bar, :baz]] }
+    let(:cql)  { "(foo, bar, baz)" }
   end
 
 end # describe QueryBuilder::CQL::Clauses::Field

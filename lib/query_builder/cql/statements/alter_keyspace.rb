@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class AlterKeyspace < Base
 
-      attribute :name, required: true
-
       # Adds WITH clause to the statement
       #
       # @param [Hash] options
@@ -27,7 +25,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["ALTER KEYSPACE", name.to_s, maybe_with]
+        cql["ALTER KEYSPACE", context.to_s, maybe_with]
       end
 
       private

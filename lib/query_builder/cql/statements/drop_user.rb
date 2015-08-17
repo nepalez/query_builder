@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropUser < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropUser]
@@ -23,7 +21,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["DROP USER", maybe_if, name.to_s]
+        cql["DROP USER", maybe_if, context.to_s]
       end
 
       private

@@ -1,17 +1,18 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".drop_type" do
+describe "DROP TYPE" do
 
-  let(:statement) { described_class.drop_type(:foo) }
+  let(:type)      { QueryBuilder::CQL.keyspace(:wildlife).type(:species) }
+  let(:statement) { type.drop }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "DROP TYPE foo;" }
+    let(:cql) { "DROP TYPE wildlife.species;" }
   end
 
   it_behaves_like :query_builder do
     subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP TYPE IF EXISTS foo;" }
+    let(:cql) { "DROP TYPE IF EXISTS wildlife.species;" }
   end
 
-end # describe QueryBuilder::CQL.drop_type
+end # describe DROP TYPE

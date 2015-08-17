@@ -8,7 +8,6 @@ module QueryBuilder::CQL
     #
     class CreateUser < Base
 
-      attribute :name, required: true
       attribute :password, required: true
 
       # Adds IF NOT EXISTS clause to the statement
@@ -37,7 +36,7 @@ module QueryBuilder::CQL
         cql[
           "CREATE USER",
           maybe_if,
-          name.to_s,
+          context.name.to_s,
           "WITH PASSWORD",
           cql_literal[password],
           maybe_superuser

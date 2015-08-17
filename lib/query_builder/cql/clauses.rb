@@ -14,7 +14,7 @@ module QueryBuilder
 
         include Operators # CQL-specific
 
-      end # class Clause
+      end # class Base
 
       Dir[File.expand_path("../clauses/*.rb", __FILE__)].each(&method(:load))
 

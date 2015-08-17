@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropAggregate < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropAggregate]
@@ -18,30 +16,15 @@ module QueryBuilder::CQL
         self << Clauses::Exists.new
       end
 
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::DropAggregate]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
-      end
-
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["DROP AGGREGATE", maybe_if, full_name]
+        cql["DROP AGGREGATE", maybe_if, context.to_s]
       end
 
       private
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
-      end
 
       def maybe_if
         list = clauses(:if)

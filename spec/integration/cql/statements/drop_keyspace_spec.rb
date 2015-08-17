@@ -1,17 +1,18 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".drop_keyspace" do
+describe "DROP KEYSPACE" do
 
-  let(:statement) { described_class.drop_keyspace(:foo) }
+  let(:keyspace)  { QueryBuilder::CQL.keyspace(:wildlife) }
+  let(:statement) { keyspace.drop }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "DROP KEYSPACE foo;" }
+    let(:cql) { "DROP KEYSPACE wildlife;" }
   end
 
   it_behaves_like :query_builder do
     subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP KEYSPACE IF EXISTS foo;" }
+    let(:cql) { "DROP KEYSPACE IF EXISTS wildlife;" }
   end
 
-end # describe QueryBuilder::CQL.drop_keyspace
+end # describe DROP KEYSPACE

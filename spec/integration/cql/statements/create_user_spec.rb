@@ -1,32 +1,23 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".create_user" do
+describe "CREATE USER" do
 
-  let(:statement) { described_class.create_user(:foo, :baz) }
+  let(:user)      { QueryBuilder::CQL.user(:andrew) }
+  let(:statement) { user.create(:foobar) }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "CREATE USER foo WITH PASSWORD 'baz';" }
+    let(:cql) { "CREATE USER andrew WITH PASSWORD 'foobar';" }
   end
 
   it_behaves_like :query_builder do
-    subject   { statement.if_not_exists.if_not_exists }
-    let(:cql) { "CREATE USER IF NOT EXISTS foo WITH PASSWORD 'baz';" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.superuser(false).superuser }
-    let(:cql) { "CREATE USER foo WITH PASSWORD 'baz' SUPERUSER;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.superuser.superuser(false) }
-    let(:cql) { "CREATE USER foo WITH PASSWORD 'baz' NOSUPERUSER;" }
+    subject   { statement.superuser(false) }
+    let(:cql) { "CREATE USER andrew WITH PASSWORD 'foobar' NOSUPERUSER;" }
   end
 
   it_behaves_like :query_builder do
     subject   { statement.superuser.if_not_exists }
-    let(:cql) { "CREATE USER IF NOT EXISTS foo WITH PASSWORD 'baz' SUPERUSER;" }
+    let(:cql) { "CREATE USER IF NOT EXISTS andrew WITH PASSWORD 'foobar' SUPERUSER;" }
   end
 
 end # describe QueryBuilder::CQL.create_user

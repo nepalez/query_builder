@@ -1,32 +1,24 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".create_keyspace" do
+describe "CREATE KEYSPACE" do
 
-  let(:statement) { described_class.create_keyspace(:foo) }
+  let(:keyspace)  { QueryBuilder::CQL.keyspace(:wildlife) }
+  let(:statement) { keyspace.create }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "CREATE KEYSPACE foo;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.if_not_exists.if_not_exists }
-    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS foo;" }
+    let(:cql) { "CREATE KEYSPACE wildlife;" }
   end
 
   it_behaves_like :query_builder do
     subject do
       statement
+        .if_not_exists
         .with(replication: { class: :SimpleStrategy, replication_factor: 3 })
         .with(durable_writes: false)
     end
 
-    let(:cql) { "CREATE KEYSPACE foo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
+    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS wildlife WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
   end
 
-  it_behaves_like :query_builder do
-    subject   { statement.with(durable_writes: false).if_not_exists }
-    let(:cql) { "CREATE KEYSPACE IF NOT EXISTS foo WITH durable_writes = false;" }
-  end
-
-end # describe QueryBuilder::CQL.create_keyspace
+end # describe CREATE KEYSPACE

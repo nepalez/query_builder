@@ -17,7 +17,6 @@ module QueryBuilder::CQL::Operators
     parts
       .flatten
       .reject { |item| item.nil? || item.empty? }
-      .map(&:to_s)
       .join(" ") << ";"
   end
 

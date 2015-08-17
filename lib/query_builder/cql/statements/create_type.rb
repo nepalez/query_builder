@@ -8,24 +8,12 @@ module QueryBuilder::CQL
     #
     class CreateType < Base
 
-      attribute :name, required: true
-
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::CreateType]
       #
       def if_not_exists
         self << Clauses::Exists.new(reverse: true)
-      end
-
-      # Defines keyspace for the type
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::CreateType]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
       end
 
       # Adds field to the type
@@ -44,7 +32,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["CREATE TYPE", maybe_if, full_name, "(#{fields})"]
+        cql["CREATE TYPE", maybe_if, context.to_s, "(#{fields})"]
       end
 
       private
@@ -52,11 +40,6 @@ module QueryBuilder::CQL
       def maybe_if
         list = clauses(:if)
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
       end
 
       def fields

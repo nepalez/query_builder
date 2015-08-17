@@ -14,7 +14,7 @@ module QueryBuilder::CQL::Operators
   # @return [String]
   #
   def self.cql_composite(*columns)
-    "(#{columns.flatten.join(", ")})"
+    "(#{columns.join(", ")})"
   end
 
 end # module QueryBuilder::CQL::Operators

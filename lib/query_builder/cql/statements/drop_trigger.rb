@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropTrigger < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropTrigger]
@@ -18,22 +16,14 @@ module QueryBuilder::CQL
         self << Clauses::Exists.new
       end
 
-      # Adds ON clause to the statement
-      #
-      # @param [#to_s] table The name of the table
-      #
-      # @return [QueryBuilder::Statements::DropTrigger]
-      #
-      def on(table)
-        self << Clauses::On.new(name: table)
-      end
-
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["DROP TRIGGER", maybe_if, name.to_s, maybe_on]
+        cql[
+          "DROP TRIGGER", maybe_if, context.name.to_s, "ON", context.table.to_s
+        ]
       end
 
       private
@@ -41,11 +31,6 @@ module QueryBuilder::CQL
       def maybe_if
         list = clauses(:if)
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
-
-      def maybe_on
-        table = clauses(:on).last
-        table ? "ON #{table}" : nil
       end
 
     end # class DropTrigger

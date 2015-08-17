@@ -1,78 +1,23 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".update" do
+describe "UPDATE" do
 
   include QueryBuilder::CQL::Operators
 
-  let(:statement) { described_class.update(:foo) }
-
-  it_behaves_like :query_builder do
-    subject   { statement }
-    let(:cql) { "UPDATE foo;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.use(:abc) }
-    let(:cql) { "UPDATE abc.foo;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.set(bar: :baz, qux: 3) }
-    let(:cql) { "UPDATE foo SET bar = 'baz', qux = 3;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.set(bar: :baz).set(qux: 3) }
-    let(:cql) { "UPDATE foo SET bar = 'baz', qux = 3;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.set(bar: cql_inc(3)) }
-    let(:cql) { "UPDATE foo SET bar = bar + 3;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.using(ttl: 100, timestamp: 300) }
-    let(:cql) { "UPDATE foo USING TTL 100 AND TIMESTAMP 300;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.using(ttl: 100).using(timestamp: 300) }
-    let(:cql) { "UPDATE foo USING TTL 100 AND TIMESTAMP 300;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.where(foo: :bar, bar: cql_in(:one, :two)) }
-    let(:cql) { "UPDATE foo WHERE foo = 'bar' AND bar IN ('one', 'two');" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.where(foo: :bar, bar: [:one, :two]) }
-    let(:cql) { "UPDATE foo WHERE foo = 'bar' AND bar IN ('one', 'two');" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.if(bar: :baz) }
-    let(:cql) { "UPDATE foo IF bar = 'baz';" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.if_exists }
-    let(:cql) { "UPDATE foo IF EXISTS;" }
-  end
+  let(:table)     { QueryBuilder::CQL.keyspace(:wildlife).table(:species) }
+  let(:statement) { table.update }
 
   it_behaves_like :query_builder do
     subject do
       statement
-        .use(:abc)
-        .where(foo: :bar, bar: [:one, :two])
-        .set(bar: :baz, qux: 3)
+        .where(id: 1, name: [:tiger, :bear])
+        .set(name: :tiger, weight: 300)
         .if_exists
-        .if(baz: 4)
+        .if(name: :tiger)
         .using(ttl: 100, timestamp: 300)
     end
 
-    let(:cql) { "UPDATE abc.foo USING TTL 100 AND TIMESTAMP 300 SET bar = 'baz', qux = 3 WHERE foo = 'bar' AND bar IN ('one', 'two') IF EXISTS AND baz = 4;" }
+    let(:cql) { "UPDATE wildlife.species USING TTL 100 AND TIMESTAMP 300 SET name = 'tiger', weight = 300 WHERE id = 1 AND name IN ('tiger', 'bear') IF EXISTS AND name = 'tiger';" }
   end
 
-end # describe QueryBuilder::CQL.update
+end # describe UPDATE

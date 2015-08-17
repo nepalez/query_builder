@@ -8,24 +8,12 @@ module QueryBuilder::CQL
     #
     class Update < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::Update]
       #
       def if_exists
         self << Clauses::Exists.new
-      end
-
-      # Defines keyspace for the table
-      #
-      # @param [#to_s] name
-      #
-      # @return [QueryBuilder::Statements::Update]
-      #
-      def use(name)
-        self << Clauses::Use.new(name: name)
       end
 
       # Adds SET clause to the statement
@@ -81,15 +69,12 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["UPDATE", full_name, maybe_using, maybe_set, maybe_where, maybe_if]
+        cql[
+          "UPDATE", context.to_s, maybe_using, maybe_set, maybe_where, maybe_if
+        ]
       end
 
       private
-
-      def full_name
-        keyspace = clauses(:use).last
-        (keyspace ? "#{keyspace}." : "") << name.to_s
-      end
 
       def maybe_set
         list = clauses(:set)

@@ -1,22 +1,23 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".alter_user" do
+describe "ALTER USER" do
 
-  let(:statement) { described_class.alter_user(:foo, :baz) }
+  let(:user)      { QueryBuilder::CQL.user(:andrew) }
+  let(:statement) { user.alter("123456") }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "ALTER USER foo WITH PASSWORD 'baz';" }
+    let(:cql) { "ALTER USER andrew WITH PASSWORD '123456';" }
   end
 
   it_behaves_like :query_builder do
     subject   { statement.superuser }
-    let(:cql) { "ALTER USER foo WITH PASSWORD 'baz' SUPERUSER;" }
+    let(:cql) { "ALTER USER andrew WITH PASSWORD '123456' SUPERUSER;" }
   end
 
   it_behaves_like :query_builder do
     subject   { statement.superuser(false) }
-    let(:cql) { "ALTER USER foo WITH PASSWORD 'baz' NOSUPERUSER;" }
+    let(:cql) { "ALTER USER andrew WITH PASSWORD '123456' NOSUPERUSER;" }
   end
 
-end # describe QueryBuilder::CQL.alter_user
+end # describe ALTER USER

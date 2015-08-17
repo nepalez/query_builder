@@ -1,17 +1,12 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".truncate" do
+describe "TRUNCATE" do
 
-  let(:statement) { described_class.truncate(:foo) }
-
-  it_behaves_like :query_builder do
-    subject   { statement }
-    let(:cql) { "TRUNCATE foo;" }
-  end
+  let(:table) { QueryBuilder::CQL.keyspace(:wildlife).table(:species) }
 
   it_behaves_like :query_builder do
-    subject   { statement.use(:bar).use(:baz) }
-    let(:cql) { "TRUNCATE baz.foo;" }
+    subject   { table.truncate }
+    let(:cql) { "TRUNCATE wildlife.species;" }
   end
 
-end # describe QueryBuilder::CQL.truncate
+end # describe TRUNCATE

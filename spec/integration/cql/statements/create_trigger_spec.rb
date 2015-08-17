@@ -1,38 +1,21 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".create_trigger" do
+describe "CREATE TRIGGER" do
 
-  let(:statement) { described_class.create_trigger(:alert).on(:species) }
+  let(:trigger) do
+    QueryBuilder::CQL.keyspace(:wildlife).table(:species).trigger(:alert)
+  end
+
+  let(:statement) { trigger.create }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "CREATE TRIGGER alert ON species;" }
+    let(:cql) { "CREATE TRIGGER alert ON wildlife.species;" }
   end
 
   it_behaves_like :query_builder do
-    subject   { statement.if_not_exists }
-    let(:cql) { "CREATE TRIGGER IF NOT EXISTS alert ON species;" }
+    subject   { statement.if_not_exists.using("wildlife.triggers.alert") }
+    let(:cql) { "CREATE TRIGGER IF NOT EXISTS alert ON wildlife.species USING 'wildlife.triggers.alert';" }
   end
 
-  it_behaves_like :query_builder do
-    subject   { statement.use(:wwf) }
-    let(:cql) { "CREATE TRIGGER alert ON wwf.species;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.using("wwf.triggers.alert") }
-    let(:cql) { "CREATE TRIGGER alert ON species USING 'wwf.triggers.alert';" }
-  end
-
-  it_behaves_like :query_builder do
-    subject do
-      statement
-        .use(:wwf)
-        .if_not_exists
-        .using("wwf.triggers.alert")
-    end
-
-    let(:cql) { "CREATE TRIGGER IF NOT EXISTS alert ON wwf.species USING 'wwf.triggers.alert';" }
-  end
-
-end # describe QueryBuilder::CQL.create_trigger
+end # describe CREATE TRIGGER

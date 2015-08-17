@@ -1,13 +1,8 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".alter_keyspace" do
+describe "ALTER KEYSPACE" do
 
-  let(:statement) { described_class.alter_keyspace(:foo) }
-
-  it_behaves_like :query_builder do
-    subject   { statement }
-    let(:cql) { "ALTER KEYSPACE foo;" }
-  end
+  let(:statement) { QueryBuilder::CQL.keyspace(:wildlife).alter }
 
   it_behaves_like :query_builder do
     subject do
@@ -16,7 +11,7 @@ describe QueryBuilder::CQL, ".alter_keyspace" do
         .with(durable_writes: false)
     end
 
-    let(:cql) { "ALTER KEYSPACE foo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
+    let(:cql) { "ALTER KEYSPACE wildlife WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3} AND durable_writes = false;" }
   end
 
-end # describe QueryBuilder::CQL.alter_keyspace
+end # describe ALTER KEYSPACE

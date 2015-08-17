@@ -30,7 +30,7 @@ module QueryBuilder::CQL::Clauses
     private
 
     def full_property
-      property.to_s.upcase
+      property.upcase
     end
 
     def full_value

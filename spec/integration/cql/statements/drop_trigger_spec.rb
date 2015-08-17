@@ -1,27 +1,21 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".drop_trigger" do
+describe "DROP TRIGGER" do
 
-  let(:statement) { described_class.drop_trigger(:myTrigger) }
+  let(:trigger) do
+    QueryBuilder::CQL.keyspace(:wildlife).table(:species).trigger(:alert)
+  end
+
+  let(:statement) { trigger.drop }
 
   it_behaves_like :query_builder do
     subject   { statement }
-    let(:cql) { "DROP TRIGGER myTrigger;" }
+    let(:cql) { "DROP TRIGGER alert ON wildlife.species;" }
   end
 
   it_behaves_like :query_builder do
-    subject   { statement.on(:foo) }
-    let(:cql) { "DROP TRIGGER myTrigger ON foo;" }
+    subject   { statement.if_exists }
+    let(:cql) { "DROP TRIGGER IF EXISTS alert ON wildlife.species;" }
   end
 
-  it_behaves_like :query_builder do
-    subject   { statement.if_exists.if_exists }
-    let(:cql) { "DROP TRIGGER IF EXISTS myTrigger;" }
-  end
-
-  it_behaves_like :query_builder do
-    subject   { statement.on(:foo).if_exists }
-    let(:cql) { "DROP TRIGGER IF EXISTS myTrigger ON foo;" }
-  end
-
-end # describe QueryBuilder::CQL.drop_trigger
+end # describe DROP TRIGGER

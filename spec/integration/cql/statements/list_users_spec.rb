@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-describe QueryBuilder::CQL, ".list_users" do
+describe "LIST USERS" do
 
-  let(:statement) { described_class.list_users }
+  let(:statement) { QueryBuilder::CQL.list_users }
 
   it_behaves_like :query_builder do
     subject   { statement }
     let(:cql) { "LIST USERS;" }
   end
 
-end # describe QueryBuilder::CQL.list_users
+end # describe LIST USERS

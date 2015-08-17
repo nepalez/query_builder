@@ -8,8 +8,6 @@ module QueryBuilder::CQL
     #
     class DropRole < Base
 
-      attribute :name, required: true
-
       # Adds IF EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::DropRole]
@@ -23,7 +21,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["DROP ROLE", maybe_if, name.to_s]
+        cql["DROP ROLE", maybe_if, context.to_s]
       end
 
       private

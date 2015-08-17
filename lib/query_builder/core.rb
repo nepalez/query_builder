@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# The builder of CQL (Cassandra Query Language) statements
+#
 module QueryBuilder
 
   # The collection of core classes and modules to provide SQL-specific AST
