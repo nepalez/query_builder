@@ -25,16 +25,15 @@ require "query_builder"
 
 include QueryBuilder::CQL::Operators # for operators like cql_gt, cql_lte below.
 
-builder = QueryBuilder::CQL
-  .select(:id, :role, name: :user)
-  .use(:auth)
-  .from(:users)
+table = QueryBuilder::CQL.keyspace(:auth).table(:users)
+
+statement = table.select(:id, :role, name: :user)
   .where(id: cql_gt(1))
   .where(id: cql_lte(4))
   .limit(3)
 # => #<QueryBuilder::CQL::Statements::Select ...>
 
-builder.to_s
+statement.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
