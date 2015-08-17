@@ -52,7 +52,7 @@ Style/FileName:
 
 Style/LineLength:
   Exclude:
-    - '**/integration/*_spec.rb' # allow long CQL statements
+    - '**/*_spec.rb' # allow long CQL statements
 
 Style/RaiseArgs:
   EnforcedStyle: compact
