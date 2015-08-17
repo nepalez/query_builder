@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class Insert < Base
 
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::Insert]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Adds USING clause to the statement
       #
@@ -52,11 +46,6 @@ module QueryBuilder::CQL
       end
 
       private
-
-      def maybe_if
-        list = clauses(:if)
-        ["IF", list.sort.join(" AND ")] if list.any?
-      end
 
       def maybe_using
         list = clauses(:using)

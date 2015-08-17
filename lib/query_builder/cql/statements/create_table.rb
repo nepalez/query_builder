@@ -9,14 +9,7 @@ module QueryBuilder::CQL
     class CreateTable < Base
 
       include Modifiers::With
-
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Defines a primary key for the table
       #
@@ -71,11 +64,6 @@ module QueryBuilder::CQL
       end
 
       private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
 
       def columns
         (clauses(:column) + [clauses(:primary_key).last]).compact.join(", ")

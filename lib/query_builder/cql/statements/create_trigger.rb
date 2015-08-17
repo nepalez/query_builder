@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class CreateTrigger < Base
 
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateTrigger]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Defines java class for the trigger
       #
@@ -38,11 +32,6 @@ module QueryBuilder::CQL
       end
 
       private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
 
       def maybe_using
         list = clauses(:using)

@@ -12,7 +12,7 @@ module QueryBuilder::CQL
       #
       # @param [Hash] options
       #
-      # @return [QueryBuilder::Statements::AlterKeyspace]
+      # @return [QueryBuilder::Core::Statement] updated statement
       #
       def where(options)
         options

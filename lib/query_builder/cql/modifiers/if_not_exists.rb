@@ -4,16 +4,16 @@ module QueryBuilder::CQL
 
   module Modifiers
 
-    # Provides IF EXISTS clauses for statements
+    # Provides IF NOT EXISTS clauses for statements
     #
-    module IfExists
+    module IfNotExists
 
-      # Adds IF EXISTS clause to the statement
+      # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def if_exists
-        self << Clauses::Exists.new
+      def if_not_exists
+        self << Clauses::Exists.new(reverse: true)
       end
 
       private
@@ -23,7 +23,7 @@ module QueryBuilder::CQL
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
-    end # module IfExists
+    end # module IfNotExists
 
   end # module Modifiers
 

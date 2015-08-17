@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class CreateType < Base
 
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateType]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Adds field to the type
       #
@@ -36,11 +30,6 @@ module QueryBuilder::CQL
       end
 
       private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
 
       def fields
         clauses(:column).join(", ")

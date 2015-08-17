@@ -8,13 +8,7 @@ module QueryBuilder::CQL
     #
     class CreateIndex < Base
 
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Defines columns for the index
       #
@@ -69,11 +63,6 @@ module QueryBuilder::CQL
 
       def maybe_columns
         "(#{clauses(:field).join(", ")})"
-      end
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
       def maybe_using

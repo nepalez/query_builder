@@ -9,14 +9,7 @@ module QueryBuilder::CQL
     class CreateKeyspace < Base
 
       include Modifiers::With
-
-      # Adds IF NOT EXISTS clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateKeyspace]
-      #
-      def if_not_exists
-        self << Clauses::Exists.new(reverse: true)
-      end
+      include Modifiers::IfNotExists
 
       # Builds the statement
       #
@@ -24,13 +17,6 @@ module QueryBuilder::CQL
       #
       def to_s
         cql["CREATE KEYSPACE", maybe_if, context.to_s, maybe_with]
-      end
-
-      private
-
-      def maybe_if
-        list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
       end
 
     end # class CreateKeyspace
