@@ -4,11 +4,14 @@ module QueryBuilder::Core
 
   # Abstract base class for CQL statemens (roots of AST)
   #
-  # The statement is created with several clauses (like WHERE, SET etc.)
+  # The statement can belong to some context (keyspace, table).
+  # It is created with several clauses (like WHERE, SET etc.)
   #
   # @abstract
   #
   class Statement < Base
+
+    attribute :context, default: nil
 
     # @!method initialize(type, *attributes, &block)
     # Initializes the statement with a type, attributes and block

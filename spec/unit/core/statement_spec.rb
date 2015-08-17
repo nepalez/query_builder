@@ -26,6 +26,20 @@ describe QueryBuilder::Core::Statement do
     end
   end # describe .new
 
+  describe "#context" do
+    subject { statement.context }
+
+    context "by default" do
+      it { is_expected.to be_nil }
+    end # context
+
+    context "when assigned" do
+      let(:statement) { described_class.new(context: :foo) }
+
+      it { is_expected.to eq(:foo) }
+    end
+  end # describe #context
+
   describe "#clauses" do
     subject { statement.clauses }
 
