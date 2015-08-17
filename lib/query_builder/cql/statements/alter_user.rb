@@ -8,17 +8,9 @@ module QueryBuilder::CQL
     #
     class AlterUser < Base
 
-      attribute :password, required: true
+      include Modifiers::Superuser
 
-      # Adds SUPERUSER|NOSUPERUSER clause to the statement
-      #
-      # @param [Boolean] option (true)
-      #
-      # @return [QueryBuilder::Statements::AlterUser]
-      #
-      def superuser(option = true)
-        self << Clauses::Superuser.new(reverse: !option)
-      end
+      attribute :password, required: true
 
       # Builds the statement
       #
@@ -32,12 +24,6 @@ module QueryBuilder::CQL
           cql_literal[password],
           maybe_superuser
         ]
-      end
-
-      private
-
-      def maybe_superuser
-        clauses(:superuser).last
       end
 
     end # class AlterUser

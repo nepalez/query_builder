@@ -9,18 +9,9 @@ module QueryBuilder::CQL
     class CreateUser < Base
 
       include Modifiers::IfNotExists
+      include Modifiers::Superuser
 
       attribute :password, required: true
-
-      # Adds SUPERUSER|NOSUPERUSER clause to the statement
-      #
-      # @param [Boolean] option (true)
-      #
-      # @return [QueryBuilder::Statements::CreateUser]
-      #
-      def superuser(option = true)
-        self << Clauses::Superuser.new(reverse: !option)
-      end
 
       # Builds the statement
       #
@@ -35,12 +26,6 @@ module QueryBuilder::CQL
           cql_literal[password],
           maybe_superuser
         ]
-      end
-
-      private
-
-      def maybe_superuser
-        clauses(:superuser).last
       end
 
     end # class CreateUser
