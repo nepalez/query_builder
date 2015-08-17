@@ -17,7 +17,7 @@ describe "UPDATE" do
         .using(ttl: 100, timestamp: 300)
     end
 
-    let(:cql) { "UPDATE wildlife.species USING TTL 100 AND TIMESTAMP 300 SET name = 'tiger', weight = 300 WHERE id = 1 AND name IN ('tiger', 'bear') IF EXISTS AND name = 'tiger';" }
+    let(:cql) { "UPDATE wildlife.species USING TIMESTAMP 300 AND TTL 100 SET name = 'tiger', weight = 300 WHERE id = 1 AND name IN ('tiger', 'bear') IF EXISTS AND name = 'tiger';" }
   end
 
 end # describe UPDATE

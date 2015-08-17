@@ -9,6 +9,7 @@ module QueryBuilder::CQL
     class Insert < Base
 
       include Modifiers::IfNotExists
+      include Modifiers::UsingOptions
 
       # Adds USING clause to the statement
       #
@@ -46,11 +47,6 @@ module QueryBuilder::CQL
       end
 
       private
-
-      def maybe_using
-        list = clauses(:using)
-        ["USING", list.join(" AND ")] if list.any?
-      end
 
       def maybe_columns
         "(#{clauses(:field).join(", ")})"

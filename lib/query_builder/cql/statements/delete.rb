@@ -10,6 +10,7 @@ module QueryBuilder::CQL
 
       include Modifiers::Where
       include Modifiers::IfExists
+      include Modifiers::UsingOptions
 
       # Adds IF clause to the statement
       #
@@ -20,18 +21,6 @@ module QueryBuilder::CQL
       def if(options)
         options
           .map { |key, value| Clauses::If.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
-
-      # Adds USING clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Delete]
-      #
-      def using(options)
-        options
-          .map { |key, value| Clauses::Using.new(property: key, value: value) }
           .inject(self, :<<)
       end
 
@@ -64,11 +53,6 @@ module QueryBuilder::CQL
       def maybe_fields
         list = clauses(:field)
         [list.join(", ")] if list.any?
-      end
-
-      def maybe_using
-        list = clauses(:using)
-        ["USING", list.join(" AND ")] if list.any?
       end
 
     end # class Delete
