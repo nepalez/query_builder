@@ -8,6 +8,8 @@ module QueryBuilder::CQL
     #
     class CreateTable < Base
 
+      include Modifiers::With
+
       # Adds IF NOT EXISTS clause to the statement
       #
       # @return [QueryBuilder::Statements::CreateTable]
@@ -60,18 +62,6 @@ module QueryBuilder::CQL
         self << Clauses::CompactStorage.new
       end
 
-      # Adds WITH clause(s) to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def with(options)
-        options
-          .map { |key, value| Clauses::With.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
-
       # Builds the statement
       #
       # @return [String]
@@ -85,11 +75,6 @@ module QueryBuilder::CQL
       def maybe_if
         list = clauses(:if)
         list.any? ? ["IF", list.sort.join(" AND ")] : nil
-      end
-
-      def maybe_with
-        list = clauses(:with)
-        ["WITH", list.join(" AND ")] if list.any?
       end
 
       def columns

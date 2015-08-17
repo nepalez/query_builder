@@ -8,17 +8,7 @@ module QueryBuilder::CQL
     #
     class AlterKeyspace < Base
 
-      # Adds WITH clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::AlterKeyspace]
-      #
-      def with(options)
-        options
-          .map { |key, value| Clauses::With.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
+      include Modifiers::With
 
       # Builds the statement
       #
@@ -26,13 +16,6 @@ module QueryBuilder::CQL
       #
       def to_s
         cql["ALTER KEYSPACE", context.to_s, maybe_with]
-      end
-
-      private
-
-      def maybe_with
-        list = clauses(:with)
-        ["WITH", list.join(" AND ")] if list.any?
       end
 
     end # class AlterKeyspace
