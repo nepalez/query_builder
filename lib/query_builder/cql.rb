@@ -190,6 +190,14 @@ module QueryBuilder
       Statements::ListUsers.new
     end
 
+    # Builds the 'LIST ROLES' CQL statement
+    #
+    # @return [QueryBuilder::Statements::ListRoles]
+    #
+    def self.list_roles
+      Statements::ListRoles.new
+    end
+
     # Builds the 'DROP TABLE' CQL statement
     #
     # @param [#to_s] name The name of the table
