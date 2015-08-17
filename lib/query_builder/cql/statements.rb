@@ -4,11 +4,11 @@ module QueryBuilder
 
   module CQL
 
-    # The collection of CQL-specific clauses (building blocks of statements)
+    # The collection of CQL-specific statements
     #
     module Statements
 
-      # The base class for CQL-specific clauses
+      # The base class for CQL-specific statements
       #
       class Base < Core::Statement
 

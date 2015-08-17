@@ -2,7 +2,7 @@
 
 describe "LIST ROLES" do
 
-  let(:statement) { QueryBuilder::CQL.list_roles }
+  let(:statement) { QueryBuilder::CQL.roles }
 
   it_behaves_like :query_builder do
     subject   { statement }

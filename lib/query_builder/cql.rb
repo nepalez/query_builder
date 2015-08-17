@@ -5,6 +5,7 @@ module QueryBuilder
   require_relative "cql/operators"
   require_relative "cql/clauses"
   require_relative "cql/contexts"
+  require_relative "cql/modifiers"
   require_relative "cql/statements"
 
   # The builder for CQL-specific statements
@@ -45,7 +46,7 @@ module QueryBuilder
     #
     # @return [QueryBuilder::Statements::ListUsers]
     #
-    def self.list_users
+    def self.users
       Statements::ListUsers.new
     end
 
@@ -53,7 +54,7 @@ module QueryBuilder
     #
     # @return [QueryBuilder::Statements::ListRoles]
     #
-    def self.list_roles
+    def self.roles
       Statements::ListRoles.new
     end
 

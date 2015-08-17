@@ -2,7 +2,7 @@
 
 describe "LIST USERS" do
 
-  let(:statement) { QueryBuilder::CQL.list_users }
+  let(:statement) { QueryBuilder::CQL.users }
 
   it_behaves_like :query_builder do
     subject   { statement }
