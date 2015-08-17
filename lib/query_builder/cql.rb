@@ -82,6 +82,16 @@ module QueryBuilder
       Statements::Delete.new(name: name)
     end
 
+    # Builds the 'DROP FUNCTION' CQL statement
+    #
+    # @param [#to_s] name The name of the function
+    #
+    # @return [QueryBuilder::Statements::DropFunction]
+    #
+    def self.drop_function(name)
+      Statements::DropFunction.new(name: name)
+    end
+
     # Builds the 'DROP INDEX' CQL statement
     #
     # @param [#to_s] name The name of the index
