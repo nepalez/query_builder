@@ -9,6 +9,7 @@ module QueryBuilder::CQL
     class CreateIndex < Base
 
       include Modifiers::IfNotExists
+      include Modifiers::Using
 
       # Defines columns for the index
       #
@@ -18,16 +19,6 @@ module QueryBuilder::CQL
       #
       def columns(*cols)
         cols.map { |col| Clauses::Field.new(name: col) }.inject(self, :<<)
-      end
-
-      # Defines java class for the index
-      #
-      # @param [#to_s] java_class
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def using(java_class)
-        self << Clauses::Using.new(value: java_class)
       end
 
       # Adds WITH clause to the statement
@@ -63,11 +54,6 @@ module QueryBuilder::CQL
 
       def maybe_columns
         "(#{clauses(:field).join(", ")})"
-      end
-
-      def maybe_using
-        list = clauses(:using)
-        list.any? ? ["USING", list.sort.join(" AND ")] : nil
       end
 
       def maybe_with

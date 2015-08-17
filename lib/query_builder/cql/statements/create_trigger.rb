@@ -9,16 +9,7 @@ module QueryBuilder::CQL
     class CreateTrigger < Base
 
       include Modifiers::IfNotExists
-
-      # Defines java class for the trigger
-      #
-      # @param [#to_s] java_class
-      #
-      # @return [QueryBuilder::Statements::CreateTrigger]
-      #
-      def using(java_class)
-        self << Clauses::Using.new(value: java_class)
-      end
+      include Modifiers::Using
 
       # Builds the statement
       #
@@ -29,13 +20,6 @@ module QueryBuilder::CQL
           "CREATE TRIGGER", maybe_if, context.name.to_s,
           "ON", context.table.to_s, maybe_using
         ]
-      end
-
-      private
-
-      def maybe_using
-        list = clauses(:using)
-        list.any? ? ["USING", list.sort.join(" AND ")] : nil
       end
 
     end # class CreateTrigger
