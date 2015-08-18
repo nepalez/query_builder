@@ -10,9 +10,6 @@ module QueryBuilder::Core
   #
   class Base
 
-    include Comparable
-    include Equalizer.new(:class, :attributes)
-
     # @!method attributes
     # The hash of default attributes of class' instances
     #

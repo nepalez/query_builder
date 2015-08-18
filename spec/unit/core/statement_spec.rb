@@ -10,9 +10,9 @@ describe QueryBuilder::Core::Statement do
     Class.new(QueryBuilder::Core::Clause) { def to_s; type.to_s; end }
   end
 
-  let(:bar)    { Class.new(clause) { type :bar }.new }
-  let(:baz)    { Class.new(clause) { type :baz }.new }
-  let(:qux)    { Class.new(clause) { type :qux }.new }
+  let(:bar) { Class.new(clause) { type :bar }.new }
+  let(:baz) { Class.new(clause) { type :baz }.new }
+  let(:qux) { Class.new(clause) { type :qux }.new }
 
   describe ".new" do
     subject { statement }
@@ -68,25 +68,20 @@ describe QueryBuilder::Core::Statement do
 
   describe "#<<" do
 
-    shared_examples :updating_statement do
-      it "returns the same statement" do
-        expect(subject).to eql(statement)
-        expect(subject).not_to equal(statement)
-      end
+    context "new clause" do
+      subject { statement << qux }
 
       it "adds the clause" do
-        expect(subject.clauses).to match_array(clauses)
+        expect(subject.clauses).to eql %w(bar baz qux)
       end
-    end # shared examples
+    end # context
 
-    it_behaves_like :updating_statement do
-      subject { statement << qux }
-      let(:clauses) { %w(bar baz qux) }
-    end
-
-    it_behaves_like :updating_statement do
+    context "existing clause" do
       subject { statement << bar }
-      let(:clauses) { %w(bar baz) }
+
+      it "rewrites the clause" do
+        expect(subject.clauses).to eql %w(baz bar)
+      end
     end
   end # describe #<<
 

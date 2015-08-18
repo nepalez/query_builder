@@ -12,7 +12,6 @@ module QueryBuilder
     require_relative "core/attribute"
     require_relative "core/base"
     require_relative "core/clause"
-    require_relative "core/context"
     require_relative "core/statement"
 
   end # module Core

@@ -10,6 +10,19 @@ module QueryBuilder::Core
   #
   class Clause < Base
 
+    include Comparable
+    include Equalizer.new(:class, :attributes)
+
+    # Makes all instances of the class unique
+    #
+    # Only one instance can be added to the statement via `Statement#<<` method
+    #
+    # @return [undefined]
+    #
+    def self.unique
+      include Equalizer.new(:class)
+    end
+
     # Gets/sets type for the specific clause class
     #
     # @param [#to_sym, nil] value

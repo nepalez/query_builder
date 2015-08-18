@@ -68,10 +68,6 @@ describe QueryBuilder::Core::Base do
       expect(subject).to be_frozen
     end
 
-    it "is comparable" do
-      expect(subject).to be_kind_of Comparable
-    end
-
     it "doesn't freeze attributes" do
       expect { subject }.not_to change { attributes.frozen? }
     end
@@ -110,36 +106,5 @@ describe QueryBuilder::Core::Base do
       expect(subject).to eql("")
     end
   end # describe #to_s
-
-  shared_examples :comparable_by_kind_and_attributes do
-    before { klass.attribute :foo }
-
-    context "of the same type and attributes" do
-      let(:other) { klass.new(attributes) }
-      it { is_expected.to eql true }
-    end # context
-
-    context "of another kind" do
-      let(:other) { Class.new(klass).new(attributes) }
-      it { is_expected.to eql false }
-    end # context
-
-    context "with other attributes" do
-      let(:other) { klass.new }
-      it { is_expected.to eql false }
-    end # context
-  end # end
-
-  describe "#==" do
-    subject { instance == other }
-
-    it_behaves_like :comparable_by_kind_and_attributes
-  end # describe #==
-
-  describe "#eql?" do
-    subject { instance.eql? other }
-
-    it_behaves_like :comparable_by_kind_and_attributes
-  end # describe #eql?
 
 end # describe QueryBuilder::Core::Base

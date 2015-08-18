@@ -8,11 +8,9 @@ module QueryBuilder
     #
     module Contexts
 
-      # The base class for CQL-specific clauses
+      # The base class for CQL-specific contexts
       #
-      class Base < Core::Context
-
-      end # class Base
+      Base = Core::Base
 
       Dir[File.expand_path("../contexts/*.rb", __FILE__)].each(&method(:load))
 
