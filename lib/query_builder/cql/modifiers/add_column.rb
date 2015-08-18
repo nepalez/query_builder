@@ -14,7 +14,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def columns(*cols)
+      def add(*cols)
         cols.map { |col| Clauses::Field.new(name: col) }.inject(self, :<<)
       end
 

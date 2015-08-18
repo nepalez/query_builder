@@ -26,7 +26,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Statements::CreateIndex]
       #
       def create(options)
-        Statements::CreateIndex.new(context: self).columns(options)
+        Statements::CreateIndex.new(context: self).add(options)
       end
 
       # Builds the 'DROP INDEX' CQL statement

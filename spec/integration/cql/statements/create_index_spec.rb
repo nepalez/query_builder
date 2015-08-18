@@ -10,7 +10,7 @@ describe "CREATE INDEX" do
     subject do
       table.index(:my_index)
         .create([:id, :priority])
-        .columns(:state)
+        .add(:state)
         .if_not_exists
         .using("path.to.the.IndexClass")
         .with(storage: "/mnt/ssd/indexes/")
@@ -23,7 +23,7 @@ describe "CREATE INDEX" do
     subject do
       table.index
         .create([:id, :priority])
-        .columns(:state)
+        .add(:state)
         .if_not_exists
         .using("path.to.the.IndexClass")
         .with(storage: "/mnt/ssd/indexes/")
