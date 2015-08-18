@@ -39,12 +39,32 @@ module QueryBuilder::CQL
         Trigger.new(table: self, name: name)
       end
 
+      # Returns the column context
+      #
+      # @param [#to_s] name
+      #
+      # @return [QueryBuilder::CQL::Contexts::Column]
+      #
+      def column(name)
+        Column.new(table: self, name: name)
+      end
+
       # Builds the 'CREATE TABLE' CQL statement for the current table
       #
       # @return [QueryBuilder::Statements::CreateTable]
       #
       def create
         Statements::CreateTable.new(context: self)
+      end
+
+      # Builds the 'ALTER TABLE' CQL statement to modify properties (WITH)
+      #
+      # @param [Hash] options
+      #
+      # @return [QueryBuilder::Statements::AlterTable]
+      #
+      def alter(options)
+        Statements::AlterTable.new(context: self).alter(options)
       end
 
       # Builds the 'DROP TABLE' CQL statement for the current table
