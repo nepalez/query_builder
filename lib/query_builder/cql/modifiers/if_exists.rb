@@ -20,7 +20,7 @@ module QueryBuilder::CQL
 
       def maybe_if
         list = clauses(:if)
-        list.any? ? ["IF", list.sort.join(" AND ")] : nil
+        ["IF", list.sort.join(" AND ")] if list.any?
       end
 
     end # module IfExists

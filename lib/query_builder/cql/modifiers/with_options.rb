@@ -22,7 +22,7 @@ module QueryBuilder::CQL
 
       def maybe_with
         list = clauses(:with)
-        list.any? ? ["WITH", list.last] : nil
+        ["WITH", list.last] if list.any?
       end
 
     end # module WithOptions

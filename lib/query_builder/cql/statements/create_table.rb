@@ -8,20 +8,11 @@ module QueryBuilder::CQL
     #
     class CreateTable < Base
 
+      include Modifiers::PrimaryKey
       include Modifiers::IfNotExists
       include Modifiers::ClusteringOrder
       include Modifiers::CompactStorage
       include Modifiers::With
-
-      # Defines a primary key for the table
-      #
-      # @param [#to_s, Array<#to_s>] columns
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def primary_key(*columns)
-        self << Clauses::PrimaryKey.new(columns: columns)
-      end
 
       # Adds column to the table
       #
@@ -42,13 +33,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["CREATE TABLE", maybe_if, context.to_s, "(#{columns})", maybe_with]
-      end
-
-      private
-
-      def columns
-        (clauses(:column) + [clauses(:primary_key).last]).compact.join(", ")
+        cql["CREATE TABLE", maybe_if, context.to_s, maybe_columns, maybe_with]
       end
 
     end # class CreateTable

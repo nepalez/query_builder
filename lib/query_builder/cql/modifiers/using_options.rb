@@ -24,7 +24,7 @@ module QueryBuilder::CQL
 
       def maybe_using
         list = clauses(:using)
-        list.any? ? ["USING", list.sort.join(" AND ")] : nil
+        ["USING", list.sort.join(" AND ")] if list.any?
       end
 
     end # module UsingOptions

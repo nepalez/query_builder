@@ -4,27 +4,27 @@ module QueryBuilder::CQL
 
   module Modifiers
 
-    # Provides columns for DELETE statement
+    # Provides PRIMARY KEY clause for a statement
     #
-    module Delete
+    module PrimaryKey
 
-      # Adds columns that should be deleted
+      # Defines a primary key for the table
       #
       # @param [#to_s, Array<#to_s>] columns
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def delete(*columns)
-        columns.map { |name| Clauses::Field.new(name: name) }.inject(self, :<<)
+      def primary_key(*columns)
+        self << Clauses::PrimaryKey.new(columns: columns)
       end
 
       private
 
       def maybe_columns
-        clauses(:column).join(", ")
+        "(#{(clauses(:column) + clauses(:primary_key)).compact.join(", ")})"
       end
 
-    end # module Delete
+    end # module PrimaryKey
 
   end # module Modifiers
 
