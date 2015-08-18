@@ -77,7 +77,7 @@ module QueryBuilder::CQL
 
       # Builds the 'DELETE' CQL statement
       #
-      # @param [Array<#to_s>, #to_s, nil] list of columns to delete
+      # @param [Array<#to_s>, #to_s, nil] columns
       #
       # @return [QueryBuilder::Statements::Delete]
       #

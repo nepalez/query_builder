@@ -20,7 +20,8 @@ module QueryBuilder::CQL
       end
 
       # Builds the 'CREATE INDEX' CQL statement for the current table
-
+      #
+      # @param [Hash] options
       #
       # @return [QueryBuilder::Statements::CreateIndex]
       #
