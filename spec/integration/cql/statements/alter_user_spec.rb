@@ -11,6 +11,11 @@ describe "ALTER USER" do
   end
 
   it_behaves_like :query_builder do
+    subject   { statement.password(:foobar) }
+    let(:cql) { "ALTER USER andrew WITH PASSWORD 'foobar';" }
+  end
+
+  it_behaves_like :query_builder do
     subject   { statement.superuser }
     let(:cql) { "ALTER USER andrew WITH PASSWORD '123456' SUPERUSER;" }
   end

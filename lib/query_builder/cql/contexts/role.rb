@@ -18,6 +18,16 @@ module QueryBuilder::CQL
         name.to_s
       end
 
+      # Builds the 'ALTER ROLE' CQL statement with password
+      #
+      # @param [#to_s] password
+      #
+      # @return [QueryBuilder::Statements::AlterRole]
+      #
+      def alter(password)
+        Statements::AlterRole.new(context: self).password(password)
+      end
+
       # Builds the 'DROP ROLE' CQL statement
       #
       # @return [QueryBuilder::Statements::DropRole]
