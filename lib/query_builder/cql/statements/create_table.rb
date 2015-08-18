@@ -10,6 +10,7 @@ module QueryBuilder::CQL
 
       include Modifiers::With
       include Modifiers::IfNotExists
+      include Modifiers::ClusteringOrder
 
       # Defines a primary key for the table
       #
@@ -33,18 +34,6 @@ module QueryBuilder::CQL
       def column(name, type_name, options = {})
         self << Clauses::Column
           .new(name: name, type_name: type_name, static: options[:static])
-      end
-
-      # Adds CLUSTERNING ORDER clause to the statement
-      #
-      # @param [#to_s] name The name of the column
-      # @param [:asc, :desc] order The order of clustering
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def clustering_order(name, order = :asc)
-        self << Clauses::ClusteringOrder
-          .new(name: name, desc: order.equal?(:desc))
       end
 
       # Adds COMPACT STORAGE clause to the statement

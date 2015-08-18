@@ -12,6 +12,7 @@ module QueryBuilder::CQL::Clauses
   #
   class ClusteringOrder < Base
 
+    unique
     type :with
 
     attribute :name, required: true
