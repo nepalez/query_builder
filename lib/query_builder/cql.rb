@@ -41,6 +41,16 @@ module QueryBuilder
       Contexts::Role.new(name: name)
     end
 
+    # Returns the context of Cassandra root permission
+    #
+    # @param [#to_s, nil] name The name of the permission
+    #
+    # @param [QueryBuilder::CQL::Contexts::Permission]
+    #
+    def self.permission(name = nil)
+      Contexts::Permission.new(name: name)
+    end
+
     # Builds the 'LIST USERS' CQL statement
     #
     # @return [QueryBuilder::Statements::ListUsers]

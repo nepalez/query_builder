@@ -49,6 +49,16 @@ module QueryBuilder::CQL
         Column.new(table: self, name: name)
       end
 
+      # Returns the context of Cassandra table permission
+      #
+      # @param [#to_s, nil] name The name of the permission
+      #
+      # @param [QueryBuilder::CQL::Contexts::Permission]
+      #
+      def permission(name = nil)
+        Contexts::Permission.new(table: self, name: name)
+      end
+
       # Builds the 'CREATE TABLE' CQL statement for the current table
       #
       # @return [QueryBuilder::Statements::CreateTable]

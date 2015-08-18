@@ -58,6 +58,16 @@ module QueryBuilder::CQL
         Aggregate.new(keyspace: self, name: name)
       end
 
+      # Returns the context of Cassandra keyspace permission
+      #
+      # @param [#to_s, nil] name The name of the permission
+      #
+      # @param [QueryBuilder::CQL::Contexts::Permission]
+      #
+      def permission(name = nil)
+        Contexts::Permission.new(keyspace: self, name: name)
+      end
+
       # Builds the 'CREATE KEYSPACE' CQL statement for the current keyspace
       #
       # @return [QueryBuilder::Statements::CreateKeyspace]
