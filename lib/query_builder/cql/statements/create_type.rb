@@ -8,20 +8,8 @@ module QueryBuilder::CQL
     #
     class CreateType < Base
 
+      include Modifiers::AddField
       include Modifiers::IfNotExists
-
-      # Adds field to the type
-      #
-      # @param [#to_s] name
-      # @param [#to_s] type_name
-      #
-      # @return [QueryBuilder::Statements::CreateType]
-      #
-      def add(options)
-        options
-          .map { |key, value| Clauses::Column.new(name: key, type_name: value) }
-          .inject(self, :<<)
-      end
 
       # Builds the statement
       #
@@ -29,12 +17,6 @@ module QueryBuilder::CQL
       #
       def to_s
         cql["CREATE TYPE", maybe_if, context.to_s, maybe_fields]
-      end
-
-      private
-
-      def maybe_fields
-        "(#{clauses(:column).join(", ")})"
       end
 
     end # class CreateType
