@@ -32,6 +32,7 @@ statement = table
   .select(name: :user)
   .where(id: cql_gt(1))
   .where(id: cql_lte(4))
+  .using(consistency: :quorum)
   .limit(3)
 # => #<QueryBuilder::CQL::Statements::Select ...>
 
