@@ -13,7 +13,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def if_exists
-        self << Clauses::Exists.new
+        self << Clause.new
       end
 
       private
@@ -22,6 +22,22 @@ module QueryBuilder::CQL
         list = clauses(:if)
         ["IF", list.sort.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :if
+
+        # @private
+        def to_s
+          "EXISTS"
+        end
+
+      end # class Clause
 
     end # module IfExists
 

@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def with(options)
-        self << Clauses::With.new(column: :options, value: options)
+        self << Clause.new(column: :options, value: options)
       end
 
       private
@@ -24,6 +24,16 @@ module QueryBuilder::CQL
         list = clauses(:with)
         ["WITH", list.last] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < BaseCondition
+
+        type :with
+
+      end # class Clause
 
     end # module WithOptions
 

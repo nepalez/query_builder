@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def using(java_class)
-        self << Clauses::Using.new(value: java_class)
+        self << Clause.new(value: java_class)
       end
 
       private
@@ -24,6 +24,22 @@ module QueryBuilder::CQL
         list = clauses(:using)
         ["USING", list.sort.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        type :using
+        attribute :value, required: true
+
+        # @private
+        def to_s
+          cql_literal[value]
+        end
+
+      end # class Clause
 
     end # module Using
 

@@ -15,9 +15,9 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def insert(options)
-        options.flat_map do |key, value|
-          [Clauses::Field.new(name: key), Clauses::Value.new(name: value)]
-        end.inject(self, :<<)
+        options
+          .flat_map { |k, v| [Column.new(name: k), Value.new(name: v)] }
+          .inject(self, :<<)
       end
 
       private
@@ -27,6 +27,39 @@ module QueryBuilder::CQL
           .map { |type| "(#{clauses(type).join(", ")})" }
           .join(" VALUES ")
       end
+
+      # The clause defining a column
+      #
+      # @api private
+      #
+      class Column < Base
+
+        type :column
+        attribute :name, required: true
+
+        # @private
+        def to_s
+          return name.to_s unless name.instance_of? Array
+          "(#{name.join(", ")})"
+        end
+
+      end # class Column
+
+      # The clause defining a value
+      #
+      # @api private
+      #
+      class Value < Base
+
+        type :value
+        attribute :name, required: true
+
+        # @private
+        def to_s
+          cql_literal[name]
+        end
+
+      end # class Value
 
     end # module Insert
 

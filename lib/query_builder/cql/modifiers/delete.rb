@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def delete(*columns)
-        columns.map { |name| Clauses::Field.new(name: name) }.inject(self, :<<)
+        columns.map { |name| Clause.new(name: name) }.inject(self, :<<)
       end
 
       private
@@ -23,6 +23,23 @@ module QueryBuilder::CQL
       def maybe_columns
         clauses(:column).join(", ")
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        type :column
+        attribute :name, required: true
+
+        # @private
+        def to_s
+          return name.to_s unless name.instance_of? Array
+          "(#{name.join(", ")})"
+        end
+
+      end # class Clause
 
     end # module Delete
 

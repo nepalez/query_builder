@@ -3,7 +3,6 @@
 module QueryBuilder
 
   require_relative "cql/operators"
-  require_relative "cql/clauses"
   require_relative "cql/contexts"
   require_relative "cql/modifiers"
   require_relative "cql/statements"

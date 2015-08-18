@@ -18,7 +18,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def column(name, type_name, options = {})
-        self << Clauses::Column
+        self << Clause
           .new(name: name, type_name: type_name, static: options[:static])
       end
 
@@ -27,6 +27,30 @@ module QueryBuilder::CQL
       def maybe_columns
         "(#{(clauses(:column) + clauses(:primary_key)).compact.join(", ")})"
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        type :column
+        attribute :name, required: true
+        attribute :type_name, required: true
+        attribute :static, default: false
+
+        # @private
+        def to_s
+          [name, type_name, maybe_static].compact.join(" ")
+        end
+
+        private
+
+        def maybe_static
+          "STATIC" if static
+        end
+
+      end # class Clause
 
     end # module Column
 

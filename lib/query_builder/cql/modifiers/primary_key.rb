@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def primary_key(*columns)
-        self << Clauses::PrimaryKey.new(columns: columns)
+        self << Clause.new(columns: columns)
       end
 
       private
@@ -23,6 +23,26 @@ module QueryBuilder::CQL
       def maybe_columns
         "(#{(clauses(:column) + clauses(:primary_key)).compact.join(", ")})"
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :primary_key
+        attribute :columns, required: true
+
+        # Returns the CQL representation of the clause
+        #
+        # @return [String]
+        #
+        def to_s
+          ["PRIMARY KEY", "(#{columns.join(", ")})"].join(" ")
+        end
+
+      end # class Clause
 
     end # module PrimaryKey
 

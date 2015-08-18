@@ -16,7 +16,7 @@ module QueryBuilder::CQL
       #
       def using(options)
         options
-          .map { |key, value| Clauses::Using.new(property: key, value: value) }
+          .map { |key, value| Clause.new(property: key, value: value) }
           .inject(self, :<<)
       end
 
@@ -26,6 +26,23 @@ module QueryBuilder::CQL
         list = clauses(:using)
         ["USING", list.sort.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        type :using
+        attribute :property, required: true
+        attribute :value, required: true
+
+        # @private
+        def to_s
+          "#{property.upcase} #{cql_literal[value]}"
+        end
+
+      end # class Clause
 
     end # module UsingOptions
 

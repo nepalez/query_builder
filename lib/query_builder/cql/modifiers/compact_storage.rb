@@ -13,7 +13,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def compact_storage
-        self << Clauses::CompactStorage.new
+        self << Clause.new
       end
 
       private
@@ -22,6 +22,22 @@ module QueryBuilder::CQL
         list = clauses(:where)
         ["WHERE", list.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :with
+
+        # @private
+        def to_s
+          "COMPACT STORAGE"
+        end
+
+      end # class Clause
 
     end # module CompactStorage
 

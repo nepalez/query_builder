@@ -16,7 +16,7 @@ module QueryBuilder::CQL
       #
       def where(options)
         options
-          .map { |key, value| Clauses::Where.new(column: key, value: value) }
+          .map { |key, value| Clause.new(column: key, value: value) }
           .inject(self, :<<)
       end
 
@@ -26,6 +26,16 @@ module QueryBuilder::CQL
         list = clauses(:where)
         ["WHERE", list.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < BaseCondition
+
+        type :where
+
+      end # class Clause
 
     end # module Where
 

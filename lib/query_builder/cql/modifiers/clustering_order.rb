@@ -16,8 +16,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def clustering_order(name, order = :asc)
-        self << Clauses::ClusteringOrder
-          .new(name: name, desc: order.equal?(:desc))
+        self << Clause.new(name: name, desc: order.equal?(:desc))
       end
 
       private
@@ -26,6 +25,24 @@ module QueryBuilder::CQL
         list = clauses(:where)
         ["WHERE", list.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :with
+        attribute :name, required: true
+        attribute :desc, default: false
+
+        # @private
+        def to_s
+          "CLUSTERING ORDER BY (#{name} #{desc ? "DESC" : "ASC"})"
+        end
+
+      end # class Clause
 
     end # module ClusteringOrder
 

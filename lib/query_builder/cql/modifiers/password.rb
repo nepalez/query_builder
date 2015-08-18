@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def password(name)
-        self << Clauses::Password.new(name: name)
+        self << Clause.new(name: name)
       end
 
       private
@@ -24,6 +24,23 @@ module QueryBuilder::CQL
         list = clauses(:with)
         ["WITH", list.join(" AND ")] if list.any?
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :with
+        attribute :name, required: true
+
+        # @private
+        def to_s
+          "PASSWORD #{cql_literal[name]}"
+        end
+
+      end # class Clause
 
     end # module Superuser
 

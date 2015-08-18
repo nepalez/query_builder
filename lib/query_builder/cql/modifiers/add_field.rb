@@ -10,14 +10,13 @@ module QueryBuilder::CQL
 
       # Adds field to the type
       #
-      # @param [#to_s] name
-      # @param [#to_s] type_name
+      # @param [Hash] options
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def add(options)
         options
-          .map { |key, value| Clauses::Column.new(name: key, type_name: value) }
+          .map { |key, value| Clause.new(name: key, type_name: value) }
           .inject(self, :<<)
       end
 
@@ -26,6 +25,23 @@ module QueryBuilder::CQL
       def maybe_fields
         "(#{clauses(:column).join(", ")})"
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        type :column
+        attribute :name, required: true
+        attribute :type_name, required: true
+
+        # @private
+        def to_s
+          [name, type_name].join(" ")
+        end
+
+      end # class Clause
 
     end # module AddField
 

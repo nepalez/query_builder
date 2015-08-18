@@ -15,7 +15,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Core::Statement] updated statement
       #
       def superuser(option = true)
-        self << Clauses::Superuser.new(reverse: !option)
+        self << Clause.new(reverse: !option)
       end
 
       private
@@ -23,6 +23,29 @@ module QueryBuilder::CQL
       def maybe_superuser
         clauses(:superuser)
       end
+
+      # The clause for adding to a statement
+      #
+      # @api private
+      #
+      class Clause < Base
+
+        unique
+        type :superuser
+        attribute :reverse, default: false
+
+        # @private
+        def to_s
+          "#{maybe_no}SUPERUSER"
+        end
+
+        private
+
+        def maybe_no
+          "NO" if reverse
+        end
+
+      end # class Clause
 
     end # module Superuser
 
