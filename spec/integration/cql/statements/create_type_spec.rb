@@ -4,15 +4,14 @@ describe "CREATE TYPE" do
 
   include QueryBuilder::CQL::Operators
 
-  let(:type)      { QueryBuilder::CQL.keyspace(:wildlife).type(:species) }
-  let(:statement) { type.create }
+  let(:type) { QueryBuilder::CQL.keyspace(:wildlife).type(:species) }
 
   it_behaves_like :query_builder do
     subject do
-      statement
+      type
+        .create(name: :text)
+        .add(params: cql_map[:text, :text])
         .if_not_exists
-        .field(:name, :text)
-        .field(:params, cql_map[:text, :text])
     end
 
     let(:cql) { "CREATE TYPE IF NOT EXISTS wildlife.species (name text, params MAP<text, text>);" }

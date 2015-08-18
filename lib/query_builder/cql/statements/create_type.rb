@@ -17,8 +17,10 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::CreateType]
       #
-      def field(name, type_name)
-        self << Clauses::Column.new(name: name, type_name: type_name)
+      def add(options)
+        options
+          .map { |key, value| Clauses::Column.new(name: key, type_name: value) }
+          .inject(self, :<<)
       end
 
       # Builds the statement
@@ -26,13 +28,13 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["CREATE TYPE", maybe_if, context.to_s, "(#{fields})"]
+        cql["CREATE TYPE", maybe_if, context.to_s, maybe_fields]
       end
 
       private
 
-      def fields
-        clauses(:column).join(", ")
+      def maybe_fields
+        "(#{clauses(:column).join(", ")})"
       end
 
     end # class CreateType

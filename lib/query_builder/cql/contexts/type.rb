@@ -21,10 +21,12 @@ module QueryBuilder::CQL
 
       # Builds the 'CREATE TYPE' CQL statement for the current type
       #
+      # @param [Hash] options
+      #
       # @return [QueryBuilder::Statements::CreateType]
       #
-      def create
-        Statements::CreateType.new(context: self)
+      def create(options)
+        Statements::CreateType.new(context: self).add(options)
       end
 
       # Builds the 'DROP TYPE' CQL statement
