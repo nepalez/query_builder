@@ -8,19 +8,10 @@ module QueryBuilder::CQL
     #
     class CreateIndex < Base
 
+      include Modifiers::AddColumn
       include Modifiers::IfNotExists
       include Modifiers::WithOptions
       include Modifiers::Using
-
-      # Defines columns for the index
-      #
-      # @param [#to_s, Array<#to_s>] cols
-      #
-      # @return [QueryBuilder::Statements::CreateIndex]
-      #
-      def columns(*cols)
-        cols.map { |col| Clauses::Field.new(name: col) }.inject(self, :<<)
-      end
 
       # Builds the statement
       #
@@ -41,10 +32,6 @@ module QueryBuilder::CQL
 
       def maybe_custom
         "CUSTOM" unless maybe_name
-      end
-
-      def maybe_columns
-        "(#{clauses(:column).join(", ")})"
       end
 
     end # class CreateIndex

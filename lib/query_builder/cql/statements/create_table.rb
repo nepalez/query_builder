@@ -8,25 +8,12 @@ module QueryBuilder::CQL
     #
     class CreateTable < Base
 
+      include Modifiers::Column
       include Modifiers::PrimaryKey
       include Modifiers::IfNotExists
       include Modifiers::ClusteringOrder
       include Modifiers::CompactStorage
       include Modifiers::With
-
-      # Adds column to the table
-      #
-      # @param [#to_s] name
-      # @param [#to_s] type_name
-      # @param [Hash] options
-      # @option options [Boolean] :static
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def column(name, type_name, options = {})
-        self << Clauses::Column
-          .new(name: name, type_name: type_name, static: options[:static])
-      end
 
       # Builds the statement
       #
