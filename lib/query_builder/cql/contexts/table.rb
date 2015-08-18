@@ -57,26 +57,32 @@ module QueryBuilder::CQL
 
       # Builds the 'INSERT' CQL statement for the current table
       #
+      # @param [Hash] options
+      #
       # @return [QueryBuilder::Statements::Insert]
       #
-      def insert
-        Statements::Insert.new(context: self)
+      def insert(options)
+        Statements::Insert.new(context: self).insert(options)
       end
 
       # Builds the 'UPDATE' CQL statement for the current table
       #
+      # @param [Hash] options
+      #
       # @return [QueryBuilder::Statements::Update]
       #
-      def update
-        Statements::Update.new(context: self)
+      def update(options)
+        Statements::Update.new(context: self).update(options)
       end
 
       # Builds the 'DELETE' CQL statement
       #
+      # @param [Array<#to_s>, #to_s, nil] list of columns to delete
+      #
       # @return [QueryBuilder::Statements::Delete]
       #
-      def delete
-        Statements::Delete.new(context: self)
+      def delete(*columns)
+        Statements::Delete.new(context: self).delete(*columns)
       end
 
       # Builds the 'TRUNCATE' CQL statement

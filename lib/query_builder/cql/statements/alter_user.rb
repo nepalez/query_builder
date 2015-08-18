@@ -18,11 +18,8 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "ALTER USER",
-          context.name,
-          "WITH PASSWORD",
-          cql_literal[password],
-          maybe_superuser
+          "ALTER USER", context.name,
+          "WITH PASSWORD", cql_literal[password], maybe_superuser
         ]
       end
 

@@ -9,6 +9,7 @@ module QueryBuilder::CQL
     class Update < Base
 
       include Modifiers::Where
+      include Modifiers::If
       include Modifiers::IfExists
       include Modifiers::UsingOptions
 
@@ -18,21 +19,9 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::Update]
       #
-      def set(options)
+      def update(options)
         options
           .map { |key, value| Clauses::Set.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
-
-      # Adds IF clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Update]
-      #
-      def if(options)
-        options
-          .map { |key, value| Clauses::If.new(column: key, value: value) }
           .inject(self, :<<)
       end
 

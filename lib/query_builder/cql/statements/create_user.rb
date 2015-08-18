@@ -19,12 +19,8 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "CREATE USER",
-          maybe_if,
-          context.name.to_s,
-          "WITH PASSWORD",
-          cql_literal[password],
-          maybe_superuser
+          "CREATE USER", maybe_if, context.name.to_s,
+          "WITH PASSWORD", cql_literal[password], maybe_superuser
         ]
       end
 

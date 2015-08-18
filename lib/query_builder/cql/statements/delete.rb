@@ -9,20 +9,9 @@ module QueryBuilder::CQL
     class Delete < Base
 
       include Modifiers::Where
+      include Modifiers::If
       include Modifiers::IfExists
       include Modifiers::UsingOptions
-
-      # Adds IF clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Delete]
-      #
-      def if(options)
-        options
-          .map { |key, value| Clauses::If.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
 
       # Adds columns that should be deleted
       #
@@ -32,10 +21,9 @@ module QueryBuilder::CQL
       #
       # @alias value
       #
-      def values(*columns)
+      def delete(*columns)
         columns.map { |name| Clauses::Field.new(name: name) }.inject(self, :<<)
       end
-      alias_method :value, :values
 
       # Builds the statement
       #

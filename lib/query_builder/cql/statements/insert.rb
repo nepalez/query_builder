@@ -11,25 +11,13 @@ module QueryBuilder::CQL
       include Modifiers::IfNotExists
       include Modifiers::UsingOptions
 
-      # Adds USING clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Insert]
-      #
-      def using(options)
-        options
-          .map { |key, value| Clauses::Using.new(property: key, value: value) }
-          .inject(self, :<<)
-      end
-
       # Defines value to be inserted
       #
       # @param [Hash] options
       #
       # @return [QueryBuilder::Statements::Insert]
       #
-      def set(options)
+      def insert(options)
         options.flat_map do |key, value|
           [Clauses::Field.new(name: key), Clauses::Value.new(name: value)]
         end.inject(self, :<<)

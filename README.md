@@ -27,7 +27,9 @@ include QueryBuilder::CQL::Operators # for operators like cql_gt, cql_lte below.
 
 table = QueryBuilder::CQL.keyspace(:auth).table(:users)
 
-statement = table.select(:id, :role, name: :user)
+statement = table
+  .select(:id, :role)
+  .select(name: :user)
   .where(id: cql_gt(1))
   .where(id: cql_lte(4))
   .limit(3)
