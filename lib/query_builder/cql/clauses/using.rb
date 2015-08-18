@@ -15,7 +15,6 @@ module QueryBuilder::CQL::Clauses
   class Using < Base
 
     type :using
-
     attribute :property
     attribute :value, required: true
 

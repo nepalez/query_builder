@@ -9,18 +9,14 @@ module QueryBuilder::CQL
     class AlterUser < Base
 
       include Modifiers::Superuser
-
-      attribute :password, required: true
+      include Modifiers::Password
 
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql[
-          "ALTER USER", context.name,
-          "WITH PASSWORD", cql_literal[password], maybe_superuser
-        ]
+        cql["ALTER USER", context.name, maybe_with, maybe_superuser]
       end
 
     end # class AlterUser

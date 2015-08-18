@@ -13,6 +13,7 @@ module QueryBuilder::CQL::Clauses
   #
   class PrimaryKey < Base
 
+    unique
     type :primary_key
     attribute :columns, required: true
 

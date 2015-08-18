@@ -10,18 +10,14 @@ module QueryBuilder::CQL
 
       include Modifiers::IfNotExists
       include Modifiers::Superuser
-
-      attribute :password, required: true
+      include Modifiers::Password
 
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql[
-          "CREATE USER", maybe_if, context.name.to_s,
-          "WITH PASSWORD", cql_literal[password], maybe_superuser
-        ]
+        cql["CREATE USER", maybe_if, context.to_s, maybe_with, maybe_superuser]
       end
 
     end # class CreateUser

@@ -16,7 +16,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        [keyspace.to_s, name].join(".")
+        [keyspace, name].join(".")
       end
 
       # Builds the 'DROP AGGREGATE' CQL statement

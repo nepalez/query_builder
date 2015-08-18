@@ -2,24 +2,26 @@
 
 module QueryBuilder::CQL::Clauses
 
-  # Describes COMPACT STORAGE clause in a CREATE USER statement
+  # Describes a keyspace for the clause
   #
   # @example
-  #   CompactStorage.new.to_s # => "COMPACT STORAGE"
+  #   clause = Password.new(name: :foo)
+  #   clause.to_s # => "PASSWORD 'foo'"
   #
-  class CompactStorage < Base
+  class Password < Base
 
     unique
     type :with
+    attribute :name, required: true
 
     # Returns the CQL representation of the clause
     #
     # @return [String]
     #
     def to_s
-      "COMPACT STORAGE"
+      "PASSWORD #{cql_literal[name]}"
     end
 
-  end # class CompactStorage
+  end # class Password
 
 end # module QueryBuilder::CQL::Clauses

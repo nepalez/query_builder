@@ -5,7 +5,7 @@ describe QueryBuilder::CQL::Clauses::Field do
   subject { described_class.new(name: name) }
   let(:name) { :foo }
 
-  it_behaves_like :a_clause, :field
+  it_behaves_like :a_clause, :column
 
   it_behaves_like :query_builder do
     let(:name) { :foo }

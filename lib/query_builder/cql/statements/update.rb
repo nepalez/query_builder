@@ -8,22 +8,11 @@ module QueryBuilder::CQL
     #
     class Update < Base
 
+      include Modifiers::Update
       include Modifiers::Where
       include Modifiers::If
       include Modifiers::IfExists
       include Modifiers::UsingOptions
-
-      # Adds SET clause to the statement
-      #
-      # @param [Hash] options
-      #
-      # @return [QueryBuilder::Statements::Update]
-      #
-      def update(options)
-        options
-          .map { |key, value| Clauses::Set.new(column: key, value: value) }
-          .inject(self, :<<)
-      end
 
       # Builds the statement
       #
@@ -33,13 +22,6 @@ module QueryBuilder::CQL
         cql[
           "UPDATE", context.to_s, maybe_using, maybe_set, maybe_where, maybe_if
         ]
-      end
-
-      private
-
-      def maybe_set
-        list = clauses(:set)
-        ["SET", list.join(", ")] if list.any?
       end
 
     end # class Update

@@ -15,9 +15,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql[
-          "DROP TRIGGER", maybe_if, context.name.to_s, "ON", context.table.to_s
-        ]
+        cql["DROP TRIGGER", maybe_if, context.name, "ON", context.table.to_s]
       end
 
     end # class DropTrigger

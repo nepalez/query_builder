@@ -5,13 +5,13 @@ describe "CREATE INDEX" do
   include QueryBuilder::CQL::Operators
 
   let(:table) { QueryBuilder::CQL.keyspace(:wildlife).table(:species) }
-  let(:statement) { table.index(:my_index).create }
 
   it_behaves_like :query_builder do
     subject do
-      statement
+      table.index(:my_index)
+        .create([:id, :priority])
+        .columns(:state)
         .if_not_exists
-        .columns([:id, :priority], :state)
         .using("path.to.the.IndexClass")
         .with(storage: "/mnt/ssd/indexes/")
     end
@@ -21,10 +21,10 @@ describe "CREATE INDEX" do
 
   it_behaves_like :query_builder do
     subject do
-      table.index.create
-        .if_not_exists
-        .columns([:id, :priority])
+      table.index
+        .create([:id, :priority])
         .columns(:state)
+        .if_not_exists
         .using("path.to.the.IndexClass")
         .with(storage: "/mnt/ssd/indexes/")
     end

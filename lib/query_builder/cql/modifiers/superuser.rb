@@ -21,7 +21,7 @@ module QueryBuilder::CQL
       private
 
       def maybe_superuser
-        clauses(:superuser).last
+        clauses(:superuser)
       end
 
     end # module Superuser

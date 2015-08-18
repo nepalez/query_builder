@@ -44,7 +44,7 @@ module QueryBuilder::CQL
       end
 
       def maybe_columns
-        "(#{clauses(:field).join(", ")})"
+        "(#{clauses(:column).join(", ")})"
       end
 
     end # class CreateIndex

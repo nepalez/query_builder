@@ -6,6 +6,7 @@ module QueryBuilder::CQL::Clauses
   #
   class Exists < Base
 
+    unique
     type :if
     attribute :reverse, default: false
 

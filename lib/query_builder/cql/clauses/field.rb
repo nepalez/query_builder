@@ -11,8 +11,7 @@ module QueryBuilder::CQL::Clauses
   #
   class Field < Base
 
-    type :field
-
+    type :column
     attribute :name, required: true
 
     # Returns the CQL representation of the clause

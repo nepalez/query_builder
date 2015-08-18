@@ -12,7 +12,6 @@ module QueryBuilder::CQL::Clauses
   class Value < Base
 
     type :value
-
     attribute :name, required: true
 
     # Returns the CQL representation of the clause

@@ -16,7 +16,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        table.to_s
+        [table.keyspace.name, name].join(".")
       end
 
       # Builds the 'CREATE TRIGGER' CQL statement for the current trigger

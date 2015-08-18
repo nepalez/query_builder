@@ -17,7 +17,7 @@ module QueryBuilder::CQL
       #
       def to_s
         cql[
-          "CREATE TRIGGER", maybe_if, context.name.to_s,
+          "CREATE TRIGGER", maybe_if, context.name,
           "ON", context.table.to_s, maybe_using
         ]
       end

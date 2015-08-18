@@ -25,7 +25,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Statements::AlterUser]
       #
       def alter(password)
-        Statements::AlterUser.new(context: self, password: password)
+        Statements::AlterUser.new(context: self).password(password)
       end
 
       # Builds the 'CREATE USER' CQL statement with password
@@ -35,7 +35,7 @@ module QueryBuilder::CQL
       # @return [QueryBuilder::Statements::CreateUser]
       #
       def create(password)
-        Statements::CreateUser.new(context: self, password: password)
+        Statements::CreateUser.new(context: self).password(password)
       end
 
       # Builds the 'DROP USER' CQL statement

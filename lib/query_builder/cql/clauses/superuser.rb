@@ -10,6 +10,7 @@ module QueryBuilder::CQL::Clauses
   #
   class Superuser < Base
 
+    unique
     type :superuser
     attribute :reverse, default: false
 

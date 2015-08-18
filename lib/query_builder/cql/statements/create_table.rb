@@ -8,9 +8,10 @@ module QueryBuilder::CQL
     #
     class CreateTable < Base
 
-      include Modifiers::With
       include Modifiers::IfNotExists
       include Modifiers::ClusteringOrder
+      include Modifiers::CompactStorage
+      include Modifiers::With
 
       # Defines a primary key for the table
       #
@@ -34,14 +35,6 @@ module QueryBuilder::CQL
       def column(name, type_name, options = {})
         self << Clauses::Column
           .new(name: name, type_name: type_name, static: options[:static])
-      end
-
-      # Adds COMPACT STORAGE clause to the statement
-      #
-      # @return [QueryBuilder::Statements::CreateTable]
-      #
-      def compact_storage
-        self << Clauses::CompactStorage.new
       end
 
       # Builds the statement

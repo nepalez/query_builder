@@ -14,7 +14,6 @@ module QueryBuilder::CQL::Clauses
   class Column < Base
 
     type :column
-
     attribute :name, required: true
     attribute :type_name, required: true
     attribute :static, default: false

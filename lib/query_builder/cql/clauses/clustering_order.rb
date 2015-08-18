@@ -14,7 +14,6 @@ module QueryBuilder::CQL::Clauses
 
     unique
     type :with
-
     attribute :name, required: true
     attribute :desc, default: false
 

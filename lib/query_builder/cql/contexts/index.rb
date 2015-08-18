@@ -11,12 +11,21 @@ module QueryBuilder::CQL
       attribute :table, required: true
       attribute :name
 
+      # <description>
+      #
+      # @return [<type>] <description>
+      #
+      def to_s
+        [table.keyspace.name, name].join(".")
+      end
+
       # Builds the 'CREATE INDEX' CQL statement for the current table
+
       #
       # @return [QueryBuilder::Statements::CreateIndex]
       #
-      def create
-        Statements::CreateIndex.new(context: self)
+      def create(options)
+        Statements::CreateIndex.new(context: self).columns(options)
       end
 
       # Builds the 'DROP INDEX' CQL statement

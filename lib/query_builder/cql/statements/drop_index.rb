@@ -15,13 +15,7 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["DROP INDEX", maybe_if, full_name]
-      end
-
-      private
-
-      def full_name
-        "#{context.table.keyspace.name}.#{context.name}"
+        cql["DROP INDEX", maybe_if, context.to_s]
       end
 
     end # class DropIndex
