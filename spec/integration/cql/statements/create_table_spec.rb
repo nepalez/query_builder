@@ -23,6 +23,7 @@ describe "CREATE TABLE" do
         .column(:review, :timestamp, static: true)
         .primary_key(cql_composite[:id, :priority], :name)
         .with(read_repair_chance: 1.0)
+        .with(comment: "Wrong comment")
         .with(comment: "Important records")
         .compact_storage
         .clustering_order(:name, :desc)
