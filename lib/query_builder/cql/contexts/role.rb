@@ -18,6 +18,14 @@ module QueryBuilder::CQL
         name.to_s
       end
 
+      # Builds the 'CREATE ROLE' CQL statement
+      #
+      # @return [QueryBuilder::Statements::CreateRole]
+      #
+      def create
+        Statements::CreateRole.new(context: self)
+      end
+
       # Builds the 'ALTER ROLE' CQL statement with password
       #
       # @param [#to_s] password
