@@ -19,7 +19,7 @@ module QueryBuilder::CQL
         [keyspace, name].join(".")
       end
 
-      # Builds the 'CREATE TYPE' CQL statement for the current type
+      # Builds the 'CREATE TYPE' CQL statement
       #
       # @param [Hash] options
       #
@@ -27,6 +27,17 @@ module QueryBuilder::CQL
       #
       def create
         Statements::CreateType.new(context: self)
+      end
+
+      # Builds the 'ALTER TYPE ... ADD' CQL statement
+      #
+      # @param [#to_s] name
+      # @param [#to_s] type
+      #
+      # @return [QueryBuilder::Statements::UpdateType]
+      #
+      def add(name, type)
+        Statements::UpdateType.new(context: self, name: name, type: type)
       end
 
       # Builds the 'DROP TYPE' CQL statement
