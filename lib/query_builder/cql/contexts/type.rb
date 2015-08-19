@@ -51,6 +51,17 @@ module QueryBuilder::CQL
         Statements::AlterType.new(context: self, name: name, type: type)
       end
 
+      # Builds the 'ALTER TYPE ... RENAME' CQL statement
+      #
+      # @param [#to_s] from
+      # @param [#to_s] into
+      #
+      # @return [QueryBuilder::Statements::AlterType]
+      #
+      def rename(from, into)
+        Statements::RenameType.new(context: self, from: from, into: into)
+      end
+
       # Builds the 'DROP TYPE' CQL statement
       #
       # @return [QueryBuilder::Statements::DropType]
