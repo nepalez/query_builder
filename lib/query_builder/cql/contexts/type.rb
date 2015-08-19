@@ -31,8 +31,6 @@ module QueryBuilder::CQL
 
       # Builds the 'CREATE TYPE' CQL statement
       #
-      # @param [Hash] options
-      #
       # @return [QueryBuilder::Statements::CreateType]
       #
       def create

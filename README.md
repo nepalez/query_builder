@@ -40,7 +40,7 @@ statement.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
-See the **[list of all supported statements and operators](https://github.com/nepalez/query_builder/wiki)**.
+See the **[list of all supported contexts, statements and operators](https://github.com/nepalez/query_builder/wiki)**.
 
 The gem doesn't depend on any specific Cassandra driver. It could be used to extend [official Datastax driver](https://github.com/datastax/ruby-driver) with features of CQL building.
 

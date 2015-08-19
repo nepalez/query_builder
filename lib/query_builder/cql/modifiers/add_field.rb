@@ -10,7 +10,8 @@ module QueryBuilder::CQL
 
       # Adds field to the type
       #
-      # @param [Hash] options
+      # @param [#to_s] name
+      # @param [#to_s] type
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #

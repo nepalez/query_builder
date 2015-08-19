@@ -24,6 +24,8 @@ module QueryBuilder::CQL
 
       # Builds the 'LIST PERMISSIONS' CQL statement
       #
+      # @param [#to_s] name The name of either a user or role
+      #
       # @return [QueryBuilder::Statements::ListPermissions]
       #
       def of(name)
@@ -32,6 +34,8 @@ module QueryBuilder::CQL
 
       # Builds the 'GRANT' CQL statement
       #
+      # @param [#to_s] name The name of either a user or role
+      #
       # @return [QueryBuilder::Statements::Grant]
       #
       def grant_to(name)
@@ -39,6 +43,8 @@ module QueryBuilder::CQL
       end
 
       # Builds the 'REVOKE' CQL statement
+      #
+      # @param [#to_s] name The name of either a user or role
       #
       # @return [QueryBuilder::Statements::Revoke]
       #
