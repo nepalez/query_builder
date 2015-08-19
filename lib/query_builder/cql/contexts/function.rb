@@ -19,6 +19,18 @@ module QueryBuilder::CQL
         [keyspace, name].join(".")
       end
 
+      # Builds the 'CREATE FUNCTION' CQL statement
+      #
+      # @param [#to_s] language
+      # @param [#to_s] body
+      #
+      # @return [QueryBuilder::Statements::CreateFunction]
+      #
+      def create(language, body)
+        Statements::CreateFunction
+          .new(context: self, language: language, body: body)
+      end
+
       # Builds the 'DROP FUNCTION' CQL statement
       #
       # @return [QueryBuilder::Statements::DropFunction]
