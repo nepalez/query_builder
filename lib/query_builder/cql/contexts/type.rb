@@ -25,8 +25,8 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::CreateType]
       #
-      def create(options)
-        Statements::CreateType.new(context: self).add(options)
+      def create
+        Statements::CreateType.new(context: self)
       end
 
       # Builds the 'DROP TYPE' CQL statement

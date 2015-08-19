@@ -25,7 +25,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::CreateIndex]
       #
-      def create(options)
+      def create(*options)
         Statements::CreateIndex.new(context: self).add(options)
       end
 

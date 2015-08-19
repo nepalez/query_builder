@@ -8,9 +8,9 @@ describe "CREATE TYPE" do
 
   it_behaves_like :query_builder do
     subject do
-      type
-        .create(name: :text)
-        .add(params: cql_map[:text, :text])
+      type.create
+        .add(:name, :text)
+        .add(:params, cql_map[:text, :text])
         .if_not_exists
     end
 

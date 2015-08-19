@@ -14,10 +14,8 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def add(options)
-        options
-          .map { |key, value| Clause.new(name: key, type_name: value) }
-          .inject(self, :<<)
+      def add(name, type)
+        self << Clause.new(name: name, type_name: type)
       end
 
       private
