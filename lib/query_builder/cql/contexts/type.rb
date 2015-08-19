@@ -40,6 +40,17 @@ module QueryBuilder::CQL
         Statements::UpdateType.new(context: self, name: name, type: type)
       end
 
+      # Builds the 'ALTER TYPE ... ALTER' CQL statement
+      #
+      # @param [#to_s] name
+      # @param [#to_s] type
+      #
+      # @return [QueryBuilder::Statements::AlterType]
+      #
+      def alter(name, type)
+        Statements::AlterType.new(context: self, name: name, type: type)
+      end
+
       # Builds the 'DROP TYPE' CQL statement
       #
       # @return [QueryBuilder::Statements::DropType]
