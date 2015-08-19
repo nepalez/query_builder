@@ -15,7 +15,7 @@
 [travis]: https://travis-ci.org/nepalez/query_builder
 [inch]: https://inch-ci.org/github/nepalez/query_builder
 
-Builder of [CQL 3](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements.
+Builder of [CQL 3](https://cassandra.apache.org/doc/cql3/CQL.html#CassandraQueryLanguageCQLv3.2.0) (Cassandra Query Language) statements in OOP style.
 
 Synopsis
 --------
@@ -40,9 +40,11 @@ statement.to_s
 # => "SELECT id, role, user AS name FROM auth.users WHERE id > 1 AND id <= 4 USING consistency = 'quorum' LIMIT 3;"
 ```
 
-See the [full list of all supported statements and operators](https://github.com/nepalez/query_builder/wiki).
+See the **[list of all supported statements and operators](https://github.com/nepalez/query_builder/wiki)**.
 
 The gem doesn't depend on any specific Cassandra driver. It could be used to extend [official Datastax driver](https://github.com/datastax/ruby-driver) with features of CQL building.
+
+It doesn't validate CQL statements, leaving this to either driver or Cassandra database.
 
 Installation
 ------------
