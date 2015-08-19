@@ -17,7 +17,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def column(name, type_name, options = {})
+      def add(name, type_name, options = {})
         self << Clause
           .new(name: name, type_name: type_name, static: options[:static])
       end

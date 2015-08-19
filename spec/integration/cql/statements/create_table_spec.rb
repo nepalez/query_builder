@@ -16,11 +16,11 @@ describe "CREATE TABLE" do
     subject do
       statement
         .if_not_exists
-        .column(:id, :int)
-        .column(:priority, :int)
-        .column(:name, :text)
-        .column(:known_from, cql_frozen[:int])
-        .column(:review, :timestamp, static: true)
+        .add(:id, :int)
+        .add(:priority, :int)
+        .add(:name, :text)
+        .add(:known_from, cql_frozen[:int])
+        .add(:review, :timestamp, static: true)
         .primary_key(cql_composite[:id, :priority], :name)
         .with(read_repair_chance: 1.0)
         .with(comment: "Wrong comment")
