@@ -2,10 +2,12 @@
 
 describe "ALTER TYPE ... ADD" do
 
-  let(:type) { QueryBuilder::CQL.keyspace(:wildlife).type(:species) }
+  let(:field) do
+    QueryBuilder::CQL.keyspace(:wildlife).type(:species).field(:weight)
+  end
 
   it_behaves_like :query_builder do
-    subject { type.add(:weight, :int) }
+    subject { field.create(:int) }
 
     let(:cql) { "ALTER TYPE wildlife.species ADD weight int;" }
   end

@@ -2,10 +2,12 @@
 
 describe "ALTER TYPE ... RENAME" do
 
-  let(:type) { QueryBuilder::CQL.keyspace(:wildlife).type(:species) }
+  let(:field) do
+    QueryBuilder::CQL.keyspace(:wildlife).type(:species).field(:weight)
+  end
 
   it_behaves_like :query_builder do
-    subject { type.rename(:weight, :body_weight) }
+    subject { field.rename(:body_weight) }
 
     let(:cql) { "ALTER TYPE wildlife.species RENAME weight TO body_weight;" }
   end

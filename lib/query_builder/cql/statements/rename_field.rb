@@ -6,20 +6,19 @@ module QueryBuilder::CQL
 
     # Describes the 'ALTER TYPE ... RENAME' CQL3 statement
     #
-    class RenameType < Base
+    class RenameField < Base
 
-      attribute :from, required: :true
-      attribute :into, required: :true
+      attribute :name, required: :true
 
       # Builds the statement
       #
       # @return [String]
       #
       def to_s
-        cql["ALTER TYPE", context.to_s, "RENAME", from, "TO", into]
+        cql["ALTER TYPE", context.type.to_s, "RENAME", context.name, "TO", name]
       end
 
-    end # class RenameType
+    end # class RenameField
 
   end # module Statements
 

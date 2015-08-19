@@ -6,9 +6,8 @@ module QueryBuilder::CQL
 
     # Describes the 'ALTER TYPE ... ALTER' CQL3 statement
     #
-    class AlterType < Base
+    class AlterField < Base
 
-      attribute :name, required: :true
       attribute :type, required: :true
 
       # Builds the statement
@@ -16,10 +15,12 @@ module QueryBuilder::CQL
       # @return [String]
       #
       def to_s
-        cql["ALTER TYPE", context.to_s, "ALTER", name, "TYPE", type]
+        cql[
+          "ALTER TYPE", context.type.to_s, "ALTER", context.name, "TYPE", type
+        ]
       end
 
-    end # class AlterType
+    end # class AlterField
 
   end # module Statements
 
