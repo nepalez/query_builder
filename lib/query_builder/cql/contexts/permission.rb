@@ -22,6 +22,14 @@ module QueryBuilder::CQL
         "ALL KEYSPACES"
       end
 
+      # Builds the 'LIST PERMISSIONS' CQL statement
+      #
+      # @return [QueryBuilder::Statements::ListPermissions]
+      #
+      def of(name)
+        Statements::ListPermissions.new(context: self, name: name)
+      end
+
       # Builds the 'GRANT' CQL statement
       #
       # @return [QueryBuilder::Statements::Grant]
