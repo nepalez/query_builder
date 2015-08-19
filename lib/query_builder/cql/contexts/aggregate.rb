@@ -19,6 +19,14 @@ module QueryBuilder::CQL
         [keyspace, name].join(".")
       end
 
+      # Builds the 'CREATE AGGREGATE' CQL statement
+      #
+      # @return [QueryBuilder::Statements::CreateAggregate]
+      #
+      def create
+        Statements::CreateAggregate.new(context: self)
+      end
+
       # Builds the 'DROP AGGREGATE' CQL statement
       #
       # @return [QueryBuilder::Statements::DropAggregate]
