@@ -1,5 +1,5 @@
-[WIP] QueryBuilder
-==================
+QueryBuilder
+============
 
 [![Gem Version](https://img.shields.io/gem/v/query_builder.svg?style=flat)][gem]
 [![Build Status](https://img.shields.io/travis/nepalez/query_builder/master.svg?style=flat)][travis]
