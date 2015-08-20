@@ -67,6 +67,14 @@ module QueryBuilder
       Statements::ListRoles.new
     end
 
+    # Builds the 'BATCH' CQL statement
+    #
+    # @return [QueryBuilder::Statements::Batch]
+    #
+    def self.batch
+      Statements::Batch.new
+    end
+
   end # module CQL
 
 end # module QueryBuilder
