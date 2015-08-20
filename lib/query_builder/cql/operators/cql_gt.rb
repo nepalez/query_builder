@@ -7,7 +7,7 @@ module QueryBuilder::CQL::Operators
   # Describes 'greater than' operator
   #
   # @example
-  #   fn = Operators[:cql_gte, 3]
+  #   fn = Operators[:cql_gt, 3]
   #   fn[:foo]
   #   # => "foo > 3"
   #
