@@ -1,5 +1,5 @@
-## v0.0.1 to-be-released
+## v0.0.1 2015-08-20
 
 First release
 
-[Compare Initial...HEAD](https://github.com/nepalez/query_builder/compare/Initial...HEAD)
+[Compare Initial...v0.0.1](https://github.com/nepalez/query_builder/compare/Initial...v0.0.1)
