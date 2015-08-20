@@ -59,7 +59,7 @@ module QueryBuilder::CQL
         Contexts::Permission.new(table: self, name: name)
       end
 
-      # Builds the 'CREATE TABLE' CQL statement for the current table
+      # Builds the 'CREATE TABLE' CQL statement
       #
       # @return [QueryBuilder::Statements::CreateTable]
       #
@@ -77,7 +77,7 @@ module QueryBuilder::CQL
         Statements::AlterTable.new(context: self).alter(options)
       end
 
-      # Builds the 'DROP TABLE' CQL statement for the current table
+      # Builds the 'DROP TABLE' CQL statement
       #
       # @return [QueryBuilder::Statements::DropTable]
       #
@@ -85,7 +85,7 @@ module QueryBuilder::CQL
         Statements::DropTable.new(context: self)
       end
 
-      # Builds the 'INSERT' CQL statement for the current table
+      # Builds the 'INSERT' CQL statement
       #
       # @param [Hash] options
       #
@@ -95,7 +95,17 @@ module QueryBuilder::CQL
         Statements::Insert.new(context: self).insert(options)
       end
 
-      # Builds the 'UPDATE' CQL statement for the current table
+      # Builds the 'SELECT' CQL statement
+      #
+      # @param [Array<#to_s>, Hash, nil] values
+      #
+      # @return [QueryBuilder::Statements::Insert]
+      #
+      def select(*values)
+        Statements::Select.new(context: self).select(*values)
+      end
+
+      # Builds the 'UPDATE' CQL statement
       #
       # @param [Hash] options
       #

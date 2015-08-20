@@ -12,7 +12,7 @@ module QueryBuilder::CQL::Operators
   #   fn[:tiger]
   #   # => "TOKEN('tiger')"
   #
-  # @param [#to_s] type
+  # @param [#to_s] value
   #
   # @return [String]
   #

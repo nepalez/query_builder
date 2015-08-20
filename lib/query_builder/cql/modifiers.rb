@@ -26,8 +26,6 @@ module QueryBuilder
       #
       class BaseCondition < Base
 
-        include Equalizer.new(:class, :column)
-
         attribute :column, required: true
         attribute :value,  required: true
 
