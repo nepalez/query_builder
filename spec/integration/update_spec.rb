@@ -9,6 +9,7 @@ describe "UPDATE" do
   it_behaves_like :query_builder do
     subject do
       table
+        .update
         .update(name: :tiger, weight: 300)
         .update(size: 3)
         .where(id: 1, name: [:tiger, :bear])

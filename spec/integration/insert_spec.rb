@@ -9,6 +9,7 @@ describe "INSERT" do
   it_behaves_like :query_builder do
     subject do
       table
+        .insert
         .insert(names: ["tiger", "pantera tigra"])
         .insert(sizes: { length: 3 })
         .if_not_exists

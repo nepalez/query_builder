@@ -14,7 +14,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Core::Statement] updated statement
       #
-      def insert(options)
+      def insert(options = {})
         options
           .flat_map { |k, v| [Column.new(name: k), Value.new(name: v)] }
           .inject(self, :<<)

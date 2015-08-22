@@ -91,7 +91,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::Insert]
       #
-      def insert(options)
+      def insert(options = {})
         Statements::Insert.new(context: self).insert(options)
       end
 
@@ -111,7 +111,7 @@ module QueryBuilder::CQL
       #
       # @return [QueryBuilder::Statements::Update]
       #
-      def update(options)
+      def update(options = {})
         Statements::Update.new(context: self).update(options)
       end
 
