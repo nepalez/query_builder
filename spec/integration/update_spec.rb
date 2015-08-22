@@ -10,7 +10,7 @@ describe "UPDATE" do
     subject do
       table
         .update
-        .update(name: :tiger, weight: 300)
+        .set(name: :tiger, weight: 300)
         .update(size: 3)
         .where(id: 1, name: [:tiger, :bear])
         .if_exists

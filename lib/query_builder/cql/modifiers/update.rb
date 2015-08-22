@@ -19,6 +19,7 @@ module QueryBuilder::CQL
           .map { |key, value| Clause.new(column: key, value: value) }
           .inject(self, :<<)
       end
+      alias_method :set, :update
 
       private
 
