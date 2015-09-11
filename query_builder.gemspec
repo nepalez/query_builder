@@ -22,9 +22,10 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_runtime_dependency "transproc", "~> 0.3"
+  gem.add_runtime_dependency "attributes_dsl", "~> 0.0"
   gem.add_runtime_dependency "equalizer", "~> 0.0.11"
   gem.add_runtime_dependency "ice_nine", "~> 0.11"
+  gem.add_runtime_dependency "transproc", "~> 0.3"
 
   gem.add_development_dependency "hexx-rspec", "~> 0.5"
 

@@ -8,8 +8,6 @@ module QueryBuilder
   #
   module Core
 
-    require_relative "core/attribute_error"
-    require_relative "core/attribute"
     require_relative "core/base"
     require_relative "core/clause"
     require_relative "core/statement"

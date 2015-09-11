@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "attributes_dsl"
 require "equalizer"
 require "ice_nine"
 require "transproc"

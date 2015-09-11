@@ -71,6 +71,10 @@ describe QueryBuilder::Core::Statement do
     context "new clause" do
       subject { statement << qux }
 
+      it "preserves attributes" do
+        expect(subject.attributes).to eql(statement.attributes)
+      end
+
       it "adds the clause" do
         expect(subject.clauses).to eql %w(bar baz qux)
       end
@@ -78,6 +82,10 @@ describe QueryBuilder::Core::Statement do
 
     context "existing clause" do
       subject { statement << bar }
+
+      it "preserves attributes" do
+        expect(subject.attributes).to eql(statement.attributes)
+      end
 
       it "rewrites the clause" do
         expect(subject.clauses).to eql %w(baz bar)

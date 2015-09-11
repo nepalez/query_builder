@@ -1,3 +1,16 @@
+## v0.0.4 to be released
+
+### Internal
+
+* Extracted `Core::Attributes` to the external gem 'attributes_dsl' (nepalez)
+
+### Deleted
+
+* `Core::Attributes` (nepalez)
+* `Core::AttributesDSL` (nepalez)
+
+[Compare v0.0.3...HEAD](https://github.com/nepalez/query_builder/compare/v0.0.3...HEAD)
+
 ## v0.0.3 2015-08-21
 
 ### Added
