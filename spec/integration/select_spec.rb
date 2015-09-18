@@ -40,7 +40,7 @@ describe "SELECT" do
         .allow_filtering
     end
 
-    let(:cql) { "SELECT DISTINCT uuid AS id, name FROM wildlife.species WHERE id >= 3 AND id < 10 AND area IN ('park', 'garden') AND names[1] = 'cat' ORDER BY (name DESC) LIMIT 10 ALLOW FILTERING;" }
+    let(:cql) { "SELECT DISTINCT uuid AS id, name FROM wildlife.species WHERE id >= 3 AND id < 10 AND area IN ('park', 'garden') AND names[1] = 'cat' ORDER BY name DESC LIMIT 10 ALLOW FILTERING;" }
   end
 
 end # describe SELECT

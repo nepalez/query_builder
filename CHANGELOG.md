@@ -1,5 +1,9 @@
 ## v0.0.4 to be released
 
+### Bugs Fixed
+
+* Fixed 'ORDER BY' condition in 'SELECT' statement (nepalez) with reference to bug report #1 (aq1018)
+
 ### Internal
 
 * Extracted `Core::Attributes` to the external gem 'attributes_dsl' (nepalez)

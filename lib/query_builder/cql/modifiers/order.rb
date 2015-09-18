@@ -38,7 +38,7 @@ module QueryBuilder::CQL
 
         # @private
         def to_s
-          "ORDER BY (#{name} #{desc ? "DESC" : "ASC"})"
+          "ORDER BY #{name} #{desc ? "DESC" : "ASC"}"
         end
 
       end # class Clause
