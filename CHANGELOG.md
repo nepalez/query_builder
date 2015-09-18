@@ -1,4 +1,6 @@
-## v0.0.4 to be released
+## v0.0.4 2015-09-18
+
+The (backward-compatible) patch fixes a bug in 'SELECT' statement.
 
 ### Bugs Fixed
 
@@ -13,7 +15,7 @@
 * `Core::Attributes` (nepalez)
 * `Core::AttributesDSL` (nepalez)
 
-[Compare v0.0.3...HEAD](https://github.com/nepalez/query_builder/compare/v0.0.3...HEAD)
+[Compare v0.0.3...v0.0.4](https://github.com/nepalez/query_builder/compare/v0.0.3...v0.0.4)
 
 ## v0.0.3 2015-08-21
 
