@@ -7,7 +7,7 @@ shared_examples :a_clause do |type|
   end
 
   it "[is immutable]" do
-    expect(subject).to be_frozen
+    expect(subject).to be_immutable
   end
 
   it "[has valid type]" do

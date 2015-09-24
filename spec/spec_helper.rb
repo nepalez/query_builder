@@ -14,3 +14,4 @@ require "query_builder"
 # Load shared examples for specs
 require "transproc/rspec"
 require "query_builder/rspec"
+require "immutability/rspec"

@@ -2,7 +2,7 @@
 
 require "attributes_dsl"
 require "equalizer"
-require "ice_nine"
+require "immutability"
 require "transproc"
 
 require_relative "query_builder/version"

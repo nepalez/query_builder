@@ -7,7 +7,7 @@ describe QueryBuilder::Core::Base do
   describe ".new" do
     shared_examples :object_constructor do
       it "[is immutable]" do
-        expect(subject).to be_frozen
+        expect(subject).to be_immutable
       end
 
       it "[doesn't freeze attributes]" do

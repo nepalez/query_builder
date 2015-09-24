@@ -1,3 +1,11 @@
+## v0.0.5 to be released
+
+### Internal
+
+* Switched to 'immutability' gem (nepalez)
+
+[Compare v0.0.4...HEAD](https://github.com/nepalez/query_builder/compare/v0.0.4...HEAD)
+
 ## v0.0.4 2015-09-18
 
 The (backward-compatible) patch fixes a bug in 'SELECT' statement.

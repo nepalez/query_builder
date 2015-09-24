@@ -22,7 +22,7 @@ describe QueryBuilder::Core::Statement do
     end
 
     it "is immutable" do
-      expect(subject).to be_frozen
+      expect(subject).to be_immutable
     end
   end # describe .new
 

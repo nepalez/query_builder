@@ -11,16 +11,7 @@ module QueryBuilder::Core
   class Base
 
     extend AttributesDSL
-
-    # @!method initialize(attributes = {})
-    # Initializes the instance
-    #
-    # @param [Hash] attributes The custom attributes of the instance
-    #
-    def initialize(_attributes = {})
-      super
-      IceNine.deep_freeze(self)
-    end
+    include Immutability
 
     # @!method to_s
     # Returns the current chunk of CQL statement
