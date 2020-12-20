@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
+  gem.add_runtime_dependency "dry-transformer", "~> 0.1"
   gem.add_runtime_dependency "equalizer", "~> 0.0.11"
   gem.add_runtime_dependency "immutability", "~> 0.0.5"
 

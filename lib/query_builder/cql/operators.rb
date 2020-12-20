@@ -8,7 +8,7 @@ module QueryBuilder
     #
     module Operators
 
-      extend Transproc::Registry
+      extend Dry::Transformer::Registry
 
       private
 
