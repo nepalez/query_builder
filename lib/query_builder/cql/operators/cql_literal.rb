@@ -22,6 +22,7 @@ module QueryBuilder::CQL::Operators
       return value.to_s               if unchanged?(value)
       return cql_literal_array(value) if array?(value)
       return cql_literal_hash(value)  if hash?(value)
+      return cql_literal_set(value)   if set?(value)
       quote(value)
     end
 
@@ -37,6 +38,10 @@ module QueryBuilder::CQL::Operators
         .map { |k, v| [cql_literal(k), cql_literal(v)].join(": ") }
         .join(", ")
       "{#{str}}"
+    end
+
+    def cql_literal_set(value)
+      "{ #{value.to_a.map{ |v| "\'{v}\'" }.join(', ')} }"
     end
 
     def quote(value)
@@ -77,6 +82,10 @@ module QueryBuilder::CQL::Operators
 
     def array?(value)
       value.instance_of? Array
+    end
+
+    def set?(value)
+      value.is_a? Set
     end
 
   end
