@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "attributes_dsl"
-require "dry-transformer"
+require "transproc"
 require "equalizer"
 require "immutability"
 
