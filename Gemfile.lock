@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/easypost/attributes_dsl.git
-  revision: 482d21b2a8e875da887dd4ed0680d3092565afab
-  tag: 0.2.2
+  revision: b2968f65d9e28297e70834384f29b56a59014b2a
+  tag: 0.2.3
   specs:
-    attributes_dsl (0.2.1)
+    attributes_dsl (0.2.3)
       equalizer (~> 0.0.11)
       immutability (~> 0.0.5)
       transproc (~> 0.4.0)
@@ -11,10 +11,10 @@ GIT
 PATH
   remote: .
   specs:
-    query_builder (0.0.4.ep)
+    query_builder (0.0.5.ep)
       equalizer (~> 0.0.11)
       immutability (~> 0.0.2)
-      transproc (~> 0.4)
+      transproc (~> 0.4.0)
 
 GEM
   remote: https://rubygems.org/
