@@ -20,12 +20,11 @@ Gem::Specification.new do |gem|
   gem.extra_rdoc_files = Dir["README.md", "LICENSE", "CHANGELOG.md"]
   gem.require_paths    = ["lib"]
 
-  gem.required_ruby_version = ">= 1.9.3"
+  gem.required_ruby_version = ">= 2.5"
 
-  gem.add_runtime_dependency "attributes_dsl", "~> 0.0"
   gem.add_runtime_dependency "equalizer", "~> 0.0.11"
   gem.add_runtime_dependency "immutability", "~> 0.0.2"
-  gem.add_runtime_dependency "transproc", "~> 0.3"
+  gem.add_runtime_dependency "transproc", "~> 0.4.0"
 
   gem.add_development_dependency "hexx-rspec", "~> 0.5"
 
