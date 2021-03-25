@@ -4,7 +4,7 @@
 
  module QueryBuilder::CQL::Operators
 
-   # Returns value of CQL MAXTIMEUUID
+   # Returns the CQL MAXTIMEUUID() definition
    #
    # @example
    #   fn = Operators[:cql_maxtimeuuid]

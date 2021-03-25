@@ -4,7 +4,7 @@
 
  module QueryBuilder::CQL::Operators
 
-   # Returns value of CQL MINTIMEUUID
+   # Returns the CQL MINTIMEUUID() definition
    #
    # @example
    #   fn = Operators[:cql_mintimeuuid]
