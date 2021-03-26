@@ -20,7 +20,7 @@ module QueryBuilder::CQL::Operators
   #   # => "foo > MINTIMEUUID('2021-03-25 00:00:00')"
   #
   # @param [#to_s] column
-  # @param [Transproc::Function || Numeric] argument
+  # @param [Transproc::Function, Numeric] argument
   #
   # @return [String]
   #

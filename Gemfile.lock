@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    query_builder (0.0.5.ep)
+    query_builder (0.0.6.ep)
       equalizer (~> 0.0.11)
       immutability (~> 0.0.2)
       transproc (~> 0.4.0)
