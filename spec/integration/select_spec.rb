@@ -41,6 +41,17 @@ describe "SELECT" do
     end
 
     let(:cql) { "SELECT DISTINCT uuid AS id, name FROM wildlife.species WHERE id >= 3 AND id < 10 AND area IN ('park', 'garden') AND names[1] = 'cat' ORDER BY name DESC LIMIT 10 ALLOW FILTERING;" }
+
+  end
+
+  it_behaves_like :query_builder do
+    subject do
+      table
+        .select
+        .where(uuid: cql_lt(cql_mintimeuuid("2013-02-02 10:00+0000")))
+    end
+
+    let(:cql) { "SELECT * FROM wildlife.species WHERE uuid < MINTIMEUUID('2013-02-02 10:00+0000');" }
   end
 
 end # describe SELECT
