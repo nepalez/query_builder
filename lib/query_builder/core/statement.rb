@@ -46,7 +46,7 @@ module QueryBuilder::Core
     #
     def <<(clause)
       new_clauses = @clauses.dup
-      new_clauses.delete clause
+      new_clauses.delete clause unless clause.is_a? QueryBuilder::CQL::Modifiers::Insert::Value
       self.class.new(attributes) { new_clauses + [clause] }
     end
 
