@@ -20,6 +20,7 @@ module QueryBuilder::CQL::Operators
       return "NaN"                    if nan?(value)
       return "Infinity"               if infinity?(value)
       return value.to_s               if unchanged?(value)
+      return cql_literal_time(value)  if time?(value)
       return cql_literal_array(value) if array?(value)
       return cql_literal_hash(value)  if hash?(value)
       return cql_literal_set(value)   if set?(value)
@@ -42,6 +43,11 @@ module QueryBuilder::CQL::Operators
 
     def cql_literal_set(value)
       "{ #{value.to_a.map{ |v| "\'{v}\'" }.join(', ')} }"
+    end
+
+    def cql_literal_time(value)
+      str = value.strftime("%Y-%m-%dT%H:%M:%S.%L%z")
+      "'#{str}'"
     end
 
     def quote(value)
@@ -86,6 +92,10 @@ module QueryBuilder::CQL::Operators
 
     def set?(value)
       value.is_a? Set
+    end
+
+    def time?(value)
+      value.is_a? Time
     end
 
   end
