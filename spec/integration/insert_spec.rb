@@ -19,5 +19,4 @@ describe "INSERT" do
 
     let(:cql) { "INSERT INTO wildlife.species (names, sizes) VALUES (['tiger', 'pantera tigra'], {'length': 3}) USING TIMESTAMP 100 AND TTL 500 IF NOT EXISTS;" }
   end
-
 end # describe INSERT
